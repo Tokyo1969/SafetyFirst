@@ -8,7 +8,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 - Supabase: osobny projekt `rcizhcktflczrtadifwd` (sprawdzić, czy region UE). Formularz zapisuje przez REST z anon key, RLS: anon tylko INSERT.
 - Sekrety: `.dev.vars` lokalnie, zmienne środowiskowe w Cloudflare. Zob. `.env.example`.
 - Importy względne (brak aliasu ścieżek).
-- n8n (n8n.nexxsite.pl): routing zgłoszeń do skrzynek, akceptacja wpisów blogowych.
+- n8n (n8n.nexxsite.pl): workflow "Safety First - Zgloszenie z formularza na biuro@" (id sGtFiIJ96HQUzw10), wywoływany triggerem w Supabase (pg_net), wysyła mail z biuro@ na biuro@ (credential "SMTP SafetyFirst Biuro"). Dalej: akceptacja wpisów blogowych.
 
 ## Struktura
 - `src/config/site.ts` – jedyne źródło danych firmy i kontaktu (po założeniu sp. z o.o. zmieniamy tylko ten plik).
@@ -23,7 +23,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 - Design: język znaków BHP, tasma ostrzegawcza, "karta kontroli", sekcje liniami zamiast kart. Kolory: papier #F5F6F2, tusz #16212C, znak #0A5A9C, zieleń #1F7A4D, taśma #F4C20D.
 
 ## Do zrobienia
-- Ustawić zmienne w Cloudflare (SUPABASE_URL, SUPABASE_ANON_KEY), podpiąć domenę. Podpiąć n8n pod nowe zgłoszenia.
+- Ustawić zmienne w Cloudflare (SUPABASE_URL, SUPABASE_ANON_KEY), podpiąć domenę.
 - Pozostałe podstrony BHP, potem ochrona środowiska (18 stron), cennik, szkolenia, o nas, dla branż.
 - Blogi (3 osobne w Soro, Brand DNA po akceptacji kierunku), SEO, schema.
 - Polityka prywatności i regulamin do sprawdzenia przez prawnika. Certyfikaty i kwalifikacje do uzupełnienia.

@@ -60,7 +60,8 @@ export const submitConsultation = createServerFn({ method: 'POST' })
         method: 'POST',
         headers: {
           apikey: key,
-          Authorization: `Bearer ${key}`,
+          // Nowe klucze sb_publishable_ nie sa JWT, wiec nie wysylamy ich jako Bearer.
+          ...(key.startsWith('sb_') ? {} : { Authorization: `Bearer ${key}` }),
           'Content-Type': 'application/json',
           Prefer: 'return=minimal',
         },

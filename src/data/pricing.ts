@@ -22,10 +22,8 @@ export const INDUSTRIES: readonly Industry[] = [
   { id: 'opieka', name: 'Opieka, edukacja, przedszkola', prices: [249, 349, 449, 549, 649, 749] },
   { id: 'gastronomia', name: 'Gastronomia, hotele, catering', prices: [299, 399, 549, 699, 849, 999] },
   { id: 'sprzatanie', name: 'Firmy sprzątające', prices: [299, 399, 549, 699, 849, 999] },
-  // Uwaga: w ofercie "Transport" wystepuje dwa razy z roznymi stawkami (do potwierdzenia przez Natalie).
   { id: 'transport', name: 'Transport', prices: [349, 499, 699, 899, 1049, 1199] },
   { id: 'rolnictwo', name: 'Rolnictwo, gospodarka komunalna', prices: [349, 499, 699, 899, 1049, 1199] },
-  { id: 'logistyka', name: 'Transport, logistyka, magazyny', prices: [399, 549, 749, 949, 1099, 1299] },
   { id: 'warsztaty', name: 'Warsztaty, mechanika, serwisy', prices: [399, 599, 799, 999, 1199, 1399] },
   { id: 'produkcja', name: 'Produkcja', prices: [499, 699, 999, 1299, 1499, 1699] },
   {

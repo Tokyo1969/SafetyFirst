@@ -10,12 +10,26 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DokumentacjaBhpRouteImport } from './routes/dokumentacja-bhp'
+import { Route as KontrolaIAudytBhpRouteImport } from './routes/kontrola-i-audyt-bhp'
 import { Route as ObslugaBhpRouteImport } from './routes/obsluga-bhp'
+import { Route as OcenaRyzykaZawodowegoRouteImport } from './routes/ocena-ryzyka-zawodowego'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as SzkoleniaBhpRouteImport } from './routes/szkolenia-bhp'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DokumentacjaBhpRoute = DokumentacjaBhpRouteImport.update({
+  id: '/dokumentacja-bhp',
+  path: '/dokumentacja-bhp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontrolaIAudytBhpRoute = KontrolaIAudytBhpRouteImport.update({
+  id: '/kontrola-i-audyt-bhp',
+  path: '/kontrola-i-audyt-bhp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObslugaBhpRoute = ObslugaBhpRouteImport.update({
@@ -23,40 +37,88 @@ const ObslugaBhpRoute = ObslugaBhpRouteImport.update({
   path: '/obsluga-bhp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OcenaRyzykaZawodowegoRoute = OcenaRyzykaZawodowegoRouteImport.update({
+  id: '/ocena-ryzyka-zawodowego',
+  path: '/ocena-ryzyka-zawodowego',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
   id: '/polityka-prywatnosci',
   path: '/polityka-prywatnosci',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SzkoleniaBhpRoute = SzkoleniaBhpRouteImport.update({
+  id: '/szkolenia-bhp',
+  path: '/szkolenia-bhp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
+  '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/szkolenia-bhp': typeof SzkoleniaBhpRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
+  '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/szkolenia-bhp': typeof SzkoleniaBhpRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
+  '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/szkolenia-bhp': typeof SzkoleniaBhpRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/obsluga-bhp' | '/polityka-prywatnosci'
+  fullPaths:
+    | '/'
+    | '/dokumentacja-bhp'
+    | '/kontrola-i-audyt-bhp'
+    | '/obsluga-bhp'
+    | '/ocena-ryzyka-zawodowego'
+    | '/polityka-prywatnosci'
+    | '/szkolenia-bhp'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/obsluga-bhp' | '/polityka-prywatnosci'
-  id: '__root__' | '/' | '/obsluga-bhp' | '/polityka-prywatnosci'
+  to:
+    | '/'
+    | '/dokumentacja-bhp'
+    | '/kontrola-i-audyt-bhp'
+    | '/obsluga-bhp'
+    | '/ocena-ryzyka-zawodowego'
+    | '/polityka-prywatnosci'
+    | '/szkolenia-bhp'
+  id:
+    | '__root__'
+    | '/'
+    | '/dokumentacja-bhp'
+    | '/kontrola-i-audyt-bhp'
+    | '/obsluga-bhp'
+    | '/ocena-ryzyka-zawodowego'
+    | '/polityka-prywatnosci'
+    | '/szkolenia-bhp'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DokumentacjaBhpRoute: typeof DokumentacjaBhpRoute
+  KontrolaIAudytBhpRoute: typeof KontrolaIAudytBhpRoute
   ObslugaBhpRoute: typeof ObslugaBhpRoute
+  OcenaRyzykaZawodowegoRoute: typeof OcenaRyzykaZawodowegoRoute
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
+  SzkoleniaBhpRoute: typeof SzkoleniaBhpRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -68,11 +130,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dokumentacja-bhp': {
+      id: '/dokumentacja-bhp'
+      path: '/dokumentacja-bhp'
+      fullPath: '/dokumentacja-bhp'
+      preLoaderRoute: typeof DokumentacjaBhpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kontrola-i-audyt-bhp': {
+      id: '/kontrola-i-audyt-bhp'
+      path: '/kontrola-i-audyt-bhp'
+      fullPath: '/kontrola-i-audyt-bhp'
+      preLoaderRoute: typeof KontrolaIAudytBhpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/obsluga-bhp': {
       id: '/obsluga-bhp'
       path: '/obsluga-bhp'
       fullPath: '/obsluga-bhp'
       preLoaderRoute: typeof ObslugaBhpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ocena-ryzyka-zawodowego': {
+      id: '/ocena-ryzyka-zawodowego'
+      path: '/ocena-ryzyka-zawodowego'
+      fullPath: '/ocena-ryzyka-zawodowego'
+      preLoaderRoute: typeof OcenaRyzykaZawodowegoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/polityka-prywatnosci': {
@@ -82,13 +165,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/szkolenia-bhp': {
+      id: '/szkolenia-bhp'
+      path: '/szkolenia-bhp'
+      fullPath: '/szkolenia-bhp'
+      preLoaderRoute: typeof SzkoleniaBhpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DokumentacjaBhpRoute: DokumentacjaBhpRoute,
+  KontrolaIAudytBhpRoute: KontrolaIAudytBhpRoute,
   ObslugaBhpRoute: ObslugaBhpRoute,
+  OcenaRyzykaZawodowegoRoute: OcenaRyzykaZawodowegoRoute,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
+  SzkoleniaBhpRoute: SzkoleniaBhpRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

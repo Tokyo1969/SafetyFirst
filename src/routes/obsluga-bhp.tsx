@@ -17,13 +17,13 @@ export const Route = createFileRoute('/obsluga-bhp')({
 })
 
 const SCOPE: [string, string][] = [
-  ['Szkolenia BHP', 'Wstępne i okresowe, w tym instruktaż stanowiskowy.'],
-  ['Dokumentacja', 'Ocena ryzyka zawodowego, instrukcje i rejestry prowadzone na bieżąco.'],
-  ['Kontrole', 'Przeglądy stanowisk pracy i zaleceń po kontroli.'],
-  ['Wypadki', 'Zespół powypadkowy i protokoły.'],
-  ['Pierwsza pomoc i ppoż.', 'Organizacja pierwszej pomocy oraz podstawy ochrony przeciwpożarowej.'],
-  ['Kontakt na bieżąco', 'Konsultacje telefoniczne i e-mailowe w sprawach BHP.'],
-  ['Terminy', 'Przypominamy o szkoleniach i badaniach, zanim wygasną.'],
+  ['Bieżące doradztwo', 'Pomagamy przy organizacji stanowisk, zatrudnianiu nowych osób, zmianach w firmie i doborze środków ochrony.'],
+  ['Dokumentacja BHP', 'Przygotowujemy, porządkujemy i aktualizujemy dokumentację odpowiednią do działalności firmy.'],
+  ['Kontrole warunków pracy', 'Podczas wizyt sprawdzamy rzeczywiste warunki pracy i wskazujemy, co poprawić.'],
+  ['Ocena ryzyka', 'Identyfikujemy zagrożenia na stanowiskach i określamy działania profilaktyczne.'],
+  ['Szkolenia', 'Organizujemy i prowadzimy szkolenia BHP odpowiednie do stanowisk pracowników.'],
+  ['Wsparcie powypadkowe', 'Pomagamy w prawidłowym postępowaniu po wypadku i przy dokumentacji.'],
+  ['Kontrole organów nadzoru', 'Wspieramy pracodawcę w przygotowaniu do kontroli dotyczących BHP.'],
 ]
 
 function ObslugaBhp() {

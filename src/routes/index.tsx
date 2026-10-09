@@ -2,6 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { ProtocolCard } from '../components/ProtocolCard'
 import { ConsultationForm } from '../components/ConsultationForm'
 import { PRICE_FROM, formatPln } from '../data/pricing'
+import { SERVICES } from '../data/services'
 import { site } from '../config/site'
 
 export const Route = createFileRoute('/')({
@@ -71,6 +72,13 @@ function Home() {
             {BHP.map((x) => <li key={x} className="py-2">{x}</li>)}
           </ul>
           <p className="mt-4"><Link to="/obsluga-bhp" className="font-semibold text-znak underline">Zakres i ceny obsługi BHP</Link></p>
+          <ul className="mt-2 flex flex-wrap gap-x-6 gap-y-1">
+            {SERVICES.map((s) => (
+              <li key={s.slug}>
+                <Link to={`/${s.slug}` as '/'} className="font-semibold text-znak underline">{s.navLabel}</Link>
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
           <h2 className="text-3xl">Ochrona środowiska</h2>

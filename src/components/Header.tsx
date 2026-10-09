@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { site } from '../config/site'
+import { SERVICES } from '../data/services'
 
 export function Header() {
   return (
@@ -14,6 +15,16 @@ export function Header() {
           <Link to="/obsluga-bhp" className="text-tusz hover:text-znak" activeProps={{ className: 'text-znak underline underline-offset-4' }}>
             Obsługa BHP
           </Link>
+          {SERVICES.map((s) => (
+            <Link
+              key={s.slug}
+              to={`/${s.slug}` as '/'}
+              className="text-tusz hover:text-znak"
+              activeProps={{ className: 'text-znak underline underline-offset-4' }}
+            >
+              {s.navLabel}
+            </Link>
+          ))}
           <a href={site.phone.href} className="text-tusz hover:text-znak">
             {site.phone.display}
           </a>

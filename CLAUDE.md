@@ -13,6 +13,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 ## Struktura
 - `src/config/site.ts` – jedyne źródło danych firmy i kontaktu (po założeniu sp. z o.o. zmieniamy tylko ten plik).
 - `src/data/pricing.ts` – cennik abonamentu BHP z oferty Natalii.
+- `src/data/services.ts` – podstrony usług BHP (treść i ceny z oferty). Nowa usługa = nowy wpis + plik trasy w `src/routes/`.
 - `src/server/consultation.ts` – server function formularza.
 - `supabase/migrations/` – migracje (zastosowane w Supabase, region eu-central-1).
 
@@ -24,6 +25,6 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 
 ## Do zrobienia
 - Podpiąć domenę.
-- Pozostałe podstrony BHP, potem ochrona środowiska (18 stron), cennik, szkolenia, o nas, dla branż.
+- Treści podstron BHP do zatwierdzenia przez Natalię. Pozostałe podstrony BHP (np. wypadki, pakiety dokumentów), potem ochrona środowiska (18 stron), cennik, szkolenia, o nas, dla branż.
 - Blogi (3 osobne w Soro, Brand DNA po akceptacji kierunku), SEO, schema.
 - Polityka prywatności i regulamin do sprawdzenia przez prawnika. Certyfikaty i kwalifikacje do uzupełnienia.

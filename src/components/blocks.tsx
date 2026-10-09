@@ -127,11 +127,13 @@ export function ConsultationSection({
 // Naglowek podstrony z okruszkami.
 export function PageHero({
   crumb,
+  parent,
   title,
   lead,
   children,
 }: {
   crumb: string
+  parent?: { label: string; to: string }
   title: string
   lead: ReactNode
   children?: ReactNode
@@ -143,6 +145,12 @@ export function PageHero({
         <nav aria-label="Okruszki" className="text-sm text-tusz-2">
           <Link to="/" className="hover:text-znak hover:underline">Strona główna</Link>
           <span aria-hidden="true" className="mx-2">/</span>
+          {parent && (
+            <>
+              <Link to={parent.to as '/'} className="hover:text-znak hover:underline">{parent.label}</Link>
+              <span aria-hidden="true" className="mx-2">/</span>
+            </>
+          )}
           <span aria-current="page">{crumb}</span>
         </nav>
         <h1 className="mt-6 max-w-[20ch]">{title}</h1>

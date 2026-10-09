@@ -1,18 +1,22 @@
 import { createFileRoute } from '@tanstack/react-router'
+import { breadcrumbLd, pageHead } from '../lib/seo'
 import { PriceEstimator } from '../components/PriceEstimator'
 import { CheckIcon, ConsultationSection, PageHero, SectionHeading } from '../components/blocks'
 import { PRICE_FROM, formatPln } from '../data/pricing'
 
 export const Route = createFileRoute('/obsluga-bhp')({
-  head: () => ({
-    meta: [
-      { title: 'Stała obsługa BHP dla firm do 50 pracowników – Safety First, Opole' },
-      {
-        name: 'description',
-        content: `Abonament BHP od ${PRICE_FROM} zł netto miesięcznie: szkolenia, dokumentacja, ocena ryzyka i kontrole stanowisk. Sprawdź cenę dla swojej branży.`,
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: 'Stała obsługa BHP dla firm do 50 pracowników – Safety First, Opole',
+      description: `Abonament BHP od ${PRICE_FROM} zł netto miesięcznie: szkolenia, dokumentacja, ocena ryzyka i kontrole stanowisk. Sprawdź cenę dla swojej branży.`,
+      path: '/obsluga-bhp',
+      jsonLd: [
+        breadcrumbLd([
+          { name: 'Strona główna', path: '/' },
+          { name: 'Obsługa BHP', path: '/obsluga-bhp' },
+        ]),
+      ],
+    }),
   component: ObslugaBhp,
 })
 

@@ -1,16 +1,12 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ServicePage } from '../components/ServicePage'
 import { getService } from '../data/services'
+import { serviceHead } from '../lib/seo'
 
 const service = getService('dokumentacja-bhp')
 
 export const Route = createFileRoute('/dokumentacja-bhp')({
-  head: () => ({
-    meta: [
-      { title: service.metaTitle },
-      { name: 'description', content: service.metaDescription },
-    ],
-  }),
+  head: () => serviceHead(service, '/dokumentacja-bhp'),
   component: DokumentacjaBhp,
 })
 

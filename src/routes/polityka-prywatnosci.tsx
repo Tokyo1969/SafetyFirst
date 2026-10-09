@@ -1,8 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { site } from '../config/site'
+import { pageHead } from '../lib/seo'
 
 export const Route = createFileRoute('/polityka-prywatnosci')({
-  head: () => ({ meta: [{ title: 'Polityka prywatności – Safety First' }] }),
+  head: () =>
+    pageHead({
+      title: 'Polityka prywatności – Safety First',
+      description: 'Polityka prywatności serwisu Safety First.',
+      path: '/polityka-prywatnosci',
+      noindex: true,
+    }),
   component: Privacy,
 })
 

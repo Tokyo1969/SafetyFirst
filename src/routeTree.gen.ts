@@ -11,11 +11,17 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DokumentacjaBhpRouteImport } from './routes/dokumentacja-bhp'
+import { Route as KonsultacjeBhpRouteImport } from './routes/konsultacje-bhp'
 import { Route as KontrolaIAudytBhpRouteImport } from './routes/kontrola-i-audyt-bhp'
 import { Route as ObslugaBhpRouteImport } from './routes/obsluga-bhp'
 import { Route as OcenaRyzykaZawodowegoRouteImport } from './routes/ocena-ryzyka-zawodowego'
+import { Route as PakietyDokumentacjiBhpRouteImport } from './routes/pakiety-dokumentacji-bhp'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SzkoleniaBhpRouteImport } from './routes/szkolenia-bhp'
+import { Route as WypadkiPrzyPracyRouteImport } from './routes/wypadki-przy-pracy'
+import { Route as OchronaSrodowiskaIndexRouteImport } from './routes/ochrona-srodowiska.index'
+import { Route as OchronaSrodowiskaSlugRouteImport } from './routes/ochrona-srodowiska.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -25,6 +31,11 @@ const IndexRoute = IndexRouteImport.update({
 const DokumentacjaBhpRoute = DokumentacjaBhpRouteImport.update({
   id: '/dokumentacja-bhp',
   path: '/dokumentacja-bhp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KonsultacjeBhpRoute = KonsultacjeBhpRouteImport.update({
+  id: '/konsultacje-bhp',
+  path: '/konsultacje-bhp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KontrolaIAudytBhpRoute = KontrolaIAudytBhpRouteImport.update({
@@ -42,9 +53,19 @@ const OcenaRyzykaZawodowegoRoute = OcenaRyzykaZawodowegoRouteImport.update({
   path: '/ocena-ryzyka-zawodowego',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PakietyDokumentacjiBhpRoute = PakietyDokumentacjiBhpRouteImport.update({
+  id: '/pakiety-dokumentacji-bhp',
+  path: '/pakiety-dokumentacji-bhp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
   id: '/polityka-prywatnosci',
   path: '/polityka-prywatnosci',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SzkoleniaBhpRoute = SzkoleniaBhpRouteImport.update({
@@ -52,73 +73,130 @@ const SzkoleniaBhpRoute = SzkoleniaBhpRouteImport.update({
   path: '/szkolenia-bhp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WypadkiPrzyPracyRoute = WypadkiPrzyPracyRouteImport.update({
+  id: '/wypadki-przy-pracy',
+  path: '/wypadki-przy-pracy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OchronaSrodowiskaIndexRoute = OchronaSrodowiskaIndexRouteImport.update({
+  id: '/ochrona-srodowiska/',
+  path: '/ochrona-srodowiska/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OchronaSrodowiskaSlugRoute = OchronaSrodowiskaSlugRouteImport.update({
+  id: '/ochrona-srodowiska/$slug',
+  path: '/ochrona-srodowiska/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
+  '/pakiety-dokumentacji-bhp': typeof PakietyDokumentacjiBhpRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
+  '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
+  '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
+  '/ochrona-srodowiska/': typeof OchronaSrodowiskaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
+  '/pakiety-dokumentacji-bhp': typeof PakietyDokumentacjiBhpRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
+  '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
+  '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
+  '/ochrona-srodowiska': typeof OchronaSrodowiskaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
+  '/pakiety-dokumentacji-bhp': typeof PakietyDokumentacjiBhpRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
+  '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
+  '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
+  '/ochrona-srodowiska/': typeof OchronaSrodowiskaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/dokumentacja-bhp'
+    | '/konsultacje-bhp'
     | '/kontrola-i-audyt-bhp'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
+    | '/pakiety-dokumentacji-bhp'
     | '/polityka-prywatnosci'
+    | '/sitemap.xml'
     | '/szkolenia-bhp'
+    | '/wypadki-przy-pracy'
+    | '/ochrona-srodowiska/$slug'
+    | '/ochrona-srodowiska/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/dokumentacja-bhp'
+    | '/konsultacje-bhp'
     | '/kontrola-i-audyt-bhp'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
+    | '/pakiety-dokumentacji-bhp'
     | '/polityka-prywatnosci'
+    | '/sitemap.xml'
     | '/szkolenia-bhp'
+    | '/wypadki-przy-pracy'
+    | '/ochrona-srodowiska/$slug'
+    | '/ochrona-srodowiska'
   id:
     | '__root__'
     | '/'
     | '/dokumentacja-bhp'
+    | '/konsultacje-bhp'
     | '/kontrola-i-audyt-bhp'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
+    | '/pakiety-dokumentacji-bhp'
     | '/polityka-prywatnosci'
+    | '/sitemap.xml'
     | '/szkolenia-bhp'
+    | '/wypadki-przy-pracy'
+    | '/ochrona-srodowiska/$slug'
+    | '/ochrona-srodowiska/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   DokumentacjaBhpRoute: typeof DokumentacjaBhpRoute
+  KonsultacjeBhpRoute: typeof KonsultacjeBhpRoute
   KontrolaIAudytBhpRoute: typeof KontrolaIAudytBhpRoute
   ObslugaBhpRoute: typeof ObslugaBhpRoute
   OcenaRyzykaZawodowegoRoute: typeof OcenaRyzykaZawodowegoRoute
+  PakietyDokumentacjiBhpRoute: typeof PakietyDokumentacjiBhpRoute
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SzkoleniaBhpRoute: typeof SzkoleniaBhpRoute
+  WypadkiPrzyPracyRoute: typeof WypadkiPrzyPracyRoute
+  OchronaSrodowiskaSlugRoute: typeof OchronaSrodowiskaSlugRoute
+  OchronaSrodowiskaIndexRoute: typeof OchronaSrodowiskaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -135,6 +213,13 @@ declare module '@tanstack/react-router' {
       path: '/dokumentacja-bhp'
       fullPath: '/dokumentacja-bhp'
       preLoaderRoute: typeof DokumentacjaBhpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/konsultacje-bhp': {
+      id: '/konsultacje-bhp'
+      path: '/konsultacje-bhp'
+      fullPath: '/konsultacje-bhp'
+      preLoaderRoute: typeof KonsultacjeBhpRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kontrola-i-audyt-bhp': {
@@ -158,11 +243,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OcenaRyzykaZawodowegoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/pakiety-dokumentacji-bhp': {
+      id: '/pakiety-dokumentacji-bhp'
+      path: '/pakiety-dokumentacji-bhp'
+      fullPath: '/pakiety-dokumentacji-bhp'
+      preLoaderRoute: typeof PakietyDokumentacjiBhpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/polityka-prywatnosci': {
       id: '/polityka-prywatnosci'
       path: '/polityka-prywatnosci'
       fullPath: '/polityka-prywatnosci'
       preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/szkolenia-bhp': {
@@ -172,17 +271,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SzkoleniaBhpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wypadki-przy-pracy': {
+      id: '/wypadki-przy-pracy'
+      path: '/wypadki-przy-pracy'
+      fullPath: '/wypadki-przy-pracy'
+      preLoaderRoute: typeof WypadkiPrzyPracyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ochrona-srodowiska/': {
+      id: '/ochrona-srodowiska/'
+      path: '/ochrona-srodowiska'
+      fullPath: '/ochrona-srodowiska/'
+      preLoaderRoute: typeof OchronaSrodowiskaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ochrona-srodowiska/$slug': {
+      id: '/ochrona-srodowiska/$slug'
+      path: '/ochrona-srodowiska/$slug'
+      fullPath: '/ochrona-srodowiska/$slug'
+      preLoaderRoute: typeof OchronaSrodowiskaSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   DokumentacjaBhpRoute: DokumentacjaBhpRoute,
+  KonsultacjeBhpRoute: KonsultacjeBhpRoute,
   KontrolaIAudytBhpRoute: KontrolaIAudytBhpRoute,
   ObslugaBhpRoute: ObslugaBhpRoute,
   OcenaRyzykaZawodowegoRoute: OcenaRyzykaZawodowegoRoute,
+  PakietyDokumentacjiBhpRoute: PakietyDokumentacjiBhpRoute,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SzkoleniaBhpRoute: SzkoleniaBhpRoute,
+  WypadkiPrzyPracyRoute: WypadkiPrzyPracyRoute,
+  OchronaSrodowiskaSlugRoute: OchronaSrodowiskaSlugRoute,
+  OchronaSrodowiskaIndexRoute: OchronaSrodowiskaIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

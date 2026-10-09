@@ -1,14 +1,24 @@
 import { Link } from '@tanstack/react-router'
 import { CheckList, ConsultationSection, PageHero, SectionHeading, Steps } from './blocks'
-import { SERVICES, type Service } from '../data/services'
+import type { Service } from '../data/services'
+import { relatedServices, servicePath } from '../data/catalog'
 
 export function ServicePage({ service }: { service: Service }) {
-  const others = SERVICES.filter((s) => s.slug !== service.slug)
+  const others = relatedServices(service)
+  const isOs = service.section === 'os'
+  const hub = isOs
+    ? { to: '/ochrona-srodowiska', label: 'Ochrona środowiska', cta: 'Wszystkie usługi środowiskowe' }
+    : { to: '/obsluga-bhp', label: 'Stała obsługa BHP', cta: 'Stała obsługa BHP' }
   return (
     <main>
-      <PageHero crumb={service.navLabel} title={service.title} lead={service.lead}>
+      <PageHero
+        crumb={service.navLabel}
+        parent={isOs ? { label: hub.label, to: hub.to } : undefined}
+        title={service.title}
+        lead={service.lead}
+      >
         <a href="#konsultacja" className="btn btn-glowny">Zapytaj o wycenę</a>
-        <Link to="/obsluga-bhp" className="btn btn-obrys">Stała obsługa BHP</Link>
+        <Link to={hub.to as '/'} className="btn btn-obrys">{hub.cta}</Link>
       </PageHero>
 
       <section className="sekcja bg-papier">
@@ -53,15 +63,15 @@ export function ServicePage({ service }: { service: Service }) {
           <h2>Zobacz też</h2>
           <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             <li>
-              <Link to="/obsluga-bhp" className="flex h-full items-center justify-between gap-4 rounded-2xl bg-papier p-5 font-naglowek text-lg font-semibold hover:bg-znak-jasny">
-                Stała obsługa BHP
+              <Link to={hub.to as '/'} className="flex h-full items-center justify-between gap-4 rounded-2xl bg-papier p-5 font-naglowek text-lg font-semibold hover:bg-znak-jasny">
+                {hub.label}
                 <Arrow />
               </Link>
             </li>
             {others.map((s) => (
               <li key={s.slug}>
                 <Link
-                  to={`/${s.slug}` as '/'}
+                  to={servicePath(s) as '/'}
                   className="flex h-full items-center justify-between gap-4 rounded-2xl bg-papier p-5 font-naglowek text-lg font-semibold hover:bg-znak-jasny"
                 >
                   {s.navLabel}

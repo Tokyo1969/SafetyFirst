@@ -3,13 +3,13 @@ import { ServicePage } from '../components/ServicePage'
 import { getService } from '../data/services'
 import { serviceHead } from '../lib/seo'
 
-const service = getService('szkolenia-bhp')
+const service = getService('konsultacje-bhp')
 
-export const Route = createFileRoute('/szkolenia-bhp')({
-  head: () => serviceHead(service, '/szkolenia-bhp'),
-  component: SzkoleniaBhp,
+export const Route = createFileRoute('/konsultacje-bhp')({
+  head: () => serviceHead(service, '/konsultacje-bhp'),
+  component: KonsultacjeBhp,
 })
 
-function SzkoleniaBhp() {
+function KonsultacjeBhp() {
   return <ServicePage service={service} />
 }

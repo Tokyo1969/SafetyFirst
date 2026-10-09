@@ -1,6 +1,8 @@
 import { Link } from '@tanstack/react-router'
 import { site } from '../config/site'
 import { SERVICES } from '../data/services'
+import { OS_SERVICES } from '../data/os-services'
+import { servicePath } from '../data/catalog'
 import { Logo } from './Logo'
 
 const footLink = 'text-papier/85 underline-offset-4 hover:text-tasma hover:underline'
@@ -46,6 +48,20 @@ export function Footer() {
             </div>
           </div>
         </div>
+        <nav aria-label="Ochrona środowiska" className="border-t border-papier/15">
+          <div className="kontener py-8">
+            <p className="font-naglowek text-lg font-semibold">
+              <Link to="/ochrona-srodowiska" className="hover:text-tasma hover:underline">Ochrona środowiska</Link>
+            </p>
+            <ul className="mt-3 columns-1 gap-8 space-y-2 sm:columns-2 lg:columns-3">
+              {OS_SERVICES.map((s) => (
+                <li key={s.slug} className="break-inside-avoid">
+                  <Link to={servicePath(s) as '/'} className={footLink}>{s.navLabel}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </nav>
         <div className="border-t border-papier/15">
           <div className="kontener flex flex-col gap-2 py-6 text-sm text-papier/65 sm:flex-row sm:justify-between">
             <p>© {new Date().getFullYear()} {site.brand}</p>

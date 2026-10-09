@@ -3,7 +3,11 @@
 export type ServicePrice = { name: string; price: string; note?: string }
 
 export type Service = {
+  // 'bhp' -> /<slug>, 'os' -> /ochrona-srodowiska/<slug> (zob. catalog.ts)
+  section: 'bhp' | 'os'
   slug: string
+  group?: string
+  summary?: string
   navLabel: string
   title: string
   metaTitle: string
@@ -19,6 +23,7 @@ export type Service = {
 
 export const SERVICES: readonly Service[] = [
   {
+    section: 'bhp',
     slug: 'szkolenia-bhp',
     navLabel: 'Szkolenia BHP',
     title: 'Szkolenia BHP dla pracowników i pracodawców',
@@ -51,6 +56,7 @@ export const SERVICES: readonly Service[] = [
     formServices: ['BHP', 'Szkolenia'],
   },
   {
+    section: 'bhp',
     slug: 'ocena-ryzyka-zawodowego',
     navLabel: 'Ocena ryzyka zawodowego',
     title: 'Ocena ryzyka zawodowego na stanowiskach pracy',
@@ -81,6 +87,7 @@ export const SERVICES: readonly Service[] = [
     formServices: ['BHP'],
   },
   {
+    section: 'bhp',
     slug: 'dokumentacja-bhp',
     navLabel: 'Dokumentacja BHP',
     title: 'Dokumentacja BHP dla małej firmy',
@@ -114,6 +121,7 @@ export const SERVICES: readonly Service[] = [
     formServices: ['BHP'],
   },
   {
+    section: 'bhp',
     slug: 'kontrola-i-audyt-bhp',
     navLabel: 'Kontrola i audyt BHP',
     title: 'Kontrola warunków pracy i audyt BHP',
@@ -145,6 +153,107 @@ export const SERVICES: readonly Service[] = [
       'Sprawdzamy stanowiska, dokumenty i organizację pracy na miejscu.',
       'Przekazujemy zalecenia ustnie albo w raporcie.',
       'Pomagamy wdrożyć poprawki przed kontrolą.',
+    ],
+    formServices: ['BHP'],
+  },
+  {
+    section: 'bhp',
+    slug: 'pakiety-dokumentacji-bhp',
+    navLabel: 'Pakiety dokumentacji',
+    title: 'Pakiety dokumentacji BHP dla firmy',
+    metaTitle: 'Pakiety dokumentacji BHP dla firm – komplet dokumentów, Opole',
+    metaDescription:
+      'Komplet dokumentacji BHP dopasowany do branży i liczby stanowisk: instrukcje, oceny ryzyka, rejestry, regulaminy. Wycena po rozmowie, instrukcja BHP od 150 zł netto.',
+    lead: 'Zamiast zamawiać dokumenty po jednym, dostajesz komplet dopasowany do branży i liczby stanowisk. Sprawdzamy, co firma już ma, i uzupełniamy tylko to, czego brakuje.',
+    scopeHeading: 'Co może wejść w pakiet',
+    scope: [
+      'Oceny ryzyka zawodowego i karty oceny ryzyka',
+      'Instrukcje BHP, instrukcje stanowiskowe i instrukcje bezpiecznej obsługi maszyn',
+      'Instrukcje prac szczególnie niebezpiecznych i postępowania awaryjnego',
+      'Procedury BHP, ewakuacji i postępowania w sytuacjach awaryjnych',
+      'Regulaminy BHP, programy szkoleń i dokumentacja szkoleń',
+      'Rejestry BHP oraz dokumentacja wypadków i chorób zawodowych',
+      'Wykazy prac szczególnie niebezpiecznych, czynników szkodliwych i prac wymagających szczególnej sprawności psychofizycznej',
+      'Dokumentacja środków ochrony indywidualnej, odzieży i obuwia roboczego: przydziały, regulaminy, wykazy stanowisk',
+      'Instrukcje udzielania pierwszej pomocy',
+    ],
+    prices: [
+      { name: 'Kompletny pakiet dokumentacji dla firmy', price: 'wycena indywidualna' },
+      { name: 'Analiza istniejącej dokumentacji', price: 'od 250 zł' },
+      { name: 'Ocena ryzyka dla stanowiska', price: 'od 450 zł' },
+      { name: 'Instrukcja BHP', price: 'od 150 zł' },
+    ],
+    priceNote:
+      'Ceny netto. Skład pakietu dobieramy do branży, liczby stanowisk i tego, co firma już ma, a wycenę przygotowujemy po krótkiej rozmowie. Przy stałej obsłudze BHP dokumentacja jest utrzymywana w ramach abonamentu.',
+    steps: [
+      'Rozmawiamy o firmie i sprawdzamy, jakie dokumenty już macie.',
+      'Ustalamy skład pakietu i przedstawiamy wycenę na piśmie.',
+      'Przygotowujemy dokumenty i przekazujemy je gotowe do podpisu.',
+      'Aktualizujemy pakiet, gdy zmieniają się przepisy lub organizacja pracy.',
+    ],
+    formServices: ['BHP'],
+  },
+  {
+    section: 'bhp',
+    slug: 'wypadki-przy-pracy',
+    navLabel: 'Wypadki przy pracy',
+    title: 'Wsparcie po wypadku przy pracy i dokumentacja powypadkowa',
+    metaTitle: 'Wypadek przy pracy: dokumentacja powypadkowa i wsparcie – Safety First, Opole',
+    metaDescription:
+      'Pomoc pracodawcy po wypadku przy pracy: ustalenie okoliczności, dokumentacja powypadkowa od 550 zł netto, działania zapobiegawcze. Opole i województwo opolskie.',
+    lead: 'Po wypadku liczą się spokój i właściwa kolejność działań. Pomagamy pracodawcy postępować prawidłowo i przygotowujemy dokumentację, a potem ustalamy, co zmienić, żeby wypadek się nie powtórzył.',
+    scopeHeading: 'W czym pomagamy',
+    scope: [
+      'Ustalanie okoliczności i przyczyn wypadku przy pracy',
+      'Przygotowanie dokumentacji powypadkowej',
+      'Udział w zespole powypadkowym',
+      'Analiza wypadków i zdarzeń potencjalnie wypadkowych',
+      'Opracowanie działań korygujących i zapobiegawczych',
+      'Analiza statystyk wypadkowych w firmie',
+    ],
+    prices: [
+      { name: 'Dokumentacja powypadkowa', price: 'od 550 zł' },
+      { name: 'Konsultacja BHP', price: 'od 150 zł / godz.' },
+      { name: 'Wsparcie powypadkowe przy stałej obsłudze', price: 'w ofercie abonamentu' },
+    ],
+    priceNote:
+      'Ceny netto, dla jednorazowych zleceń bez stałej obsługi BHP. Przy stałej obsłudze wsparcie powypadkowe należy do zakresu abonamentu, a szczegóły ustalamy w ofercie.',
+    steps: [
+      'Zgłaszasz wypadek i opisujesz, co się wydarzyło.',
+      'Ustalamy okoliczności i przyczyny, razem z zespołem powypadkowym.',
+      'Przygotowujemy dokumentację powypadkową.',
+      'Proponujemy działania, które ograniczą ryzyko kolejnego wypadku.',
+    ],
+    formServices: ['BHP'],
+  },
+  {
+    section: 'bhp',
+    slug: 'konsultacje-bhp',
+    navLabel: 'Konsultacje BHP',
+    title: 'Konsultacje BHP dla pracodawców',
+    metaTitle: 'Konsultacje BHP dla firm – doradztwo od 150 zł/h, Opole',
+    metaDescription:
+      'Doradztwo BHP dla pracodawców: organizacja stanowisk, zatrudnianie pracowników, dobór środków ochrony, interpretacja wymagań. Konsultacja od 150 zł netto za godzinę.',
+    lead: 'Masz pytanie, zanim coś zmienisz w firmie albo zatrudnisz nową osobę? Odpowiadamy konkretnie, bez zamawiania pełnej usługi. Przy stałej obsłudze konsultacje są częścią abonamentu.',
+    scopeHeading: 'W jakich sprawach doradzamy',
+    scope: [
+      'Organizacja stanowisk pracy',
+      'Zatrudnianie nowych pracowników',
+      'Zmiany organizacyjne w firmie',
+      'Dobór środków ochrony',
+      'Interpretacja wymagań BHP',
+      'Postępowanie w sytuacjach powypadkowych',
+    ],
+    prices: [
+      { name: 'Konsultacja BHP', price: 'od 150 zł / godz.' },
+      { name: 'Bieżące doradztwo przy stałej obsłudze', price: 'w abonamencie BHP' },
+      { name: 'Pierwsza rozmowa o firmie', price: 'bezpłatna' },
+    ],
+    priceNote: 'Ceny netto. Konsultacje wykraczające poza uzgodniony zakres stałej obsługi rozliczamy osobno.',
+    steps: [
+      'Opisujesz sprawę telefonem albo w formularzu.',
+      'Umawiamy rozmowę albo wizytę w firmie.',
+      'Dostajesz konkretną odpowiedź i wskazanie, co zrobić dalej.',
     ],
     formServices: ['BHP'],
   },

@@ -4,7 +4,7 @@ import { site } from '../config/site'
 import { SERVICES } from '../data/services'
 import { Logo } from './Logo'
 
-const navLink = 'rounded-full px-3 py-2 text-tusz hover:bg-znak-jasny'
+const navLink = 'rounded-full px-3 py-2 whitespace-nowrap text-tusz hover:bg-znak-jasny'
 const navActive = { className: 'bg-znak-jasny text-znak-ciemny' }
 
 export function Header() {
@@ -47,7 +47,7 @@ export function Header() {
           <Logo />
         </Link>
 
-        <nav aria-label="Główna" className="hidden items-center gap-1 font-naglowek text-[1.0625rem] font-semibold lg:flex">
+        <nav aria-label="Główna" className="hidden items-center gap-1 font-naglowek text-[1.0625rem] font-semibold xl:flex">
           <Link to="/obsluga-bhp" className={navLink} activeProps={navActive}>
             Obsługa BHP
           </Link>
@@ -83,16 +83,23 @@ export function Header() {
               </ul>
             )}
           </div>
-          <a href={site.phone.href} className={`${navLink} ml-2 inline-flex items-center gap-2`}>
+          <Link to="/ochrona-srodowiska" className={navLink} activeProps={navActive}>
+            Ochrona środowiska
+          </Link>
+          <a
+            href={site.phone.href}
+            className={`${navLink} ml-2 inline-flex items-center gap-2`}
+            aria-label={`Zadzwoń: ${site.phone.display}`}
+          >
             <PhoneIcon />
-            {site.phone.display}
+            <span className="hidden 2xl:inline">{site.phone.display}</span>
           </a>
-          <a href="/#konsultacja" className="btn btn-glowny ml-2 min-h-11 px-5">
+          <a href="/#konsultacja" className="btn btn-glowny ml-2 min-h-11 px-5 whitespace-nowrap">
             Bezpłatna konsultacja
           </a>
         </nav>
 
-        <div className="flex items-center gap-2 lg:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
           <a href={site.phone.href} className="grid size-11 place-items-center rounded-full bg-znak-jasny text-znak-ciemny" aria-label={`Zadzwoń: ${site.phone.display}`}>
             <PhoneIcon />
           </a>
@@ -116,7 +123,7 @@ export function Header() {
       </div>
 
       {menuOpen && (
-        <nav id="menu-mobilne" aria-label="Menu mobilne" className="border-t border-linia bg-papier lg:hidden">
+        <nav id="menu-mobilne" aria-label="Menu mobilne" className="border-t border-linia bg-papier xl:hidden">
           <ul className="kontener flex flex-col gap-1 py-4 font-naglowek text-lg font-semibold">
             <li>
               <Link to="/obsluga-bhp" className="block rounded-xl px-4 py-3 hover:bg-mgla" activeProps={navActive}>
@@ -130,6 +137,11 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link to="/ochrona-srodowiska" className="block rounded-xl px-4 py-3 hover:bg-mgla" activeProps={navActive}>
+                Ochrona środowiska
+              </Link>
+            </li>
             <li className="mt-3 grid gap-2 sm:grid-cols-2">
               <a href="/#konsultacja" onClick={() => setMenuOpen(false)} className="btn btn-glowny">
                 Bezpłatna konsultacja

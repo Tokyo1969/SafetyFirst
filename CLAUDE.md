@@ -4,7 +4,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 
 ## Stack i decyzje
 - TanStack Start (React 19, Vite) z SSR na Cloudflare Workers (`@cloudflare/vite-plugin` przed `tanstackStart()`). LH.pl zostaje tylko dla domeny i poczty. Nie ruszać rekordów MX.
-- Tailwind v4 (`src/styles.css`, tokeny w `@theme`), fonty self-hosted (fontsource).
+- Tailwind v4 (`src/styles.css`, tokeny w `@theme`, klasy `.kontener .sekcja .btn .panel .pole .link`), fonty self-hosted (fontsource): Bricolage Grotesque (naglowki), Figtree (tekst).
 - Supabase: osobny projekt `rcizhcktflczrtadifwd` (sprawdzić, czy region UE). Formularz zapisuje przez REST z anon key, RLS: anon tylko INSERT.
 - Zmienne: SUPABASE_URL i SUPABASE_ANON_KEY (klucz publishable, publiczny z założenia) są w `wrangler.jsonc` (`vars`), bo wrangler deploy kasuje zmienne ustawione tylko w panelu. Lokalnie `.dev.vars`. Zob. `.env.example`.
 - Importy względne (brak aliasu ścieżek).
@@ -21,7 +21,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 - Ceny zawsze "od", netto, orientacyjne. Nawigacja tylko do istniejących stron (bez martwych linków).
 - Doświadczenie Natalii bez pracodawców i dat. Zdjęcie jest tymczasowe i ma zostać podmienione na prawdziwe przed startem.
 - Widoczny adres e-mail: tylko biuro@. Pozostałe skrzynki (bhp@, os@, szkolenia@, serwis@) zarezerwowane pod automatyzacje.
-- Design: język znaków BHP, tasma ostrzegawcza, "karta kontroli", sekcje liniami zamiast kart. Kolory: papier #F5F6F2, tusz #16212C, znak #0A5A9C, zieleń #1F7A4D, taśma #F4C20D.
+- Design: znaki bezpieczenstwa (ISO 7010) w nowoczesnym wydaniu, tasma ostrzegawcza, "karta kontroli" w hero, zaokraglone panele, menu mobilne ponizej `lg`. Kolory: mgla #F2F5F3 (tlo), papier #FFFFFF, tusz #0E2A2F, znak #0F7B5A (zielen, kolor glowny), znak-jasny #DCEFE6, tasma #FFC72C (glowne CTA). Wspolne bloki stron w `src/components/blocks.tsx`.
 
 ## Do zrobienia
 - Podpiąć domenę.

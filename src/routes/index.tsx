@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ProtocolCard } from '../components/ProtocolCard'
-import { ConsultationForm } from '../components/ConsultationForm'
+import { CheckIcon, CheckList, ConsultationSection, SectionHeading, Steps } from '../components/blocks'
 import { PRICE_FROM, formatPln } from '../data/pricing'
 import { SERVICES } from '../data/services'
 import { site } from '../config/site'
@@ -43,72 +43,115 @@ const STEPS = [
 function Home() {
   return (
     <main>
-      <section className="mx-auto grid max-w-6xl gap-12 px-5 py-16 md:grid-cols-[1.2fr_1fr] md:py-24">
-        <div>
-          <h1 className="text-5xl md:text-6xl">BHP i ochrona środowiska dla małych firm z Opolszczyzny</h1>
-          <p className="mt-6 max-w-[60ch] text-xl">
-            Dokumentację, szkolenia, kontrole i raporty prowadzi jeden specjalista. Ty zajmujesz się firmą,
-            a my pilnujemy przepisów i terminów.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-4 font-naglowek text-xl font-semibold">
-            <a href="#konsultacja" className="bg-znak px-6 py-3 text-white hover:bg-znak-ciemny">
-              Umów bezpłatną konsultację
-            </a>
-            <Link to="/obsluga-bhp" className="border-2 border-tusz px-6 py-3 text-tusz hover:bg-tusz hover:text-papier">
-              Zobacz ceny obsługi BHP
-            </Link>
-          </div>
-          <p className="mt-6 font-naglowek text-xl font-semibold text-tusz-2">
-            Abonament BHP od {formatPln(PRICE_FROM)} zł netto miesięcznie
-          </p>
-        </div>
-        <ProtocolCard />
-      </section>
-
-      <section className="mx-auto grid max-w-6xl gap-10 border-t-2 border-tusz px-5 py-14 md:grid-cols-2">
-        <div>
-          <h2 className="text-3xl">BHP</h2>
-          <ul className="mt-4 divide-y divide-linia border-y border-linia">
-            {BHP.map((x) => <li key={x} className="py-2">{x}</li>)}
-          </ul>
-          <p className="mt-4"><Link to="/obsluga-bhp" className="font-semibold text-znak underline">Zakres i ceny obsługi BHP</Link></p>
-          <ul className="mt-2 flex flex-wrap gap-x-6 gap-y-1">
-            {SERVICES.map((s) => (
-              <li key={s.slug}>
-                <Link to={`/${s.slug}` as '/'} className="font-semibold text-znak underline">{s.navLabel}</Link>
+      <section className="relative overflow-hidden">
+        <div aria-hidden="true" className="absolute -top-40 -right-40 size-[36rem] rounded-full bg-znak-jasny/70 blur-3xl" />
+        <div className="kontener relative grid items-center gap-14 pt-12 pb-16 md:pt-20 lg:grid-cols-[1.15fr_1fr] lg:pb-24">
+          <div>
+            <h1>BHP i ochrona środowiska dla małych firm z Opolszczyzny</h1>
+            <p className="mt-6 max-w-[54ch] text-lg text-tusz-2 md:text-xl">
+              Dokumentację, szkolenia, kontrole i raporty prowadzi jeden specjalista. Ty zajmujesz się firmą,
+              a my pilnujemy przepisów i terminów.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a href="#konsultacja" className="btn btn-glowny">Umów bezpłatną konsultację</a>
+              <Link to="/obsluga-bhp" className="btn btn-obrys">Zobacz ceny obsługi BHP</Link>
+            </div>
+            <ul className="mt-10 flex flex-col gap-3 text-[0.9375rem] sm:flex-row sm:flex-wrap sm:gap-x-6">
+              <li className="flex gap-2.5">
+                <CheckIcon className="mt-0.5 size-5 shrink-0" />
+                <span>Abonament od <strong>{formatPln(PRICE_FROM)} zł</strong> netto miesięcznie</span>
               </li>
-            ))}
-          </ul>
+              <li className="flex gap-2.5">
+                <CheckIcon className="mt-0.5 size-5 shrink-0" />
+                <span>Dojazd do 20 km od Opola w cenie</span>
+              </li>
+              <li className="flex gap-2.5">
+                <CheckIcon className="mt-0.5 size-5 shrink-0" />
+                <span>Dokumenty podpisuje jedna osoba</span>
+              </li>
+            </ul>
+          </div>
+          <ProtocolCard />
         </div>
-        <div>
-          <h2 className="text-3xl">Ochrona środowiska</h2>
-          <ul className="mt-4 divide-y divide-linia border-y border-linia">
-            {OS.map((x) => <li key={x} className="py-2">{x}</li>)}
-          </ul>
+      </section>
+
+      <section className="sekcja bg-papier">
+        <div className="kontener">
+          <SectionHeading
+            title="W czym pomagamy"
+            lead="Jedna osoba ogarnia oba obszary, więc nie musisz szukać osobnych firm do BHP i do spraw środowiskowych."
+          />
+          <div className="grid gap-6 lg:grid-cols-2">
+            <div className="rounded-[var(--radius-panel)] border border-linia p-6 sm:p-8">
+              <h3>BHP</h3>
+              <div className="mt-6"><CheckList items={BHP} /></div>
+              <div className="mt-8 border-t border-linia pt-6">
+                <Link to="/obsluga-bhp" className="link">Zakres i ceny stałej obsługi BHP</Link>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {SERVICES.map((s) => (
+                    <li key={s.slug}>
+                      <Link
+                        to={`/${s.slug}` as '/'}
+                        className="inline-block rounded-full bg-mgla px-4 py-2 text-[0.9375rem] font-medium hover:bg-znak-jasny hover:text-znak-ciemny"
+                      >
+                        {s.navLabel}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="rounded-[var(--radius-panel)] bg-znak-jasny p-6 sm:p-8">
+              <h3>Ochrona środowiska</h3>
+              <div className="mt-6"><CheckList items={OS} /></div>
+              <p className="mt-8 border-t border-znak/20 pt-6 text-tusz-2">
+                Zapytaj o sprawy środowiskowe w formularzu konsultacji. Wycenę przygotujemy indywidualnie.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl border-t-2 border-tusz px-5 py-14">
-        <h2 className="text-3xl">Jak wygląda współpraca</h2>
-        <ol className="mt-6 max-w-[65ch] list-decimal space-y-3 pl-6 marker:font-naglowek marker:font-bold">
-          {STEPS.map((s) => <li key={s}>{s}</li>)}
-        </ol>
+      <section className="sekcja">
+        <div className="kontener">
+          <SectionHeading title="Jak wygląda współpraca" />
+          <Steps steps={STEPS} />
+        </div>
       </section>
 
-      <section className="mx-auto max-w-6xl border-t-2 border-tusz px-5 py-14">
-        <h2 className="text-3xl">Kto się Tobą zajmie</h2>
-        <p className="mt-4 max-w-[65ch]">
-          Od 2022 roku koordynuję obsługę BHP i ochrony środowiska w firmach różnej wielkości. Wszystkie
-          dokumenty podpisuję osobiście, więc wiesz, kto za nie odpowiada. Nazywam się {site.person.name},
-          jestem {site.person.role}.
-        </p>
+      <section className="sekcja bg-papier">
+        <div className="kontener grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-14">
+          <div className="relative mx-auto w-fit md:mx-0" aria-hidden="true">
+            <div className="grid size-44 place-items-center rounded-[2rem] bg-tusz font-naglowek text-6xl font-bold text-tasma md:size-56">
+              {initials(site.person.name)}
+            </div>
+            <div className="tasma absolute -bottom-3 left-1/2 h-4 w-28 -translate-x-1/2 rotate-2 rounded-sm" />
+          </div>
+          <div>
+            <h2>Kto się Tobą zajmie</h2>
+            <p className="mt-5 max-w-[60ch] text-lg">
+              Od 2022 roku koordynuję obsługę BHP i ochrony środowiska w firmach różnej wielkości. Wszystkie
+              dokumenty podpisuję osobiście, więc wiesz, kto za nie odpowiada.
+            </p>
+            <p className="mt-5">
+              <strong className="font-naglowek text-xl">{site.person.name}</strong>
+              <span className="block text-tusz-2">{site.person.role}</span>
+            </p>
+          </div>
+        </div>
       </section>
 
-      <section id="konsultacja" className="mx-auto max-w-6xl scroll-mt-6 border-t-2 border-tusz px-5 py-14">
-        <h2 className="text-3xl">Umów bezpłatną konsultację</h2>
-        <p className="mt-2 mb-8 max-w-[60ch]">Opisz krótko firmę, a wrócimy z propozycją zakresu i ceny.</p>
-        <ConsultationForm />
-      </section>
+      <ConsultationSection
+        title="Umów bezpłatną konsultację"
+        lead="Opisz krótko firmę, a wrócimy z propozycją zakresu i ceny."
+      />
     </main>
   )
+}
+
+function initials(name: string) {
+  return name
+    .split(' ')
+    .map((p) => p[0])
+    .join('')
 }

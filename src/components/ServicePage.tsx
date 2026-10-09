@@ -1,73 +1,85 @@
 import { Link } from '@tanstack/react-router'
-import { ConsultationForm } from './ConsultationForm'
+import { CheckList, ConsultationSection, PageHero, SectionHeading, Steps } from './blocks'
 import { SERVICES, type Service } from '../data/services'
 
 export function ServicePage({ service }: { service: Service }) {
   const others = SERVICES.filter((s) => s.slug !== service.slug)
   return (
     <main>
-      <section className="mx-auto max-w-6xl px-5 py-16">
-        <h1 className="max-w-[22ch] text-5xl md:text-6xl">{service.title}</h1>
-        <p className="mt-6 max-w-[60ch] text-xl">{service.lead}</p>
-        <div className="mt-8 flex flex-wrap gap-4 font-naglowek text-xl font-semibold">
-          <a href="#konsultacja" className="bg-znak px-6 py-3 text-white hover:bg-znak-ciemny">
-            Zapytaj o wycenę
-          </a>
-          <Link to="/obsluga-bhp" className="border-2 border-tusz px-6 py-3 text-tusz hover:bg-tusz hover:text-papier">
-            Stała obsługa BHP
-          </Link>
+      <PageHero crumb={service.navLabel} title={service.title} lead={service.lead}>
+        <a href="#konsultacja" className="btn btn-glowny">Zapytaj o wycenę</a>
+        <Link to="/obsluga-bhp" className="btn btn-obrys">Stała obsługa BHP</Link>
+      </PageHero>
+
+      <section className="sekcja bg-papier">
+        <div className="kontener grid gap-12 lg:grid-cols-2 lg:gap-16">
+          <div>
+            <h2>{service.scopeHeading}</h2>
+            <div className="mt-8"><CheckList items={service.scope} /></div>
+          </div>
+          <div>
+            <h2>Cennik</h2>
+            <dl className="mt-8 overflow-hidden rounded-[var(--radius-panel)] border border-linia">
+              {service.prices.map((p, i) => (
+                <div
+                  key={p.name}
+                  className={`grid gap-1 px-5 py-4 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-6 ${i % 2 ? 'bg-mgla/60' : ''}`}
+                >
+                  <dt>{p.name}</dt>
+                  <dd className="font-naglowek text-lg font-bold whitespace-nowrap text-znak-ciemny">{p.price}</dd>
+                </div>
+              ))}
+            </dl>
+            {service.priceNote && <p className="mt-4 text-[0.9375rem] text-tusz-2">{service.priceNote}</p>}
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl border-t-2 border-tusz px-5 py-14">
-        <h2 className="text-3xl">{service.scopeHeading}</h2>
-        <ul className="mt-6 max-w-[70ch] divide-y divide-linia border-y border-linia">
-          {service.scope.map((item) => (
-            <li key={item} className="py-3">{item}</li>
-          ))}
-        </ul>
+      <section className="sekcja">
+        <div className="kontener">
+          <SectionHeading title="Jak to wygląda" />
+          <Steps steps={service.steps} />
+        </div>
       </section>
 
-      <section className="mx-auto max-w-6xl border-t-2 border-tusz px-5 py-14">
-        <h2 className="text-3xl">Cennik</h2>
-        <dl className="mt-6 max-w-[70ch] divide-y divide-linia border-y border-linia">
-          {service.prices.map((p) => (
-            <div key={p.name} className="grid gap-1 py-3 sm:grid-cols-[1fr_auto] sm:gap-6">
-              <dt>{p.name}</dt>
-              <dd className="font-naglowek text-xl font-bold">{p.price}</dd>
-            </div>
-          ))}
-        </dl>
-        {service.priceNote && <p className="mt-4 max-w-[65ch] text-tusz-2">{service.priceNote}</p>}
-      </section>
+      <ConsultationSection
+        title="Zapytaj o wycenę"
+        lead="Napisz, czym zajmuje się firma i ile osób zatrudnia. Wrócimy z konkretną ofertą."
+        defaultServices={[...service.formServices]}
+      />
 
-      <section className="mx-auto max-w-6xl border-t-2 border-tusz px-5 py-14">
-        <h2 className="text-3xl">Jak to wygląda</h2>
-        <ol className="mt-6 max-w-[65ch] list-decimal space-y-3 pl-6 marker:font-naglowek marker:font-bold">
-          {service.steps.map((s) => <li key={s}>{s}</li>)}
-        </ol>
-      </section>
-
-      <section id="konsultacja" className="mx-auto max-w-6xl scroll-mt-6 border-t-2 border-tusz px-5 py-14">
-        <h2 className="text-3xl">Zapytaj o wycenę</h2>
-        <p className="mt-2 mb-8 max-w-[60ch]">
-          Napisz, czym zajmuje się firma i ile osób zatrudnia. Wrócimy z konkretną ofertą.
-        </p>
-        <ConsultationForm defaultServices={[...service.formServices]} />
-      </section>
-
-      <section className="mx-auto max-w-6xl border-t-2 border-tusz px-5 py-14">
-        <h2 className="text-3xl">Zobacz też</h2>
-        <ul className="mt-4 flex flex-wrap gap-x-8 gap-y-2 font-naglowek text-xl font-semibold">
-          {others.map((s) => (
-            <li key={s.slug}>
-              <Link to={`/${s.slug}` as '/'} className="text-znak underline underline-offset-4">
-                {s.navLabel}
+      <section className="sekcja">
+        <div className="kontener">
+          <h2>Zobacz też</h2>
+          <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            <li>
+              <Link to="/obsluga-bhp" className="flex h-full items-center justify-between gap-4 rounded-2xl bg-papier p-5 font-naglowek text-lg font-semibold hover:bg-znak-jasny">
+                Stała obsługa BHP
+                <Arrow />
               </Link>
             </li>
-          ))}
-        </ul>
+            {others.map((s) => (
+              <li key={s.slug}>
+                <Link
+                  to={`/${s.slug}` as '/'}
+                  className="flex h-full items-center justify-between gap-4 rounded-2xl bg-papier p-5 font-naglowek text-lg font-semibold hover:bg-znak-jasny"
+                >
+                  {s.navLabel}
+                  <Arrow />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
     </main>
+  )
+}
+
+function Arrow() {
+  return (
+    <svg viewBox="0 0 20 20" className="size-5 shrink-0 text-znak" aria-hidden="true">
+      <path d="M4 10h11m-4-4.5L15.5 10 11 14.5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   )
 }

@@ -9,9 +9,9 @@ export const Route = createFileRoute('/polityka-prywatnosci')({
 function Privacy() {
   const c = site.company
   return (
-    <main className="mx-auto max-w-3xl px-5 py-16">
-      <h1 className="text-5xl">Polityka prywatności</h1>
-      <p className="mt-4 border-l-8 border-tasma bg-white p-4 font-semibold">
+    <main className="kontener max-w-3xl py-16 md:py-24">
+      <h1>Polityka prywatności</h1>
+      <p className="mt-6 rounded-xl border-l-4 border-tasma bg-papier p-4 font-semibold">
         Wersja robocza. Przed uruchomieniem strony wymaga sprawdzenia przez prawnika.
       </p>
       <p className="mt-6">

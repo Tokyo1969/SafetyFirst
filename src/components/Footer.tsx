@@ -1,28 +1,55 @@
 import { Link } from '@tanstack/react-router'
 import { site } from '../config/site'
+import { SERVICES } from '../data/services'
+import { Logo } from './Logo'
+
+const footLink = 'text-papier/85 underline-offset-4 hover:text-tasma hover:underline'
 
 export function Footer() {
   const c = site.company
   return (
-    <footer className="mt-24">
+    <footer>
       <div className="tasma" aria-hidden="true" />
       <div className="bg-tusz text-papier">
-        <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 md:grid-cols-3">
+        <div className="kontener grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <p className="font-naglowek text-2xl font-bold">{site.brand}</p>
-            <p className="mt-1 text-papier/80">{site.tagline}, {site.region}</p>
+            <Logo inverted />
+            <p className="mt-5 max-w-[32ch] text-papier/75">
+              Obsługa BHP i ochrony środowiska dla małych firm, {site.region}.
+            </p>
           </div>
+          <nav aria-label="Usługi">
+            <p className="font-naglowek text-lg font-semibold">Usługi</p>
+            <ul className="mt-3 space-y-2">
+              <li><Link to="/obsluga-bhp" className={footLink}>Obsługa BHP</Link></li>
+              {SERVICES.map((s) => (
+                <li key={s.slug}>
+                  <Link to={`/${s.slug}` as '/'} className={footLink}>{s.navLabel}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
           <address className="not-italic">
             <p className="font-naglowek text-lg font-semibold">Kontakt</p>
-            <p><a className="text-papier underline" href={`mailto:${site.emails.main}`}>{site.emails.main}</a></p>
-            <p><a className="text-papier underline" href={site.phone.href}>{site.phone.display}</a></p>
+            <ul className="mt-3 space-y-2">
+              <li><a className={footLink} href={`mailto:${site.emails.main}`}>{site.emails.main}</a></li>
+              <li><a className={footLink} href={site.phone.href}>{site.phone.display}</a></li>
+            </ul>
           </address>
           <div>
             <p className="font-naglowek text-lg font-semibold">Dane firmy</p>
-            <p>{c.name}</p>
-            <p>{c.street}, {c.postalCode} {c.city}</p>
-            <p>NIP {c.nip}</p>
-            <p className="mt-3"><Link to="/polityka-prywatnosci" className="text-papier underline">Polityka prywatności</Link></p>
+            <div className="mt-3 space-y-1 text-papier/85">
+              <p>{c.name}</p>
+              <p>{c.street}</p>
+              <p>{c.postalCode} {c.city}</p>
+              <p>NIP {c.nip}</p>
+            </div>
+          </div>
+        </div>
+        <div className="border-t border-papier/15">
+          <div className="kontener flex flex-col gap-2 py-6 text-sm text-papier/65 sm:flex-row sm:justify-between">
+            <p>© {new Date().getFullYear()} {site.brand}</p>
+            <Link to="/polityka-prywatnosci" className={footLink}>Polityka prywatności</Link>
           </div>
         </div>
       </div>

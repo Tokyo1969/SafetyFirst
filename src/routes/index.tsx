@@ -4,6 +4,7 @@ import { CheckIcon, CheckList, ConsultationSection, SectionHeading, Steps } from
 import { PRICE_FROM, formatPln } from '../data/pricing'
 import { SERVICES } from '../data/services'
 import { site } from '../config/site'
+import photoUrl from '../assets/natalia-krysztofiak.jpg'
 
 export const Route = createFileRoute('/')({
   head: () => ({
@@ -120,12 +121,17 @@ function Home() {
       </section>
 
       <section className="sekcja bg-papier">
-        <div className="kontener grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-14">
-          <div className="relative mx-auto w-fit md:mx-0" aria-hidden="true">
-            <div className="grid size-44 place-items-center rounded-[2rem] bg-tusz font-naglowek text-6xl font-bold text-tasma md:size-56">
-              {initials(site.person.name)}
-            </div>
-            <div className="tasma absolute -bottom-3 left-1/2 h-4 w-28 -translate-x-1/2 rotate-2 rounded-sm" />
+        <div className="kontener grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-16">
+          <div className="relative mx-auto w-full max-w-[18rem] md:mx-0 md:w-72">
+            <img
+              src={photoUrl}
+              alt={`${site.person.name}, ${site.person.role}`}
+              width={984}
+              height={984}
+              loading="lazy"
+              className="aspect-[4/5] w-full rounded-[2rem] object-cover object-[50%_15%]"
+            />
+            <div aria-hidden="true" className="tasma absolute -bottom-3 left-1/2 h-4 w-32 -translate-x-1/2 rotate-2 rounded-sm" />
           </div>
           <div>
             <h2>Kto się Tobą zajmie</h2>
@@ -147,11 +153,4 @@ function Home() {
       />
     </main>
   )
-}
-
-function initials(name: string) {
-  return name
-    .split(' ')
-    .map((p) => p[0])
-    .join('')
 }

@@ -64,7 +64,7 @@ export function ConsultationForm({ defaultServices = ['BHP'] }: { defaultService
     return (
       <div role="status" className="flex gap-4 rounded-2xl bg-znak-jasny p-6">
         <svg viewBox="0 0 24 24" className="size-9 shrink-0" fill="none" aria-hidden="true">
-          <circle cx="12" cy="12" r="11" fill="#0F7B5A" />
+          <circle cx="12" cy="12" r="11" className="fill-znak-logo" />
           <path d="M7 12.5l3.2 3.2L17 8.8" stroke="#fff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
         <div>

@@ -1,1 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40"><defs><clipPath id="c"><rect width="40" height="40" rx="11"/></clipPath><pattern id="t" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="8" height="8" fill="#FFC72C"/><rect width="4" height="8" fill="#0E2A2F"/></pattern></defs><g clip-path="url(#c)"><rect width="40" height="40" fill="#0F7B5A"/><rect y="33" width="40" height="7" fill="url(#t)"/></g><path d="M11 17.5l6 6 12-12.5" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<title>Safety First – BHP i ochrona środowiska</title>
+
+<g transform="translate(16 6) scale(4.8)"><path d="M50 16 L77 26 V49 C77 67 66 79 50 86 C34 79 23 67 23 49 V26 Z" fill="none" stroke="#1D2B3E" stroke-width="5.5" stroke-linejoin="round"/>
+<path d="M34 53 C34 40 41 33 50 33 C59 33 66 40 66 53 Z" fill="#2E8B3E"/>
+<rect x="30" y="51.5" width="40" height="6" rx="3" fill="#2E8B3E"/>
+<path d="M50 34.5 V50" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round"/>
+<path d="M37.5 60 C38.5 70 61.5 70 62.5 60" fill="none" stroke="#1D2B3E" stroke-width="3.2" stroke-linecap="round"/>
+<path d="M55 77.5 L63.5 86 L92 53" fill="none" stroke="#FFFFFF" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M55 77.5 L63.5 86 L92 53" fill="none" stroke="#2E8B3E" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g>
+</svg>

@@ -19,9 +19,10 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 
 ## Zasady
 - Ceny zawsze "od", netto, orientacyjne. Nawigacja tylko do istniejących stron (bez martwych linków).
-- Doświadczenie Natalii bez pracodawców i dat. Zdjęcie jest tymczasowe i ma zostać podmienione na prawdziwe przed startem.
+- Doświadczenie Natalii bez pracodawców i dat. Zdjęcie Natalii: `src/assets/natalia-krysztofiak.jpg` (z `src/files/...-mini.jpg`).
 - Widoczny adres e-mail: tylko biuro@. Pozostałe skrzynki (bhp@, os@, szkolenia@, serwis@) zarezerwowane pod automatyzacje.
-- Design: znaki bezpieczenstwa (ISO 7010) w nowoczesnym wydaniu, tasma ostrzegawcza, "karta kontroli" w hero, zaokraglone panele, menu mobilne ponizej `lg`. Kolory: mgla #F2F5F3 (tlo), papier #FFFFFF, tusz #0E2A2F, znak #0F7B5A (zielen, kolor glowny), znak-jasny #DCEFE6, tasma #FFC72C (glowne CTA). Wspolne bloki stron w `src/components/blocks.tsx`.
+- Design: kolory z logo, znaki bezpieczenstwa, tasma ostrzegawcza, "karta kontroli" w hero, zaokraglone panele, menu mobilne ponizej `lg`. Kolory: tusz #1D2B3E (granat z logo), znak-logo #2E8B3E (zielen z logo, tylko ikony i akcenty), znak #237033 (przyciski i linki, kontrast AA), znak-negatyw #5FC26E (na ciemnym), mgla #F3F5F7 (tlo), tasma #FFC72C (glowne CTA). Wspolne bloki stron w `src/components/blocks.tsx`.
+- Logo: oryginaly wszystkich wersji w `src/files/`, na stronie kopie bez metadanych C2PA w `src/assets/` (komponent `Logo`), favicon `public/favicon.svg` (znak).
 
 ## Do zrobienia
 - Podpiąć domenę.

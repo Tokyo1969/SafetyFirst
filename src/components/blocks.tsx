@@ -19,9 +19,9 @@ export function CheckList({ items, columns = false }: { items: readonly string[]
 
 export function CheckIcon({ className = 'mt-0.5 size-6 shrink-0' }: { className?: string }) {
   return (
-    <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className={`${className} text-znak-logo`} fill="none" aria-hidden="true">
       <circle cx="12" cy="12" r="11" className="fill-znak-jasny" />
-      <path d="M7 12.5l3.2 3.2L17 8.8" stroke="#0F7B5A" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M7 12.5l3.2 3.2L17 8.8" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   )
 }

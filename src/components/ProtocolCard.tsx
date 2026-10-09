@@ -1,4 +1,5 @@
 import { site } from '../config/site'
+import photoUrl from '../assets/natalia-krysztofiak.jpg'
 
 const ITEMS = [
   'Instruktaż stanowiskowy pracowników',
@@ -21,19 +22,21 @@ export function ProtocolCard() {
         <ul className="divide-y divide-linia px-6">
           {ITEMS.map((item, i) => (
             <li key={item} className="flex items-center gap-4 py-3.5" style={{ ['--i' as string]: i }}>
-              <svg className="tick size-7 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <svg className="tick size-7 shrink-0 text-znak-logo" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <rect x="1.5" y="1.5" width="21" height="21" rx="6" className="fill-znak-jasny" />
-                <path d="M6 12.5l4 4 8-9" stroke="#0F7B5A" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M6 12.5l4 4 8-9" stroke="currentColor" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span>{item}</span>
             </li>
           ))}
         </ul>
-        <p className="flex flex-wrap items-baseline gap-x-2 border-t border-dashed border-linia bg-mgla/60 px-6 py-4 text-sm text-tusz-2">
-          Podpis:
-          <strong className="font-naglowek text-lg font-semibold text-tusz italic">{site.person.name}</strong>
-          <span>{site.person.role}</span>
-        </p>
+        <div className="flex items-center gap-4 border-t border-dashed border-linia bg-mgla/60 px-6 py-4">
+          <img src={photoUrl} alt="" width={48} height={48} className="size-12 shrink-0 rounded-full object-cover object-[50%_20%]" />
+          <p className="text-sm leading-snug text-tusz-2">
+            Podpis: <strong className="font-naglowek text-lg font-semibold text-tusz italic">{site.person.name}</strong>
+            <span className="block">{site.person.role}</span>
+          </p>
+        </div>
       </div>
     </figure>
   )

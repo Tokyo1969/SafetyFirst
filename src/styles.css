@@ -3,21 +3,23 @@
 @import 'tailwindcss';
 
 /*
-  Paleta: znaki bezpieczenstwa (ISO 7010) w nowoczesnym wydaniu.
-  petrol = tekst i ciemne tla, znak = zielen "warunkow bezpiecznych" (kolor glowny),
-  tasma = zolty sygnalowy (najwazniejsze CTA, akcenty), mgla = tlo strony.
+  Paleta z logo: granat #1D2B3E i zielen #2E8B3E.
+  znak = przyciemniona zielen logo (kontrast AA z bialym), znak-logo = akcenty i ikony,
+  znak-negatyw = zielen na ciemnym tle, tasma = zolty sygnalowy (glowne CTA).
 */
 @theme {
-  --color-mgla: #f2f5f3;
+  --color-mgla: #f3f5f7;
   --color-papier: #ffffff;
-  --color-tusz: #0e2a2f;
-  --color-tusz-2: #4e6468;
-  --color-znak: #0f7b5a;
-  --color-znak-ciemny: #0a5e45;
-  --color-znak-jasny: #dcefe6;
+  --color-tusz: #1d2b3e;
+  --color-tusz-2: #526073;
+  --color-znak: #237033;
+  --color-znak-logo: #2e8b3e;
+  --color-znak-negatyw: #5fc26e;
+  --color-znak-ciemny: #1b5a29;
+  --color-znak-jasny: #e2f1e4;
   --color-tasma: #ffc72c;
   --color-tasma-ciemna: #f0b400;
-  --color-linia: #d5deda;
+  --color-linia: #d8dee6;
   --color-blad: #c0362c;
   --font-naglowek: 'Bricolage Grotesque Variable', system-ui, sans-serif;
   --font-tekst: 'Figtree Variable', system-ui, sans-serif;
@@ -148,8 +150,8 @@ h3 {
     border-radius: var(--radius-panel);
     background: var(--color-papier);
     box-shadow:
-      0 1px 0 rgb(14 42 47 / 0.06),
-      0 12px 32px -18px rgb(14 42 47 / 0.25);
+      0 1px 0 rgb(29 43 62 / 0.06),
+      0 12px 32px -18px rgb(29 43 62 / 0.25);
   }
 
   .link {

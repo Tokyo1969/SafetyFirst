@@ -1,0 +1,77 @@
+@import '@fontsource/barlow-semi-condensed/500.css';
+@import '@fontsource/barlow-semi-condensed/600.css';
+@import '@fontsource/barlow-semi-condensed/700.css';
+@import '@fontsource-variable/source-serif-4';
+@import 'tailwindcss';
+
+@theme {
+  --color-papier: #f5f6f2;
+  --color-tusz: #16212c;
+  --color-tusz-2: #4a5866;
+  --color-znak: #0a5a9c;
+  --color-znak-ciemny: #084677;
+  --color-zielen: #1f7a4d;
+  --color-tasma: #f4c20d;
+  --color-linia: #c9cfc8;
+  --color-blad: #b3261e;
+  --font-naglowek: 'Barlow Semi Condensed', system-ui, sans-serif;
+  --font-tekst: 'Source Serif 4 Variable', Georgia, serif;
+}
+
+html {
+  background: var(--color-papier);
+}
+
+body {
+  margin: 0;
+  color: var(--color-tusz);
+  background: var(--color-papier);
+  font-family: var(--font-tekst);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-naglowek);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-znak);
+  outline-offset: 2px;
+}
+
+/* Tasma ostrzegawcza BHP */
+.tasma {
+  height: 10px;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--color-tasma) 0 14px,
+    var(--color-tusz) 14px 28px
+  );
+}
+
+/* Odhaczanie pozycji w karcie kontroli */
+.tick path {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tick path {
+    stroke-dashoffset: 24;
+    animation: tick-draw 0.45s ease-out forwards;
+    animation-delay: calc(0.35s + var(--i, 0) * 0.28s);
+  }
+}
+
+@keyframes tick-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

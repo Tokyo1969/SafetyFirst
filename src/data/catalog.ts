@@ -25,10 +25,24 @@ export function relatedServices(s: Service): Service[] {
   return result
 }
 
+// Wyrozniowane uslugi srodowiskowe (menu, strona glowna).
+export const FEATURED_OS: readonly Service[] = [
+  'obsluga-bdo',
+  'raporty-kobize',
+  'oplaty-srodowiskowe',
+  'gospodarka-odpadami',
+  'audyt-srodowiskowy',
+  'kontrola-wios',
+].flatMap((slug) => getOsService(slug) ?? [])
+
 // Strony indeksowane (sitemap.xml). Polityka prywatnosci jest robocza (noindex).
 export const SITEMAP_PATHS: readonly string[] = [
   '/',
   '/obsluga-bhp',
+  '/cennik',
+  '/dla-branz',
+  '/o-nas',
+  '/kontakt',
   ...SERVICES.map(servicePath),
   '/ochrona-srodowiska',
   ...OS_SERVICES.map(servicePath),

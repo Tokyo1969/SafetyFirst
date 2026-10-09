@@ -10,9 +10,13 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CennikRouteImport } from './routes/cennik'
+import { Route as DlaBranzRouteImport } from './routes/dla-branz'
 import { Route as DokumentacjaBhpRouteImport } from './routes/dokumentacja-bhp'
 import { Route as KonsultacjeBhpRouteImport } from './routes/konsultacje-bhp'
+import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as KontrolaIAudytBhpRouteImport } from './routes/kontrola-i-audyt-bhp'
+import { Route as ONasRouteImport } from './routes/o-nas'
 import { Route as ObslugaBhpRouteImport } from './routes/obsluga-bhp'
 import { Route as OcenaRyzykaZawodowegoRouteImport } from './routes/ocena-ryzyka-zawodowego'
 import { Route as PakietyDokumentacjiBhpRouteImport } from './routes/pakiety-dokumentacji-bhp'
@@ -28,6 +32,16 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CennikRoute = CennikRouteImport.update({
+  id: '/cennik',
+  path: '/cennik',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DlaBranzRoute = DlaBranzRouteImport.update({
+  id: '/dla-branz',
+  path: '/dla-branz',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DokumentacjaBhpRoute = DokumentacjaBhpRouteImport.update({
   id: '/dokumentacja-bhp',
   path: '/dokumentacja-bhp',
@@ -38,9 +52,19 @@ const KonsultacjeBhpRoute = KonsultacjeBhpRouteImport.update({
   path: '/konsultacje-bhp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KontaktRoute = KontaktRouteImport.update({
+  id: '/kontakt',
+  path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const KontrolaIAudytBhpRoute = KontrolaIAudytBhpRouteImport.update({
   id: '/kontrola-i-audyt-bhp',
   path: '/kontrola-i-audyt-bhp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ONasRoute = ONasRouteImport.update({
+  id: '/o-nas',
+  path: '/o-nas',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ObslugaBhpRoute = ObslugaBhpRouteImport.update({
@@ -91,9 +115,13 @@ const OchronaSrodowiskaSlugRoute = OchronaSrodowiskaSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/cennik': typeof CennikRoute
+  '/dla-branz': typeof DlaBranzRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
+  '/kontakt': typeof KontaktRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
+  '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
   '/pakiety-dokumentacji-bhp': typeof PakietyDokumentacjiBhpRoute
@@ -106,9 +134,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/cennik': typeof CennikRoute
+  '/dla-branz': typeof DlaBranzRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
+  '/kontakt': typeof KontaktRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
+  '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
   '/pakiety-dokumentacji-bhp': typeof PakietyDokumentacjiBhpRoute
@@ -122,9 +154,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/cennik': typeof CennikRoute
+  '/dla-branz': typeof DlaBranzRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
+  '/kontakt': typeof KontaktRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
+  '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
   '/pakiety-dokumentacji-bhp': typeof PakietyDokumentacjiBhpRoute
@@ -139,9 +175,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/cennik'
+    | '/dla-branz'
     | '/dokumentacja-bhp'
     | '/konsultacje-bhp'
+    | '/kontakt'
     | '/kontrola-i-audyt-bhp'
+    | '/o-nas'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
     | '/pakiety-dokumentacji-bhp'
@@ -154,9 +194,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/cennik'
+    | '/dla-branz'
     | '/dokumentacja-bhp'
     | '/konsultacje-bhp'
+    | '/kontakt'
     | '/kontrola-i-audyt-bhp'
+    | '/o-nas'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
     | '/pakiety-dokumentacji-bhp'
@@ -169,9 +213,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/cennik'
+    | '/dla-branz'
     | '/dokumentacja-bhp'
     | '/konsultacje-bhp'
+    | '/kontakt'
     | '/kontrola-i-audyt-bhp'
+    | '/o-nas'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
     | '/pakiety-dokumentacji-bhp'
@@ -185,9 +233,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CennikRoute: typeof CennikRoute
+  DlaBranzRoute: typeof DlaBranzRoute
   DokumentacjaBhpRoute: typeof DokumentacjaBhpRoute
   KonsultacjeBhpRoute: typeof KonsultacjeBhpRoute
+  KontaktRoute: typeof KontaktRoute
   KontrolaIAudytBhpRoute: typeof KontrolaIAudytBhpRoute
+  ONasRoute: typeof ONasRoute
   ObslugaBhpRoute: typeof ObslugaBhpRoute
   OcenaRyzykaZawodowegoRoute: typeof OcenaRyzykaZawodowegoRoute
   PakietyDokumentacjiBhpRoute: typeof PakietyDokumentacjiBhpRoute
@@ -208,6 +260,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/cennik': {
+      id: '/cennik'
+      path: '/cennik'
+      fullPath: '/cennik'
+      preLoaderRoute: typeof CennikRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dla-branz': {
+      id: '/dla-branz'
+      path: '/dla-branz'
+      fullPath: '/dla-branz'
+      preLoaderRoute: typeof DlaBranzRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dokumentacja-bhp': {
       id: '/dokumentacja-bhp'
       path: '/dokumentacja-bhp'
@@ -222,11 +288,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KonsultacjeBhpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/kontakt': {
+      id: '/kontakt'
+      path: '/kontakt'
+      fullPath: '/kontakt'
+      preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/kontrola-i-audyt-bhp': {
       id: '/kontrola-i-audyt-bhp'
       path: '/kontrola-i-audyt-bhp'
       fullPath: '/kontrola-i-audyt-bhp'
       preLoaderRoute: typeof KontrolaIAudytBhpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/o-nas': {
+      id: '/o-nas'
+      path: '/o-nas'
+      fullPath: '/o-nas'
+      preLoaderRoute: typeof ONasRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/obsluga-bhp': {
@@ -297,9 +377,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CennikRoute: CennikRoute,
+  DlaBranzRoute: DlaBranzRoute,
   DokumentacjaBhpRoute: DokumentacjaBhpRoute,
   KonsultacjeBhpRoute: KonsultacjeBhpRoute,
+  KontaktRoute: KontaktRoute,
   KontrolaIAudytBhpRoute: KontrolaIAudytBhpRoute,
+  ONasRoute: ONasRoute,
   ObslugaBhpRoute: ObslugaBhpRoute,
   OcenaRyzykaZawodowegoRoute: OcenaRyzykaZawodowegoRoute,
   PakietyDokumentacjiBhpRoute: PakietyDokumentacjiBhpRoute,

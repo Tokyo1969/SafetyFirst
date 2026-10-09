@@ -13,7 +13,7 @@ export function Footer() {
     <footer>
       <div className="tasma" aria-hidden="true" />
       <div className="bg-tusz text-papier">
-        <div className="kontener grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="kontener grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr]">
           <div>
             <Logo inverted />
             <p className="mt-5 max-w-[32ch] text-papier/75">
@@ -29,6 +29,15 @@ export function Footer() {
                   <Link to={`/${s.slug}` as '/'} className={footLink}>{s.navLabel}</Link>
                 </li>
               ))}
+            </ul>
+          </nav>
+          <nav aria-label="Firma">
+            <p className="font-naglowek text-lg font-semibold">Firma</p>
+            <ul className="mt-3 space-y-2">
+              <li><Link to="/cennik" className={footLink}>Cennik</Link></li>
+              <li><Link to="/dla-branz" className={footLink}>Dla branż</Link></li>
+              <li><Link to="/o-nas" className={footLink}>O nas</Link></li>
+              <li><Link to="/kontakt" className={footLink}>Kontakt</Link></li>
             </ul>
           </nav>
           <address className="not-italic">

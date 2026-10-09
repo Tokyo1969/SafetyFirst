@@ -2,10 +2,20 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, useRouterState } from '@tanstack/react-router'
 import { site } from '../config/site'
 import { SERVICES } from '../data/services'
+import { FEATURED_OS, servicePath } from '../data/catalog'
 import { Logo } from './Logo'
 
 const navLink = 'rounded-full px-3 py-2 whitespace-nowrap text-tusz hover:bg-znak-jasny'
 const navActive = { className: 'bg-znak-jasny text-znak-ciemny' }
+const menuItem = 'block rounded-xl px-4 py-2.5 hover:bg-mgla'
+const menuActive = { className: 'bg-znak-jasny text-znak-ciemny' }
+
+const MAIN_LINKS: { to: string; label: string }[] = [
+  { to: '/cennik', label: 'Cennik' },
+  { to: '/dla-branz', label: 'Dla branż' },
+  { to: '/o-nas', label: 'O nas' },
+  { to: '/kontakt', label: 'Kontakt' },
+]
 
 export function Header() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
@@ -38,7 +48,10 @@ export function Header() {
     }
   }, [servicesOpen, menuOpen])
 
-  const serviceActive = SERVICES.some((s) => pathname === `/${s.slug}`)
+  const serviceActive =
+    pathname === '/obsluga-bhp' ||
+    pathname.startsWith('/ochrona-srodowiska') ||
+    SERVICES.some((s) => pathname === `/${s.slug}`)
 
   return (
     <header className="sticky top-0 z-40 border-b border-linia/70 bg-papier/90 backdrop-blur-md">
@@ -48,9 +61,6 @@ export function Header() {
         </Link>
 
         <nav aria-label="Główna" className="hidden items-center gap-1 font-naglowek text-[1.0625rem] font-semibold xl:flex">
-          <Link to="/obsluga-bhp" className={navLink} activeProps={navActive}>
-            Obsługa BHP
-          </Link>
           <div ref={servicesRef} className="relative">
             <button
               type="button"
@@ -59,42 +69,69 @@ export function Header() {
               onClick={() => setServicesOpen((v) => !v)}
               className={`${navLink} inline-flex items-center gap-1 ${serviceActive ? 'bg-znak-jasny text-znak-ciemny' : ''}`}
             >
-              Usługi BHP
+              Usługi
               <svg viewBox="0 0 20 20" className={`size-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} aria-hidden="true">
                 <path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </button>
             {servicesOpen && (
-              <ul
-                id="menu-uslugi"
-                className="panel absolute top-full left-0 mt-2 w-72 p-2 font-tekst text-base"
-              >
-                {SERVICES.map((s) => (
-                  <li key={s.slug}>
-                    <Link
-                      to={`/${s.slug}` as '/'}
-                      className="block rounded-xl px-4 py-3 hover:bg-mgla"
-                      activeProps={{ className: 'bg-znak-jasny text-znak-ciemny' }}
-                    >
-                      {s.navLabel}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <div id="menu-uslugi" className="panel absolute top-full left-0 mt-2 grid w-[40rem] grid-cols-2 gap-6 p-4 font-tekst text-base">
+                <div>
+                  <p className="px-4 pt-1 pb-2 font-naglowek text-sm font-semibold text-tusz-2">BHP</p>
+                  <ul>
+                    <li>
+                      <Link to="/obsluga-bhp" className={`${menuItem} font-semibold`} activeProps={menuActive}>
+                        Stała obsługa BHP
+                      </Link>
+                    </li>
+                    {SERVICES.map((s) => (
+                      <li key={s.slug}>
+                        <Link to={`/${s.slug}` as '/'} className={menuItem} activeProps={menuActive}>
+                          {s.navLabel}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <p className="px-4 pt-1 pb-2 font-naglowek text-sm font-semibold text-tusz-2">Ochrona środowiska</p>
+                  <ul>
+                    {FEATURED_OS.map((s) => (
+                      <li key={s.slug}>
+                        <Link to={servicePath(s) as '/'} className={menuItem} activeProps={menuActive}>
+                          {s.navLabel}
+                        </Link>
+                      </li>
+                    ))}
+                    <li>
+                      <Link
+                        to="/ochrona-srodowiska"
+                        activeOptions={{ exact: true }}
+                        className={`${menuItem} font-semibold text-znak`}
+                        activeProps={menuActive}
+                      >
+                        Wszystkie usługi środowiskowe
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             )}
           </div>
-          <Link to="/ochrona-srodowiska" className={navLink} activeProps={navActive}>
-            Ochrona środowiska
-          </Link>
+          {MAIN_LINKS.map((l) => (
+            <Link key={l.to} to={l.to as '/'} className={navLink} activeProps={navActive}>
+              {l.label}
+            </Link>
+          ))}
           <a
             href={site.phone.href}
-            className={`${navLink} ml-2 inline-flex items-center gap-2`}
+            className={`${navLink} ml-1 inline-flex items-center gap-2`}
             aria-label={`Zadzwoń: ${site.phone.display}`}
           >
             <PhoneIcon />
             <span className="hidden 2xl:inline">{site.phone.display}</span>
           </a>
-          <a href="/#konsultacja" className="btn btn-glowny ml-2 min-h-11 px-5 whitespace-nowrap">
+          <a href="/#konsultacja" className="btn btn-glowny ml-1 min-h-11 px-5 whitespace-nowrap">
             Bezpłatna konsultacja
           </a>
         </nav>
@@ -123,37 +160,65 @@ export function Header() {
       </div>
 
       {menuOpen && (
-        <nav id="menu-mobilne" aria-label="Menu mobilne" className="border-t border-linia bg-papier xl:hidden">
-          <ul className="kontener flex flex-col gap-1 py-4 font-naglowek text-lg font-semibold">
-            <li>
-              <Link to="/obsluga-bhp" className="block rounded-xl px-4 py-3 hover:bg-mgla" activeProps={navActive}>
-                Obsługa BHP
-              </Link>
-            </li>
-            {SERVICES.map((s) => (
-              <li key={s.slug}>
-                <Link to={`/${s.slug}` as '/'} className="block rounded-xl px-4 py-3 hover:bg-mgla" activeProps={navActive}>
-                  {s.navLabel}
-                </Link>
-              </li>
-            ))}
-            <li>
-              <Link to="/ochrona-srodowiska" className="block rounded-xl px-4 py-3 hover:bg-mgla" activeProps={navActive}>
+        <nav id="menu-mobilne" aria-label="Menu mobilne" className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-linia bg-papier xl:hidden">
+          <div className="kontener flex flex-col gap-1 py-4 font-naglowek text-lg font-semibold">
+            <details className="group" open={pathname === '/obsluga-bhp' || SERVICES.some((s) => pathname === `/${s.slug}`)}>
+              <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 hover:bg-mgla">
+                Usługi BHP
+                <Chevron />
+              </summary>
+              <ul className="pb-2 pl-3 font-tekst text-base font-medium">
+                <li><Link to="/obsluga-bhp" className={menuItem} activeProps={menuActive}>Stała obsługa BHP</Link></li>
+                {SERVICES.map((s) => (
+                  <li key={s.slug}>
+                    <Link to={`/${s.slug}` as '/'} className={menuItem} activeProps={menuActive}>{s.navLabel}</Link>
+                  </li>
+                ))}
+              </ul>
+            </details>
+            <details className="group" open={pathname.startsWith('/ochrona-srodowiska')}>
+              <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 hover:bg-mgla">
                 Ochrona środowiska
+                <Chevron />
+              </summary>
+              <ul className="pb-2 pl-3 font-tekst text-base font-medium">
+                {FEATURED_OS.map((s) => (
+                  <li key={s.slug}>
+                    <Link to={servicePath(s) as '/'} className={menuItem} activeProps={menuActive}>{s.navLabel}</Link>
+                  </li>
+                ))}
+                <li>
+                  <Link to="/ochrona-srodowiska" activeOptions={{ exact: true }} className={`${menuItem} font-semibold text-znak`} activeProps={menuActive}>
+                    Wszystkie usługi środowiskowe
+                  </Link>
+                </li>
+              </ul>
+            </details>
+            {MAIN_LINKS.map((l) => (
+              <Link key={l.to} to={l.to as '/'} className="block rounded-xl px-4 py-3 hover:bg-mgla" activeProps={navActive}>
+                {l.label}
               </Link>
-            </li>
-            <li className="mt-3 grid gap-2 sm:grid-cols-2">
+            ))}
+            <div className="mt-3 grid gap-2 sm:grid-cols-2">
               <a href="/#konsultacja" onClick={() => setMenuOpen(false)} className="btn btn-glowny">
                 Bezpłatna konsultacja
               </a>
               <a href={site.phone.href} className="btn btn-obrys">
                 {site.phone.display}
               </a>
-            </li>
-          </ul>
+            </div>
+          </div>
         </nav>
       )}
     </header>
+  )
+}
+
+function Chevron() {
+  return (
+    <svg viewBox="0 0 20 20" className="size-5 transition-transform group-open:rotate-180" aria-hidden="true">
+      <path d="M5 7.5l5 5 5-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   )
 }
 

@@ -4,7 +4,7 @@ import { CheckIcon, CheckList, ConsultationSection, SectionHeading, Steps } from
 import { PRICE_FROM, formatPln } from '../data/pricing'
 import { SERVICES } from '../data/services'
 import { site } from '../config/site'
-import { getOsService, servicePath } from '../data/catalog'
+import { FEATURED_OS, servicePath } from '../data/catalog'
 import { organizationLd, pageHead } from '../lib/seo'
 import photoUrl from '../assets/natalia-krysztofiak.jpg'
 
@@ -33,15 +33,6 @@ const OS = [
   'Pozwolenia i zgłoszenia',
   'Audyty środowiskowe',
 ]
-const OS_LINKS = [
-  'obsluga-bdo',
-  'raporty-kobize',
-  'oplaty-srodowiskowe',
-  'gospodarka-odpadami',
-  'audyt-srodowiskowy',
-  'kontrola-wios',
-].flatMap((slug) => getOsService(slug) ?? [])
-
 const STEPS = [
   'Rozmawiamy o Twojej firmie i stanowiskach pracy.',
   'Dostajesz wycenę i zakres obsługi na piśmie.',
@@ -117,7 +108,7 @@ function Home() {
               <div className="mt-8 border-t border-znak/20 pt-6">
                 <Link to="/ochrona-srodowiska" className="link">Wszystkie usługi środowiskowe</Link>
                 <ul className="mt-4 flex flex-wrap gap-2">
-                  {OS_LINKS.map((s) => (
+                  {FEATURED_OS.map((s) => (
                     <li key={s.slug}>
                       <Link
                         to={servicePath(s) as '/'}

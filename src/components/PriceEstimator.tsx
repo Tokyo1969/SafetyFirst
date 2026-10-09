@@ -3,8 +3,10 @@ import { BANDS, INDUSTRIES, formatPln, priceFor } from '../data/pricing'
 
 const field = 'pole'
 
-export function PriceEstimator() {
-  const [industry, setIndustry] = useState(INDUSTRIES[0].id)
+export function PriceEstimator({ initialIndustry }: { initialIndustry?: string }) {
+  const [industry, setIndustry] = useState(
+    INDUSTRIES.some((i) => i.id === initialIndustry) ? (initialIndustry as string) : INDUSTRIES[0].id,
+  )
   const [band, setBand] = useState(0)
   const price = priceFor(industry, band)
   const note = INDUSTRIES.find((i) => i.id === industry)?.note

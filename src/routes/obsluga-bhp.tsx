@@ -17,6 +17,8 @@ export const Route = createFileRoute('/obsluga-bhp')({
         ]),
       ],
     }),
+  validateSearch: (search: Record<string, unknown>): { branza?: string } =>
+    typeof search.branza === 'string' ? { branza: search.branza } : {},
   component: ObslugaBhp,
 })
 
@@ -31,6 +33,7 @@ const SCOPE: [string, string][] = [
 ]
 
 function ObslugaBhp() {
+  const { branza } = Route.useSearch()
   return (
     <main>
       <PageHero
@@ -62,7 +65,7 @@ function ObslugaBhp() {
       <section id="cena" className="sekcja scroll-mt-20">
         <div className="kontener">
           <SectionHeading title="Sprawdź cenę dla swojej firmy" />
-          <PriceEstimator />
+          <PriceEstimator initialIndustry={branza} />
           <ul className="mt-8 grid gap-3 text-tusz-2 md:grid-cols-2 md:gap-8">
             <li>Dojazd do 20 km od Opola jest w abonamencie. Dalej doliczamy 0,80 zł netto za kilometr.</li>
             <li>Ceny są netto i orientacyjne, finalna wycena zależy od liczby stanowisk i ryzyk w firmie.</li>

@@ -45,3 +45,19 @@ export const PRICE_FROM = Math.min(...INDUSTRIES.flatMap((i) => [...i.prices]))
 export function formatPln(value: number): string {
   return String(value).replace(/\B(?=(\d{3})+(?!\d))/g, ' ')
 }
+
+// Uslugi jednorazowe bez stalej obslugi BHP ("OFERTA HANDLOWA.md", pkt 08). Ceny netto "od".
+// Te same ceny wystepuja na podstronach uslug (services.ts), przy zmianie poprawiac w obu miejscach.
+export const ONE_OFF: readonly { name: string; price: string; slug: string }[] = [
+  { name: 'Kompleksowy audyt BHP', price: 'od 550 zł', slug: 'kontrola-i-audyt-bhp' },
+  { name: 'Kontrola warunków pracy, zalecenia ustne', price: 'od 250 zł', slug: 'kontrola-i-audyt-bhp' },
+  { name: 'Kontrola warunków pracy z raportem', price: 'od 550 zł', slug: 'kontrola-i-audyt-bhp' },
+  { name: 'Ocena ryzyka dla stanowiska', price: 'od 450 zł', slug: 'ocena-ryzyka-zawodowego' },
+  { name: 'Instrukcja BHP', price: 'od 150 zł', slug: 'dokumentacja-bhp' },
+  { name: 'Analiza dokumentacji', price: 'od 250 zł', slug: 'dokumentacja-bhp' },
+  { name: 'Dokumentacja powypadkowa', price: 'od 550 zł', slug: 'wypadki-przy-pracy' },
+  { name: 'Przygotowanie do kontroli PIP', price: 'od 500 zł', slug: 'kontrola-i-audyt-bhp' },
+  { name: 'Kontrola placu budowy', price: 'od 300 zł', slug: 'kontrola-i-audyt-bhp' },
+  { name: 'Konsultacja BHP', price: 'od 150 zł / godz.', slug: 'konsultacje-bhp' },
+  { name: 'Organizacja próby ewakuacyjnej', price: 'od 400 zł', slug: 'kontrola-i-audyt-bhp' },
+]

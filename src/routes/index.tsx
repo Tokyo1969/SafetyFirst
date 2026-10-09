@@ -9,7 +9,7 @@ import photoUrl from '../assets/natalia-krysztofiak.jpg'
 export const Route = createFileRoute('/')({
   head: () => ({
     meta: [
-      { title: 'Safety First – obsługa BHP i ochrona środowiska dla małych firm, Opole' },
+      { title: 'Safety First – obsługa BHP i ochrona środowiska dla firm' },
       {
         name: 'description',
         content: `Stała obsługa BHP od ${PRICE_FROM} zł netto miesięcznie, szkolenia i ochrona środowiska dla firm z Opolszczyzny. Wszystko w rękach jednego specjalisty.`,
@@ -48,7 +48,7 @@ function Home() {
         <div aria-hidden="true" className="absolute -top-40 -right-40 size-[36rem] rounded-full bg-znak-jasny/70 blur-3xl" />
         <div className="kontener relative grid items-center gap-14 pt-12 pb-16 md:pt-20 lg:grid-cols-[1.15fr_1fr] lg:pb-24">
           <div>
-            <h1>BHP i ochrona środowiska dla małych firm z Opolszczyzny</h1>
+            <h1>BHP i ochrona środowiska dla firm z Opolszczyzny</h1>
             <p className="mt-6 max-w-[54ch] text-lg text-tusz-2 md:text-xl">
               Dokumentację, szkolenia, kontrole i raporty prowadzi jeden specjalista. Ty zajmujesz się firmą,
               a my pilnujemy przepisów i terminów.

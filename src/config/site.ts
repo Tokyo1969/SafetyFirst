@@ -19,7 +19,7 @@ export const site = {
   phone: { display: '+48 515 318 876', href: 'tel:+48515318876' },
   emails: {
     main: 'biuro@safetyfirst.opole.pl',
-    // Skrzynki zarezerwowane pod przyszle automatyzacje (jeszcze nieuzywane na stronie).
+    // Skrzynki tematyczne, widoczne w sekcji konsultacji (blocks.tsx), docelowo tez pod automatyzacje.
     bhp: 'bhp@safetyfirst.opole.pl',
     os: 'os@safetyfirst.opole.pl',
     training: 'szkolenia@safetyfirst.opole.pl',

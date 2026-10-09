@@ -20,7 +20,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 ## Zasady
 - Ceny zawsze "od", netto, orientacyjne. Nawigacja tylko do istniejących stron (bez martwych linków).
 - Doświadczenie Natalii bez pracodawców i dat. Zdjęcie Natalii: `src/assets/natalia-krysztofiak.jpg` (z `src/files/...-mini.jpg`).
-- Widoczny adres e-mail: tylko biuro@. Pozostałe skrzynki (bhp@, os@, szkolenia@, serwis@) zarezerwowane pod automatyzacje.
+- Adresy e-mail: główny biuro@ (stopka, polityka, formularz). Skrzynki tematyczne bhp@ (serwis BHP), os@ (ochrona środowiska), szkolenia@ i serwis@ (błędy na stronie) są widoczne tylko w sekcji konsultacji pod "Wolisz porozmawiać?" i docelowo pod automatyzacje.
 - Design: kolory z logo, znaki bezpieczenstwa, tasma ostrzegawcza, "karta kontroli" w hero, zaokraglone panele, menu mobilne ponizej `lg`. Kolory: tusz #1D2B3E (granat z logo), znak-logo #2E8B3E (zielen z logo, tylko ikony i akcenty), znak #237033 (przyciski i linki, kontrast AA), znak-negatyw #5FC26E (na ciemnym), mgla #F3F5F7 (tlo), tasma #FFC72C (glowne CTA). Wspolne bloki stron w `src/components/blocks.tsx`.
 - Logo: oryginaly wszystkich wersji w `src/files/`, na stronie kopie bez metadanych C2PA w `src/assets/` (komponent `Logo`), favicon `public/favicon.svg` (znak).
 

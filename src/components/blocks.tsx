@@ -58,6 +58,14 @@ export function SectionHeading({ title, lead }: { title: string; lead?: ReactNod
   )
 }
 
+// Skrzynki tematyczne pod "Wolisz porozmawiac?"
+const CONTACT_EMAILS: [string, string][] = [
+  ['Serwis BHP', site.emails.bhp],
+  ['Ochrona środowiska', site.emails.os],
+  ['Szkolenia', site.emails.training],
+  ['Widzisz błąd na stronie lub coś nie działa', site.emails.service],
+]
+
 // Sekcja z formularzem konsultacji, wspolna dla wszystkich stron.
 export function ConsultationSection({
   title,
@@ -94,6 +102,18 @@ export function ConsultationSection({
                 {site.emails.main}
               </a>
             </p>
+            <dl className="mt-6 space-y-3 text-[0.9375rem]">
+              {CONTACT_EMAILS.map(([label, email]) => (
+                <div key={email}>
+                  <dt className="text-papier/70">{label}</dt>
+                  <dd>
+                    <a href={`mailto:${email}`} className="break-all text-papier/85 underline underline-offset-4 hover:text-tasma">
+                      {email}
+                    </a>
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
         <div className="panel p-6 text-tusz sm:p-8">

@@ -53,7 +53,10 @@ export const submitConsultation = createServerFn({ method: 'POST' })
 
     const url = process.env.SUPABASE_URL
     const key = process.env.SUPABASE_ANON_KEY
-    if (!url || !key) return { ok: false, error: 'not_configured' }
+    if (!url || !key) {
+      console.error('consultation: brak SUPABASE_URL lub SUPABASE_ANON_KEY')
+      return { ok: false, error: 'not_configured' }
+    }
 
     try {
       const response = await fetch(`${url}/rest/v1/consultation_requests`, {
@@ -67,8 +70,13 @@ export const submitConsultation = createServerFn({ method: 'POST' })
         },
         body: JSON.stringify(row),
       })
-      return response.ok ? { ok: true } : { ok: false, error: 'failed' }
-    } catch {
+      if (!response.ok) {
+        console.error('consultation: Supabase odpowiedzial', response.status, await response.text())
+        return { ok: false, error: 'failed' }
+      }
+      return { ok: true }
+    } catch (e) {
+      console.error('consultation: blad polaczenia z Supabase', e)
       return { ok: false, error: 'failed' }
     }
   })

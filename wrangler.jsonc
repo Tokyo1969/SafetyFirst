@@ -3,5 +3,9 @@
   "name": "safetyfirst",
   "compatibility_date": "2025-09-02",
   "compatibility_flags": ["nodejs_compat"],
-  "main": "@tanstack/react-start/server-entry"
+  "main": "@tanstack/react-start/server-entry",
+  "vars": {
+    "SUPABASE_URL": "https://rcizhcktflczrtadifwd.supabase.co",
+    "SUPABASE_ANON_KEY": "sb_publishable_FFj4g4XoQmM6a8sBn1zW2A_sg7jKQ4b"
+  }
 }

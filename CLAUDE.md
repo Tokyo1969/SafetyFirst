@@ -4,7 +4,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 
 ## Stack i decyzje
 - TanStack Start (React 19, Vite) z SSR na Cloudflare Workers (`@cloudflare/vite-plugin` przed `tanstackStart()`). LH.pl zostaje tylko dla domeny i poczty. Nie ruszać rekordów MX.
-- Tailwind v4 (`src/styles.css`, tokeny w `@theme`, klasy `.kontener .sekcja .btn .panel .pole .link`), fonty self-hosted (fontsource): Bricolage Grotesque (naglowki), Figtree (tekst).
+- Tailwind v4 (`src/styles.css`, tokeny w `@theme`, klasy `.kontener .sekcja .btn .panel .pole .link`), font self-hosted (fontsource): IBM Plex Sans Variable (naglowki i tekst, wagi 100-700, bez kursywy).
 - Supabase: osobny projekt `rcizhcktflczrtadifwd` (sprawdzić, czy region UE). Formularz zapisuje przez REST z anon key, RLS: anon tylko INSERT.
 - Zmienne: SUPABASE_URL i SUPABASE_ANON_KEY (klucz publishable, publiczny z założenia) są w `wrangler.jsonc` (`vars`), bo wrangler deploy kasuje zmienne ustawione tylko w panelu. Lokalnie `.dev.vars`. Zob. `.env.example`.
 - Importy względne (brak aliasu ścieżek).

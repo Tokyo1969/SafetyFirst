@@ -33,7 +33,7 @@ export function ProtocolCard() {
         <div className="flex items-center gap-4 border-t border-dashed border-linia bg-mgla/60 px-6 py-4">
           <img src={photoUrl} alt="" width={48} height={48} className="size-12 shrink-0 rounded-full object-cover object-[50%_20%]" />
           <p className="text-sm leading-snug text-tusz-2">
-            Podpis: <strong className="font-naglowek text-lg font-semibold text-tusz italic">{site.person.name}</strong>
+            Podpis: <strong className="font-naglowek text-lg font-semibold text-tusz">{site.person.name}</strong>
             <span className="block">{site.person.role}</span>
           </p>
         </div>

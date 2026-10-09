@@ -1,5 +1,4 @@
-@import '@fontsource-variable/bricolage-grotesque';
-@import '@fontsource-variable/figtree';
+@import '@fontsource-variable/ibm-plex-sans/wght.css';
 @import 'tailwindcss';
 
 /*
@@ -21,8 +20,8 @@
   --color-tasma-ciemna: #f0b400;
   --color-linia: #d8dee6;
   --color-blad: #c0362c;
-  --font-naglowek: 'Bricolage Grotesque Variable', system-ui, sans-serif;
-  --font-tekst: 'Figtree Variable', system-ui, sans-serif;
+  --font-naglowek: 'IBM Plex Sans Variable', system-ui, sans-serif;
+  --font-tekst: 'IBM Plex Sans Variable', system-ui, sans-serif;
   --radius-panel: 1.25rem;
 }
 
@@ -46,15 +45,16 @@ h1,
 h2,
 h3 {
   font-family: var(--font-naglowek);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
   text-wrap: balance;
 }
 
 h1 {
-  font-size: clamp(2.25rem, 1.4rem + 3.6vw, 4.25rem);
-  font-weight: 750;
+  font-size: clamp(2.125rem, 1.4rem + 3vw, 3.75rem);
+  font-weight: 650;
+  letter-spacing: -0.025em;
 }
 
 h2 {
@@ -110,7 +110,7 @@ h3 {
     border-radius: 999px;
     font-family: var(--font-naglowek);
     font-size: 1.0625rem;
-    font-weight: 650;
+    font-weight: 600;
     line-height: 1.2;
     text-align: center;
     transition:

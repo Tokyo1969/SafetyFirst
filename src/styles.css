@@ -218,7 +218,8 @@ h3 {
   Karta kontroli w hero: "kontrola na zywo".
   Kolejnosc: karta wpada, tasma sie przykleja, wiersze sa sprawdzane po kolei
   (pasek postepu i licznik), podpis sie "pisze", na koniec przybijamy pieczatke.
-  Bez animacji (reduced motion) widac od razu stan koncowy.
+  Przy ograniczonych animacjach w systemie (np. Windows bez "Efektow animacji")
+  sekwencja tez sie odtwarza, ale bez ruchu: karta i pieczatka tylko sie pojawiaja.
 */
 @property --karta-n {
   syntax: '<integer>';
@@ -252,9 +253,33 @@ h3 {
 }
 .tick path {
   stroke-dasharray: 24;
-  stroke-dashoffset: 0;
 }
 
+/* Sekwencja kontroli bez ruchu w przestrzeni: dziala zawsze, tez przy ograniczonych animacjach w systemie */
+.karta-wiersz {
+  animation: karta-wiersz 0.8s ease-out calc(var(--start) + var(--i, 0) * var(--krok)) both;
+}
+.tick path {
+  stroke-dashoffset: 24;
+  animation: tick-draw 0.35s ease-out calc(var(--start) + 0.15s + var(--i, 0) * var(--krok)) forwards;
+}
+.karta-postep {
+  animation: karta-postep calc(var(--krok) * 5) steps(5, start) calc(var(--start) + 0.15s) both;
+}
+.karta-licznik {
+  animation: karta-licznik calc(var(--krok) * 5) steps(5, start) calc(var(--start) + 0.15s) both;
+}
+.karta-zdjecie {
+  animation: karta-pojaw 0.4s ease-out 3.3s both;
+}
+.karta-podpis {
+  animation: karta-podpis 0.7s steps(18, end) 3.45s both;
+}
+.karta-powtorz {
+  animation: karta-pojaw 0.4s ease-out 5.1s both;
+}
+
+/* Ruch (wpadanie karty, przybicie pieczatki, wstrzas) tylko gdy system nie ogranicza animacji */
 @media (prefers-reduced-motion: no-preference) {
   .karta {
     animation: karta-wpada 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
@@ -263,42 +288,31 @@ h3 {
     transform-origin: left;
     animation: karta-tasma 0.35s ease-out 0.45s both;
   }
-  .karta-wiersz {
-    animation: karta-wiersz 0.8s ease-out calc(var(--start) + var(--i, 0) * var(--krok)) both;
-  }
-  .tick path {
-    stroke-dashoffset: 24;
-    animation: tick-draw 0.35s ease-out calc(var(--start) + 0.15s + var(--i, 0) * var(--krok)) forwards;
-  }
-  .karta-postep {
-    animation: karta-postep calc(var(--krok) * 5) steps(5, start) calc(var(--start) + 0.15s) both;
-  }
-  .karta-licznik {
-    animation: karta-licznik calc(var(--krok) * 5) steps(5, start) calc(var(--start) + 0.15s) both;
-  }
-  .karta-zdjecie {
-    animation: karta-pojaw 0.4s ease-out 3.3s both;
-  }
-  .karta-podpis {
-    animation: karta-podpis 0.7s steps(18, end) 3.45s both;
-  }
   .karta-pieczec {
     animation: karta-pieczec 0.45s cubic-bezier(0.5, 0, 0.75, 0) 4.25s both;
   }
   .karta-panel {
     animation: karta-wstrzas 0.35s ease-out 4.7s;
   }
-  .karta-powtorz {
-    animation: karta-pojaw 0.4s ease-out 5.1s both;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .karta-powtorz {
-    display: none;
+  .karta {
+    animation: karta-pojaw 0.5s ease-out both;
+  }
+  .karta-pieczec {
+    animation: karta-pieczec-bez-ruchu 0.6s ease-out 4.25s both;
   }
 }
 
+@keyframes karta-pieczec-bez-ruchu {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.88;
+  }
+}
 @keyframes karta-wpada {
   from {
     opacity: 0;

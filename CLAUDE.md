@@ -29,7 +29,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 - Logo: oryginaly wszystkich wersji w `src/files/`, na stronie kopie bez metadanych C2PA w `src/assets/` (komponent `Logo`), favicon `public/favicon.svg` (znak).
 
 ## Do zrobienia
-- Domena podpięta (strefa w Cloudflare, Custom Domain w Workerze, www -> apeks 301). Turnstile: wpisać klucz witryny w `site.ts` i ustawić sekret Workera.
+- Domena podpięta (strefa w Cloudflare, Custom Domain w Workerze, www -> apeks 301). Turnstile: klucz witryny wpisany w `site.ts`; sekret `TURNSTILE_SECRET_KEY` ustawić w Workerze (bez niego weryfikacja serwerowa jest wyłączona).
 - Treści podstron BHP, OŚ, o nas i ceny OŚ do zatwierdzenia przez Natalię. Czekamy na jej odpowiedzi (m.in. szkolenia specjalistyczne: pierwsza pomoc, ppoż., wysokość; stawka Transport; ocena ryzyka dla wielu stanowisk), potem ewentualne dodatkowe strony. Certyfikaty i kwalifikacje: dodać na `/o-nas`, gdy będą.
 - Po podpięciu domeny: sprawdzić canonical/sitemap (`site.domain`), zgłosić sitemapę w Google Search Console, rozważyć obraz Open Graph (`og:image`).
 - Blogi (3 osobne w Soro, Brand DNA po akceptacji kierunku), SEO, schema.

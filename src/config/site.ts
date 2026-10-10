@@ -27,7 +27,7 @@ export const site = {
   },
   // Klucz witryny Cloudflare Turnstile (publiczny z zalozenia). Pusty = formularz bez widgetu.
   // Sekret TURNSTILE_SECRET_KEY ustawiamy tylko jako sekret Workera (wrangler secret / panel).
-  turnstileSiteKey: '',
+  turnstileSiteKey: '0x4AAAAAAFTBeyBlLr7YGEbb',
   region: 'województwo opolskie',
   maxEmployees: 50,
 } as const

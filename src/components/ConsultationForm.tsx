@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { submitConsultation, type ConsultationResult } from '../server/consultation'
 import { INDUSTRIES } from '../data/pricing'
 import { site } from '../config/site'
@@ -6,16 +6,69 @@ import { site } from '../config/site'
 const SERVICES = ['BHP', 'Ochrona środowiska', 'Szkolenia']
 const EMPLOYEES = ['1–5', '6–10', '11–20', '21–30', '31–40', '41–50', 'powyżej 50']
 
+type TurnstileApi = {
+  render: (el: HTMLElement, options: Record<string, unknown>) => string
+  reset: (id?: string) => void
+  remove: (id?: string) => void
+}
+declare global {
+  interface Window {
+    turnstile?: TurnstileApi
+  }
+}
+
+const TURNSTILE_SRC = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit'
+
+function loadTurnstile(): Promise<TurnstileApi | null> {
+  if (typeof window === 'undefined') return Promise.resolve(null)
+  if (window.turnstile) return Promise.resolve(window.turnstile)
+  return new Promise((resolve) => {
+    const existing = document.querySelector<HTMLScriptElement>(`script[src="${TURNSTILE_SRC}"]`)
+    const script = existing ?? Object.assign(document.createElement('script'), { src: TURNSTILE_SRC, async: true })
+    script.addEventListener('load', () => resolve(window.turnstile ?? null))
+    script.addEventListener('error', () => resolve(null))
+    if (!existing) document.head.appendChild(script)
+  })
+}
+
 const field = 'pole'
 const label = 'etykieta'
 
 export function ConsultationForm({ defaultServices = ['BHP'] }: { defaultServices?: string[] }) {
   const [state, setState] = useState<'idle' | 'sending' | 'done'>('idle')
   const [error, setError] = useState<string | null>(null)
+  const [token, setToken] = useState('')
+  const widgetBox = useRef<HTMLDivElement>(null)
+  const widgetId = useRef<string | null>(null)
+  const siteKey = site.turnstileSiteKey
+
+  useEffect(() => {
+    if (!siteKey) return
+    let cancelled = false
+    loadTurnstile().then((api) => {
+      if (cancelled || !api || !widgetBox.current || widgetId.current) return
+      widgetId.current = api.render(widgetBox.current, {
+        sitekey: siteKey,
+        language: 'pl',
+        callback: (t: string) => setToken(t),
+        'expired-callback': () => setToken(''),
+        'error-callback': () => setToken(''),
+      })
+    })
+    return () => {
+      cancelled = true
+      if (widgetId.current) window.turnstile?.remove(widgetId.current)
+      widgetId.current = null
+    }
+  }, [siteKey])
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setError(null)
+    if (siteKey && !token) {
+      setError('Poczekaj chwilę na weryfikację antyspamową i wyślij formularz jeszcze raz.')
+      return
+    }
     const form = new FormData(e.currentTarget)
     const text = (k: string) => String(form.get(k) ?? '')
     setState('sending')
@@ -35,6 +88,7 @@ export function ConsultationForm({ defaultServices = ['BHP'] }: { defaultService
           message: text('message'),
           consent: form.get('consent') === 'on',
           website: text('website'),
+          turnstileToken: token,
         },
       })
     } catch {
@@ -45,7 +99,14 @@ export function ConsultationForm({ defaultServices = ['BHP'] }: { defaultService
       return
     }
     setState('idle')
-    if (result.error === 'invalid') {
+    if (siteKey && widgetId.current) {
+      // Token Turnstile jest jednorazowy, po nieudanej probie trzeba pobrac nowy.
+      window.turnstile?.reset(widgetId.current)
+      setToken('')
+    }
+    if (result.error === 'captcha') {
+      setError('Nie udało się potwierdzić, że formularz wysyła człowiek. Spróbuj jeszcze raz.')
+    } else if (result.error === 'invalid') {
       setError(
         result.field === 'email'
           ? 'Wpisz poprawny adres e-mail.'
@@ -151,6 +212,7 @@ export function ConsultationForm({ defaultServices = ['BHP'] }: { defaultService
           </span>
         </label>
       </div>
+      {siteKey && <div ref={widgetBox} className="sm:col-span-2" />}
       {error && (
         <p role="alert" className="rounded-xl border-l-4 border-blad bg-blad/8 p-4 font-semibold text-blad sm:col-span-2">
           {error}

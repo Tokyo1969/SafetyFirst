@@ -26,6 +26,10 @@ function Privacy() {
         (imię i nazwisko, e-mail, telefon i opis firmy) wykorzystujemy tylko do odpowiedzi na zapytanie.
         Kontakt w sprawie danych: {site.emails.main}.
       </p>
+      <p className="mt-6">
+        Formularz chroni przed spamem usługa Cloudflare Turnstile. Podczas wysyłki Cloudflare może otrzymać dane
+        techniczne przeglądarki (m.in. adres IP) w celu odróżnienia człowieka od automatu.
+      </p>
     </main>
   )
 }

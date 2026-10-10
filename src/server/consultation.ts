@@ -13,16 +13,34 @@ export type ConsultationInput = {
   message: string
   consent: boolean
   website: string // pole puapka (honeypot), musi zostac puste
+  turnstileToken?: string // token Cloudflare Turnstile z widgetu
 }
 
 export type ConsultationResult =
   | { ok: true }
-  | { ok: false; error: 'invalid' | 'not_configured' | 'failed'; field?: string }
+  | { ok: false; error: 'invalid' | 'not_configured' | 'failed' | 'captcha'; field?: string }
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 
 function clean(value: unknown, max: number): string {
   return typeof value === 'string' ? value.trim().slice(0, max) : ''
+}
+
+// Weryfikacja tokenu Turnstile. Wlaczona dopiero po ustawieniu sekretu TURNSTILE_SECRET_KEY.
+async function verifyTurnstile(token: string, secret: string): Promise<'ok' | 'rejected' | 'error'> {
+  try {
+    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ secret, response: token }),
+    })
+    if (!response.ok) return 'error'
+    const result = (await response.json()) as { success?: boolean }
+    return result.success === true ? 'ok' : 'rejected'
+  } catch (e) {
+    console.error('consultation: blad weryfikacji Turnstile', e)
+    return 'error'
+  }
 }
 
 export const submitConsultation = createServerFn({ method: 'POST' })
@@ -50,6 +68,15 @@ export const submitConsultation = createServerFn({ method: 'POST' })
     if (row.name.length < 2) return { ok: false, error: 'invalid', field: 'name' }
     if (!EMAIL.test(row.email)) return { ok: false, error: 'invalid', field: 'email' }
     if (!row.consent) return { ok: false, error: 'invalid', field: 'consent' }
+
+    const secret = process.env.TURNSTILE_SECRET_KEY
+    if (secret) {
+      const token = clean(data.turnstileToken, 2048)
+      if (!token) return { ok: false, error: 'captcha' }
+      const verdict = await verifyTurnstile(token, secret)
+      if (verdict === 'rejected') return { ok: false, error: 'captcha' }
+      if (verdict === 'error') return { ok: false, error: 'failed' }
+    }
 
     const url = process.env.SUPABASE_URL
     const key = process.env.SUPABASE_ANON_KEY

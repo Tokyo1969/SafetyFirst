@@ -17,7 +17,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 - `src/data/os-services.ts` – 18 podstron ochrony środowiska (`/ochrona-srodowiska/<slug>`, jedna trasa dynamiczna `ochrona-srodowiska.$slug.tsx` + lista `ochrona-srodowiska.index.tsx`). Nowa usługa OŚ = tylko nowy wpis w tym pliku.
 - `src/data/catalog.ts` – wspólny wykaz usług (ścieżki, powiązane strony, `SITEMAP_PATHS`).
 - `src/lib/hero.ts` + `src/assets/hero/<klucz>.jpg` – opcjonalna grafika w nagłówku podstrony (PageHero `image`, fade z lewej, `.hero-grafika`). Klucz = slug usługi albo `obsluga-bhp`, `ochrona-srodowiska`, `cennik`, `dla-branz`, `o-nas`, `kontakt`. Brak pliku = brak grafiki. Format 3:2 (np. 1264x848), bez tekstu i logo.
-- `src/lib/seo.ts` – meta, canonical, Open Graph i JSON-LD (Organization, Service, BreadcrumbList). Każda trasa używa `pageHead()` lub `serviceHead()`. `sitemap.xml` generuje trasa `sitemap[.]xml.ts`, `robots.txt` jest w `public/`.
+- `src/lib/seo.ts` – meta, canonical, Open Graph (obraz `public/og-image.jpg` 1200x630) i JSON-LD (Organization, Service, BreadcrumbList). Każda trasa używa `pageHead()` lub `serviceHead()`. `sitemap.xml` generuje trasa `sitemap[.]xml.ts`, `robots.txt` jest w `public/`.
 - `src/server/consultation.ts` – server function formularza. Antyspam: honeypot + Cloudflare Turnstile (widget w `ConsultationForm.tsx`, klucz witryny w `site.turnstileSiteKey`, weryfikacja tokenu po stronie serwera tylko gdy ustawiony sekret `TURNSTILE_SECRET_KEY`; sekret wylacznie jako sekret Workera, nie w `wrangler.jsonc`).
 - `supabase/migrations/` – migracje (zastosowane w Supabase, region eu-central-1).
 
@@ -31,6 +31,5 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 ## Do zrobienia
 - Domena podpięta (strefa w Cloudflare, Custom Domain w Workerze, www -> apeks 301). Turnstile: klucz witryny wpisany w `site.ts`; sekret `TURNSTILE_SECRET_KEY` ustawić w Workerze (bez niego weryfikacja serwerowa jest wyłączona).
 - Treści podstron BHP, OŚ, o nas i ceny OŚ do zatwierdzenia przez Natalię. Czekamy na jej odpowiedzi (m.in. szkolenia specjalistyczne: pierwsza pomoc, ppoż., wysokość; stawka Transport; ocena ryzyka dla wielu stanowisk), potem ewentualne dodatkowe strony. Certyfikaty i kwalifikacje: dodać na `/o-nas`, gdy będą.
-- Po podpięciu domeny: sprawdzić canonical/sitemap (`site.domain`), zgłosić sitemapę w Google Search Console, rozważyć obraz Open Graph (`og:image`).
 - Blogi (3 osobne w Soro, Brand DNA po akceptacji kierunku), SEO, schema.
 - Polityka prywatności i regulamin do sprawdzenia przez prawnika. Certyfikaty i kwalifikacje do uzupełnienia.

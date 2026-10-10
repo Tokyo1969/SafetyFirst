@@ -4,6 +4,7 @@ import type { Service } from '../data/services'
 
 export const SITE_URL = `https://${site.domain}`
 const ORG_ID = `${SITE_URL}/#organization`
+const OG_IMAGE = `${SITE_URL}/og-image.jpg`
 
 export function absUrl(path: string): string {
   return path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}`
@@ -36,7 +37,12 @@ export function pageHead({
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
       { property: 'og:url', content: url },
-      { name: 'twitter:card', content: 'summary' },
+      { property: 'og:image', content: OG_IMAGE },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { property: 'og:image:alt', content: `${site.brand} - ${site.tagline}` },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:image', content: OG_IMAGE },
     ],
     links: [{ rel: 'canonical', href: url }],
     scripts: jsonLd.map((d) => ({

@@ -7,6 +7,7 @@ import { site } from '../config/site'
 import { FEATURED_OS, servicePath } from '../data/catalog'
 import { organizationLd, pageHead } from '../lib/seo'
 import photoUrl from '../assets/natalia-krysztofiak.jpg'
+import heroBgUrl from '../assets/hero-tlo-glowna.jpg'
 
 export const Route = createFileRoute('/')({
   head: () =>
@@ -45,7 +46,19 @@ function Home() {
   return (
     <main>
       <section className="relative overflow-hidden">
-        <div aria-hidden="true" className="absolute -top-40 -right-40 size-[36rem] rounded-full bg-znak-jasny/70 blur-3xl" />
+        <img
+          src={heroBgUrl}
+          alt=""
+          aria-hidden="true"
+          width={1792}
+          height={1008}
+          fetchPriority="high"
+          className="pointer-events-none absolute inset-0 h-full w-full object-cover object-bottom"
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-r from-white/75 via-white/45 to-transparent lg:via-white/30"
+        />
         <div className="kontener relative grid items-center gap-14 pt-12 pb-16 md:pt-20 lg:grid-cols-[1.15fr_1fr] lg:pb-24">
           <div>
             <h1>BHP i ochrona środowiska dla firm z Opolszczyzny</h1>

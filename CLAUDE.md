@@ -19,6 +19,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 - `src/lib/hero.ts` + `src/assets/hero/<klucz>.jpg` – opcjonalna grafika w nagłówku podstrony (PageHero `image`, fade z lewej, `.hero-grafika`). Klucz = slug usługi albo `obsluga-bhp`, `ochrona-srodowiska`, `cennik`, `dla-branz`, `o-nas`, `kontakt`. Brak pliku = brak grafiki. Format 3:2 (np. 1264x848), bez tekstu i logo.
 - `src/lib/seo.ts` – meta, canonical, Open Graph (obraz `public/og-image.jpg` 1200x630) i JSON-LD (Organization, Service, BreadcrumbList). Każda trasa używa `pageHead()` lub `serviceHead()`. `sitemap.xml` generuje trasa `sitemap[.]xml.ts`, `robots.txt` jest w `public/`.
 - `src/server/consultation.ts` – server function formularza. Antyspam: honeypot + Cloudflare Turnstile (widget w `ConsultationForm.tsx`, klucz witryny w `site.turnstileSiteKey`, weryfikacja tokenu po stronie serwera tylko gdy ustawiony sekret `TURNSTILE_SECRET_KEY`; sekret wylacznie jako sekret Workera, nie w `wrangler.jsonc`).
+- Analityka: Google Analytics 4 (`site.gaId`, tag w `__root.tsx`) z Consent Mode v2, zgoda domyślnie odrzucona. Baner `CookieBanner.tsx` (wybór w localStorage `sf-zgoda-analityka`, przycisk "Ustawienia cookies" w stopce), akapit w polityce prywatności do przeglądu prawnika.
 - `supabase/migrations/` – migracje (zastosowane w Supabase, region eu-central-1).
 
 ## Zasady

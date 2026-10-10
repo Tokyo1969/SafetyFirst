@@ -4,6 +4,7 @@ import { SERVICES } from '../data/services'
 import { OS_SERVICES } from '../data/os-services'
 import { servicePath } from '../data/catalog'
 import { Logo } from './Logo'
+import { OTWORZ_USTAWIENIA } from './CookieBanner'
 
 const footLink = 'text-papier/85 underline-offset-4 hover:text-tasma hover:underline'
 
@@ -74,7 +75,18 @@ export function Footer() {
         <div className="border-t border-papier/15">
           <div className="kontener flex flex-col gap-2 py-6 text-sm text-papier/65 sm:flex-row sm:justify-between">
             <p>© {new Date().getFullYear()} {site.brand}</p>
-            <Link to="/polityka-prywatnosci" className={footLink}>Polityka prywatności</Link>
+            <div className="flex flex-col gap-2 sm:flex-row sm:gap-6">
+              <Link to="/polityka-prywatnosci" className={footLink}>Polityka prywatności</Link>
+              {site.gaId ? (
+                <button
+                  type="button"
+                  className={`${footLink} text-left`}
+                  onClick={() => window.dispatchEvent(new Event(OTWORZ_USTAWIENIA))}
+                >
+                  Ustawienia cookies
+                </button>
+              ) : null}
+            </div>
           </div>
         </div>
       </div>

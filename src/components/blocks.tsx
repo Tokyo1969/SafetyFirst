@@ -130,10 +130,12 @@ export function PageHero({
   parent,
   title,
   lead,
+  image,
   children,
 }: {
   crumb: string
   parent?: { label: string; to: string }
+  image?: string
   title: string
   lead: ReactNode
   children?: ReactNode
@@ -141,6 +143,18 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden">
       <div aria-hidden="true" className="absolute -top-48 -right-32 size-[30rem] rounded-full bg-znak-jasny/70 blur-3xl" />
+      {image && (
+        <img
+          src={image}
+          alt=""
+          aria-hidden="true"
+          width={1264}
+          height={848}
+          decoding="async"
+          fetchPriority="high"
+          className="hero-grafika pointer-events-none absolute inset-y-0 right-0 hidden h-full w-[min(56%,56rem)] object-cover lg:block"
+        />
+      )}
       <div className="kontener relative pt-8 pb-14 md:pt-12 md:pb-20">
         <nav aria-label="Okruszki" className="text-sm text-tusz-2">
           <Link to="/" className="hover:text-znak hover:underline">Strona główna</Link>
@@ -154,7 +168,7 @@ export function PageHero({
           <span aria-current="page">{crumb}</span>
         </nav>
         <h1 className="mt-6 max-w-[20ch]">{title}</h1>
-        <p className="mt-6 max-w-[58ch] text-lg text-tusz-2 md:text-xl">{lead}</p>
+        <p className={`mt-6 max-w-[58ch] text-lg text-tusz-2 md:text-xl ${image ? 'lg:max-w-[44ch]' : ''}`}>{lead}</p>
         {children && <div className="mt-8 flex flex-col gap-3 sm:flex-row">{children}</div>}
       </div>
     </section>

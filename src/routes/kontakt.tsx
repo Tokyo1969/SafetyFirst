@@ -1,3 +1,4 @@
+import { heroImage } from '../lib/hero'
 import { createFileRoute } from '@tanstack/react-router'
 import { ConsultationSection, PageHero } from '../components/blocks'
 import { site } from '../config/site'
@@ -25,6 +26,7 @@ function Kontakt() {
   return (
     <main>
       <PageHero
+        image={heroImage('kontakt')}
         crumb="Kontakt"
         title="Porozmawiajmy o Twojej firmie"
         lead="Zadzwoń, napisz albo wypełnij formularz. Odpowiadamy w ciągu jednego dnia roboczego, a pierwsza konsultacja jest bezpłatna."

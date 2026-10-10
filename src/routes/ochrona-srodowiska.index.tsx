@@ -1,3 +1,4 @@
+import { heroImage } from '../lib/hero'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ConsultationSection, PageHero, SectionHeading, Steps } from '../components/blocks'
 import { OS_GROUPS, OS_SERVICES } from '../data/os-services'
@@ -35,6 +36,7 @@ function OchronaSrodowiska() {
   return (
     <main>
       <PageHero
+        image={heroImage('ochrona-srodowiska')}
         crumb="Ochrona środowiska"
         title="Ochrona środowiska dla firm z Opolszczyzny"
         lead="Odpady, BDO, raporty, opłaty i kontrole. Obowiązki środowiskowe firmy prowadzi jedna osoba, więc dokumenty są kompletne, a terminy pod kontrolą."

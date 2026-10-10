@@ -1,3 +1,4 @@
+import { heroImage } from '../lib/hero'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { CheckList, ConsultationSection, PageHero, SectionHeading } from '../components/blocks'
 import { INDUSTRIES, PRICE_FROM, formatPln } from '../data/pricing'
@@ -32,6 +33,7 @@ function DlaBranz() {
   return (
     <main>
       <PageHero
+        image={heroImage('dla-branz')}
         crumb="Dla branż"
         title="Obsługa BHP dopasowana do branży"
         lead="Innych rozwiązań potrzebuje biuro rachunkowe, innych warsztat, a jeszcze innych firma budowlana. Wybierz swoją branżę i sprawdź, ile kosztuje stała obsługa."

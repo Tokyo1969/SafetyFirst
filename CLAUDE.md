@@ -16,6 +16,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 - `src/data/services.ts` – podstrony usług BHP (treść i ceny z oferty, 7 stron). Nowa usługa BHP = nowy wpis + plik trasy w `src/routes/` (wzór: `szkolenia-bhp.tsx`).
 - `src/data/os-services.ts` – 18 podstron ochrony środowiska (`/ochrona-srodowiska/<slug>`, jedna trasa dynamiczna `ochrona-srodowiska.$slug.tsx` + lista `ochrona-srodowiska.index.tsx`). Nowa usługa OŚ = tylko nowy wpis w tym pliku.
 - `src/data/catalog.ts` – wspólny wykaz usług (ścieżki, powiązane strony, `SITEMAP_PATHS`).
+- `src/lib/hero.ts` + `src/assets/hero/<klucz>.jpg` – opcjonalna grafika w nagłówku podstrony (PageHero `image`, fade z lewej, `.hero-grafika`). Klucz = slug usługi albo `obsluga-bhp`, `ochrona-srodowiska`, `cennik`, `dla-branz`, `o-nas`, `kontakt`. Brak pliku = brak grafiki. Format 3:2 (np. 1264x848), bez tekstu i logo.
 - `src/lib/seo.ts` – meta, canonical, Open Graph i JSON-LD (Organization, Service, BreadcrumbList). Każda trasa używa `pageHead()` lub `serviceHead()`. `sitemap.xml` generuje trasa `sitemap[.]xml.ts`, `robots.txt` jest w `public/`.
 - `src/server/consultation.ts` – server function formularza.
 - `supabase/migrations/` – migracje (zastosowane w Supabase, region eu-central-1).

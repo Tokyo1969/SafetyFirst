@@ -1,3 +1,4 @@
+import { heroImage } from '../lib/hero'
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ConsultationSection, PageHero, SectionHeading } from '../components/blocks'
 import { BANDS, INDUSTRIES, ONE_OFF, PRICE_FROM, formatPln } from '../data/pricing'
@@ -26,6 +27,7 @@ function Cennik() {
   return (
     <main>
       <PageHero
+        image={heroImage('cennik')}
         crumb="Cennik"
         title="Cennik usług BHP"
         lead="Ceny są netto, w formule „od” i orientacyjne. Finalną wycenę podajemy po krótkiej rozmowie o Twojej firmie."

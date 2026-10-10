@@ -1,3 +1,4 @@
+import { heroImage } from '../lib/hero'
 import { createFileRoute } from '@tanstack/react-router'
 import { ConsultationSection, PageHero, SectionHeading, Steps } from '../components/blocks'
 import { site } from '../config/site'
@@ -42,6 +43,7 @@ function ONas() {
   return (
     <main>
       <PageHero
+        image={heroImage('o-nas')}
         crumb="O nas"
         title="Za Twoje dokumenty odpowiada jedna osoba"
         lead={`Safety First to marka usług BHP i ochrony środowiska dla firm z Opolszczyzny. Wszystkie dokumenty podpisuje ${site.person.name}.`}

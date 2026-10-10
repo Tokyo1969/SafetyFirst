@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { CheckList, ConsultationSection, PageHero, SectionHeading, Steps } from './blocks'
 import type { Service } from '../data/services'
 import { relatedServices, servicePath } from '../data/catalog'
+import { heroImage } from '../lib/hero'
 
 export function ServicePage({ service }: { service: Service }) {
   const others = relatedServices(service)
@@ -16,6 +17,7 @@ export function ServicePage({ service }: { service: Service }) {
         parent={isOs ? { label: hub.label, to: hub.to } : undefined}
         title={service.title}
         lead={service.lead}
+        image={heroImage(service.slug)}
       >
         <a href="#konsultacja" className="btn btn-glowny">Zapytaj o wycenę</a>
         <Link to={hub.to as '/'} className="btn btn-obrys">{hub.cta}</Link>

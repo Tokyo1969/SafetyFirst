@@ -1,3 +1,4 @@
+import { heroImage } from '../lib/hero'
 import { createFileRoute } from '@tanstack/react-router'
 import { breadcrumbLd, pageHead } from '../lib/seo'
 import { PriceEstimator } from '../components/PriceEstimator'
@@ -37,6 +38,7 @@ function ObslugaBhp() {
   return (
     <main>
       <PageHero
+        image={heroImage('obsluga-bhp')}
         crumb="Obsługa BHP"
         title="Stała obsługa BHP dla firm do 50 pracowników"
         lead={`Jeden miesięczny abonament zamiast osobnych zleceń. Od ${formatPln(PRICE_FROM)} zł netto miesięcznie.`}

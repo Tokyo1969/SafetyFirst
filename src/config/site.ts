@@ -28,6 +28,8 @@ export const site = {
   // Klucz witryny Cloudflare Turnstile (publiczny z zalozenia). Pusty = formularz bez widgetu.
   // Sekret TURNSTILE_SECRET_KEY ustawiamy tylko jako sekret Workera (wrangler secret / panel).
   turnstileSiteKey: '0x4AAAAAAFTBeyBlLr7YGEbb',
+  // Google Analytics 4 (ID pomiaru, publiczny). Pusty = bez analityki.
+  gaId: 'G-XDCZRXJ50V',
   region: 'województwo opolskie',
   maxEmployees: 50,
 } as const

@@ -18,6 +18,15 @@ export const Route = createRootRoute({
       { rel: 'stylesheet', href: appCss },
       { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
     ],
+    scripts: site.gaId
+      ? [
+          // Zgoda domyslnie odrzucona (Consent Mode v2): bez ciasteczek analitycznych do czasu banera zgody.
+          {
+            children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});gtag('js',new Date());gtag('config','${site.gaId}');`,
+          },
+          { src: `https://www.googletagmanager.com/gtag/js?id=${site.gaId}`, async: true },
+        ]
+      : [],
   }),
   component: RootComponent,
   notFoundComponent: () => (

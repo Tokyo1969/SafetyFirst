@@ -214,22 +214,163 @@ h3 {
   );
 }
 
-/* Odhaczanie pozycji w karcie kontroli: jedyna animacja na stronie */
+/*
+  Karta kontroli w hero: "kontrola na zywo".
+  Kolejnosc: karta wpada, tasma sie przykleja, wiersze sa sprawdzane po kolei
+  (pasek postepu i licznik), podpis sie "pisze", na koniec przybijamy pieczatke.
+  Bez animacji (reduced motion) widac od razu stan koncowy.
+*/
+@property --karta-n {
+  syntax: '<integer>';
+  inherits: false;
+  initial-value: 5;
+}
+
+.karta {
+  --start: 0.9s;
+  --krok: 0.5s;
+}
+.karta-postep {
+  width: 100%;
+  transform-origin: left;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--color-tasma) 0 6px,
+    var(--color-tasma-ciemna) 6px 12px
+  );
+}
+.karta-licznik {
+  counter-reset: karta var(--karta-n);
+}
+.karta-licznik::after {
+  content: 'Sprawdzono ' counter(karta) ' z 5';
+}
+.karta-pieczec {
+  rotate: -9deg;
+  opacity: 0.88;
+  mix-blend-mode: multiply;
+}
 .tick path {
   stroke-dasharray: 24;
   stroke-dashoffset: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {
+  .karta {
+    animation: karta-wpada 0.7s cubic-bezier(0.2, 0.9, 0.3, 1.15) both;
+  }
+  .karta-tasma {
+    transform-origin: left;
+    animation: karta-tasma 0.35s ease-out 0.45s both;
+  }
+  .karta-wiersz {
+    animation: karta-wiersz 0.8s ease-out calc(var(--start) + var(--i, 0) * var(--krok)) both;
+  }
   .tick path {
     stroke-dashoffset: 24;
-    animation: tick-draw 0.45s ease-out forwards;
-    animation-delay: calc(0.4s + var(--i, 0) * 0.28s);
+    animation: tick-draw 0.35s ease-out calc(var(--start) + 0.15s + var(--i, 0) * var(--krok)) forwards;
+  }
+  .karta-postep {
+    animation: karta-postep calc(var(--krok) * 5) steps(5, start) calc(var(--start) + 0.15s) both;
+  }
+  .karta-licznik {
+    animation: karta-licznik calc(var(--krok) * 5) steps(5, start) calc(var(--start) + 0.15s) both;
+  }
+  .karta-zdjecie {
+    animation: karta-pojaw 0.4s ease-out 3.3s both;
+  }
+  .karta-podpis {
+    animation: karta-podpis 0.7s steps(18, end) 3.45s both;
+  }
+  .karta-pieczec {
+    animation: karta-pieczec 0.45s cubic-bezier(0.5, 0, 0.75, 0) 4.25s both;
+  }
+  .karta-panel {
+    animation: karta-wstrzas 0.35s ease-out 4.7s;
+  }
+  .karta-powtorz {
+    animation: karta-pojaw 0.4s ease-out 5.1s both;
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .karta-powtorz {
+    display: none;
+  }
+}
+
+@keyframes karta-wpada {
+  from {
+    opacity: 0;
+    transform: translateY(-28px) rotate(-5deg) scale(0.96);
+  }
+}
+@keyframes karta-tasma {
+  from {
+    transform: scaleX(0);
+  }
+}
+@keyframes karta-wiersz {
+  0% {
+    background-color: transparent;
+  }
+  25% {
+    background-color: var(--color-znak-jasny);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
 @keyframes tick-draw {
   to {
     stroke-dashoffset: 0;
   }
 }
+@keyframes karta-postep {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+@keyframes karta-licznik {
+  from {
+    --karta-n: 0;
+  }
+  to {
+    --karta-n: 5;
+  }
+}
+@keyframes karta-pojaw {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes karta-podpis {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes karta-pieczec {
+  from {
+    opacity: 0;
+    transform: scale(2.4);
+  }
+  to {
+    opacity: 0.88;
+    transform: scale(1);
+  }
+}
+@keyframes karta-wstrzas {
+  30% {
+    transform: translate(1px, 3px);
+  }
+  60% {
+    transform: translate(-1px, -1px);
+  }
+}
+

@@ -74,7 +74,21 @@ export function Footer() {
         </nav>
         <div className="border-t border-papier/15">
           <div className="kontener flex flex-col gap-2 py-6 text-sm text-papier/65 sm:flex-row sm:justify-between">
-            <p>© {new Date().getFullYear()} {site.brand}</p>
+            <div className="flex flex-col gap-1">
+              <p>© {new Date().getFullYear()} {site.brand}</p>
+              <p>
+                Stronę wykonała agencja{' '}
+                <a
+                  href={site.builder.url}
+                  target="_blank"
+                  rel="noopener"
+                  className="text-papier/85 underline underline-offset-4 hover:text-tasma"
+                >
+                  {site.builder.name}
+                </a>
+                .
+              </p>
+            </div>
             <div className="flex flex-col gap-2 sm:flex-row sm:gap-6">
               <Link to="/polityka-prywatnosci" className={footLink}>Polityka prywatności</Link>
               {site.gaId ? (

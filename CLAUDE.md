@@ -11,7 +11,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 - n8n (n8n.nexxsite.pl): workflow "Safety First - Zgloszenie z formularza na biuro@" (id sGtFiIJ96HQUzw10), wywoływany triggerem w Supabase (pg_net), wysyła mail z biuro@ na biuro@ (credential "SMTP SafetyFirst Biuro": host mail-serwer501253.lh.pl, port 587 BEZ SSL/TLS, bo SSL na LH.pl powoduje timeout). Dalej: akceptacja wpisów blogowych.
 
 ## Struktura
-- `src/config/site.ts` – jedyne źródło danych firmy i kontaktu (po założeniu sp. z o.o. zmieniamy tylko ten plik). Pola `company` są teraz celowo puste (strona ich wtedy nie wyświetla); telefon tymczasowy +48 123 456 789.
+- `src/config/site.ts` – jedyne źródło danych firmy i kontaktu (po założeniu sp. z o.o. zmieniamy tylko ten plik).
 - `src/data/pricing.ts` – cennik abonamentu BHP (branze x przedzialy) i uslugi jednorazowe (`ONE_OFF`) z oferty Natalii. Strony: `/cennik`, `/dla-branz` (link z `?branza=<id>` ustawia kalkulator na `/obsluga-bhp`), `/o-nas`, `/kontakt`.
 - `src/data/services.ts` – podstrony usług BHP (treść i ceny z oferty, 7 stron). Nowa usługa BHP = nowy wpis + plik trasy w `src/routes/` (wzór: `szkolenia-bhp.tsx`).
 - `src/data/os-services.ts` – 18 podstron ochrony środowiska (`/ochrona-srodowiska/<slug>`, jedna trasa dynamiczna `ochrona-srodowiska.$slug.tsx` + lista `ochrona-srodowiska.index.tsx`). Nowa usługa OŚ = tylko nowy wpis w tym pliku.

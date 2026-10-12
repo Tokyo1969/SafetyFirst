@@ -63,17 +63,13 @@ export function organizationLd(): JsonLd {
     url: `${SITE_URL}/`,
     telephone: site.phone.display,
     email: site.emails.main,
-    ...(c.street || c.city
-      ? {
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: c.street,
-            postalCode: c.postalCode,
-            addressLocality: c.city,
-            addressCountry: 'PL',
-          },
-        }
-      : {}),
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: c.street,
+      postalCode: c.postalCode,
+      addressLocality: c.city,
+      addressCountry: 'PL',
+    },
     areaServed: { '@type': 'AdministrativeArea', name: site.region },
     employee: { '@type': 'Person', name: site.person.name, jobTitle: site.person.role },
   }

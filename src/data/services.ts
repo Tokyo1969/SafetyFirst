@@ -33,7 +33,7 @@ export const SERVICES: readonly Service[] = [
     lead: 'Szkolenia wstępne i okresowe dopasowane do stanowisk w Twojej firmie. Dokumentację szkoleń przygotowujemy i pilnujemy terminów, żeby żaden pracownik nie został bez ważnego szkolenia.',
     scopeHeading: 'Rodzaje szkoleń',
     scope: [
-      'Szkolenia wstępne: instruktaż ogólny i instruktaż stanowiskowy',
+      'Szkolenia wstępne: instruktaż ogólny',
       'Szkolenia okresowe dla pracowników administracyjno-biurowych',
       'Szkolenia okresowe dla pracowników na stanowiskach robotniczych',
       'Szkolenia okresowe dla pracowników inżynieryjno-technicznych',
@@ -45,6 +45,7 @@ export const SERVICES: readonly Service[] = [
       { name: 'Okresowe: stanowiska robotnicze', price: 'od 130 zł / os.' },
       { name: 'Okresowe: pracownicy inżynieryjno-techniczni', price: 'od 180 zł / os.' },
       { name: 'Okresowe: pracodawcy i osoby kierujące', price: 'od 220 zł / os.' },
+      { name: 'Okresowe: służba BHP', price: 'od 450 zł / os.' },
     ],
     priceNote: 'Ceny netto. Dla grup powyżej 5 pracowników wycena jest indywidualna.',
     steps: [

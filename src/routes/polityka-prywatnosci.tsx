@@ -22,7 +22,7 @@ function Privacy() {
         Wersja robocza. Przed uruchomieniem strony wymaga sprawdzenia przez prawnika.
       </p>
       <p className="mt-6">
-        Administratorem danych jest {c.name}, {c.street}, {c.postalCode} {c.city}, NIP {c.nip}. Dane z formularza
+        Administratorem danych jest {[c.name, c.street, [c.postalCode, c.city].filter(Boolean).join(' '), c.nip && `NIP ${c.nip}`].filter(Boolean).join(', ')}. Dane z formularza
         (imię i nazwisko, e-mail, telefon i opis firmy) wykorzystujemy tylko do odpowiedzi na zapytanie.
         Kontakt w sprawie danych: {site.emails.main}.
       </p>

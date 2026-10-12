@@ -51,10 +51,10 @@ export function Footer() {
           <div>
             <p className="font-naglowek text-lg font-semibold">Dane firmy</p>
             <div className="mt-3 space-y-1 text-papier/85">
-              <p>{c.name}</p>
-              <p>{c.street}</p>
-              <p>{c.postalCode} {c.city}</p>
-              <p>NIP {c.nip}</p>
+              {c.name && <p>{c.name}</p>}
+              {c.street && <p>{c.street}</p>}
+              {(c.postalCode || c.city) && <p>{c.postalCode} {c.city}</p>}
+              {c.nip && <p>NIP {c.nip}</p>}
             </div>
           </div>
         </div>

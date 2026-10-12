@@ -10,13 +10,13 @@ export const site = {
   },
   // Dane tymczasowe do czasu zalozenia sp. z o.o.
   company: {
-    name: 'Natalia Krysztofiak',
-    nip: '9910339622',
-    street: 'ul. Grudzicka 6',
-    postalCode: '45-432',
-    city: 'Opole',
+    name: '',
+    nip: '',
+    street: '',
+    postalCode: '',
+    city: '',
   },
-  phone: { display: '+48 515 318 876', href: 'tel:+48515318876' },
+  phone: { display: '+48 123 456 789', href: 'tel:+48123456789' },
   emails: {
     main: 'biuro@safetyfirst.opole.pl',
     // Skrzynki tematyczne, widoczne w sekcji konsultacji (blocks.tsx), docelowo tez pod automatyzacje.

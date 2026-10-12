@@ -48,10 +48,10 @@ function Kontakt() {
           <div>
             <h2 className="text-2xl">Dane firmy</h2>
             <address className="mt-4 space-y-1 not-italic">
-              <p>{c.name}</p>
-              <p>{c.street}</p>
-              <p>{c.postalCode} {c.city}</p>
-              <p>NIP {c.nip}</p>
+              {c.name && <p>{c.name}</p>}
+              {c.street && <p>{c.street}</p>}
+              {(c.postalCode || c.city) && <p>{c.postalCode} {c.city}</p>}
+              {c.nip && <p>NIP {c.nip}</p>}
             </address>
           </div>
           <div>

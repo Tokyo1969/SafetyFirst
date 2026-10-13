@@ -52,7 +52,7 @@ function ONas() {
       </PageHero>
 
       <section className="sekcja bg-papier">
-        <div className="kontener grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-16">
+        <div className="kontener grid items-start gap-10 md:grid-cols-[auto_1fr] md:gap-16">
           <div className="relative mx-auto w-full max-w-[18rem] md:mx-0 md:w-72">
             <img
               src={photoUrl}
@@ -66,11 +66,28 @@ function ONas() {
           </div>
           <div>
             <h2>Kto się Tobą zajmie</h2>
-            <p className="mt-5 max-w-[60ch] text-lg">
-              Od 2022 roku koordynuję obsługę BHP i ochrony środowiska w firmach różnej wielkości. Wszystkie
-              dokumenty podpisuję osobiście, więc wiesz, kto za nie odpowiada.
+            <p className="mt-5 max-w-[62ch] text-lg">
+              Bezpieczeństwo pracy i ochrona środowiska to obszary, z którymi związałam swoją karierę zawodową i które z czasem stały się moją specjalizacją.
             </p>
-            <p className="mt-5">
+            <p className="mt-5 max-w-[62ch]">
+              Doświadczenie zdobywałam w różnych środowiskach pracy, od budownictwa po zakłady produkcyjne przemysłu ciężkiego i branży motoryzacyjnej. Pełniłam funkcje specjalistyczne, koordynacyjne oraz kierownicze w obszarze EHS (BHP i ochrony środowiska), dzięki czemu patrzę na BHP i ochronę środowiska zarówno z perspektywy codziennego funkcjonowania zakładu, jak i systemowego zarządzania tymi obszarami.
+            </p>
+            <p className="mt-5 max-w-[62ch]">
+              W praktyce zawodowej zajmuję się m.in. BHP, ochroną środowiska, systemami ISO 45001 i ISO 14001, szkoleniami, oceną ryzyka, postępowaniami powypadkowymi, bezpieczeństwem maszyn, gospodarką odpadami, dokumentacją EHS oraz przygotowaniem organizacji do kontroli i audytów. Reprezentowałam pracodawców podczas kontroli PIP, Sanepidu i WIOŚ oraz uczestniczyłam w audytach wewnętrznych, zewnętrznych i certyfikacyjnych.
+            </p>
+            <p className="mt-5 max-w-[62ch]">
+              Mam doświadczenie nie tylko w utrzymywaniu istniejących rozwiązań, ale także w ich tworzeniu i rozwijaniu. Opracowywałam od podstaw dokumentację systemów ISO 45001 i ISO 14001, a następnie uczestniczyłam w procesie certyfikacji. Wdrażałam również narzędzia do zgłaszania i monitorowania zdarzeń związanych z bezpieczeństwem, wizyty bezpieczeństwa oraz działania rozwijające kulturę bezpieczeństwa w organizacji.
+            </p>
+            <p className="mt-5 max-w-[62ch]">
+              W swojej pracy stawiam przede wszystkim na rozwiązania, które działają w praktyce, a nie tylko dobrze wyglądają w dokumentacji. Zależy mi na tym, aby wymagania BHP i ochrony środowiska były zrozumiałe, możliwe do zastosowania i rzeczywiście pomagały ograniczać ryzyko.
+            </p>
+            <p className="mt-5 max-w-[62ch]">
+              Mam wykształcenie kierunkowe w zakresie BHP, kwalifikacje Inspektora Ochrony Przeciwpożarowej i Specjalisty ds. Ochrony Środowiska, uprawnienia Audytora Wewnętrznego PIKW oraz przygotowanie pedagogiczno-dydaktyczne do prowadzenia szkoleń BHP. BHP traktuję nie jako zbiór zakazów i nakazów, ale jako świadome zarządzanie ryzykiem, ludźmi i organizacją pracy.
+            </p>
+            <p className="mt-5 max-w-[62ch]">
+              Ochronę środowiska postrzegam podobnie: jako odpowiedzialność, która powinna być wpisana w codzienne decyzje i procesy organizacji.
+            </p>
+            <p className="mt-8">
               <strong className="font-naglowek text-xl">{site.person.name}</strong>
               <span className="block text-tusz-2">{site.person.role}</span>
             </p>

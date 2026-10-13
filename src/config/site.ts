@@ -32,6 +32,9 @@ export const site = {
   builder: { name: 'NexXsite', url: 'https://nexxsite.pl' },
   // Google Analytics 4 (ID pomiaru, publiczny). Pusty = bez analityki.
   gaId: 'G-XDCZRXJ50V',
+  // Asystent AI na stronie (okienko czatu). Wlaczyc (true) po ustawieniu sekretu ANTHROPIC_API_KEY w Workerze.
+  // Podglad na zywo przed wlaczeniem: dopisz ?asystent=1 do adresu strony.
+  chat: { enabled: false },
   region: 'województwo opolskie',
   maxEmployees: 50,
 } as const

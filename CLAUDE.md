@@ -20,6 +20,7 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 - `src/lib/seo.ts` – meta, canonical, Open Graph (obraz `public/og-image.jpg` 1200x630) i JSON-LD (Organization, Service, BreadcrumbList). Każda trasa używa `pageHead()` lub `serviceHead()`. `sitemap.xml` generuje trasa `sitemap[.]xml.ts`, `robots.txt` jest w `public/`.
 - `src/server/consultation.ts` – server function formularza. Antyspam: honeypot + Cloudflare Turnstile (widget w `ConsultationForm.tsx`, klucz witryny w `site.turnstileSiteKey`, weryfikacja tokenu po stronie serwera tylko gdy ustawiony sekret `TURNSTILE_SECRET_KEY`; sekret wylacznie jako sekret Workera, nie w `wrangler.jsonc`).
 - Analityka: Google Analytics 4 (`site.gaId`, tag w `__root.tsx`) z Consent Mode v2, zgoda domyślnie odrzucona. Baner `CookieBanner.tsx` (wybór w localStorage `sf-zgoda-analityka`, przycisk "Ustawienia cookies" w stopce), akapit w polityce prywatności do przeglądu prawnika.
+- Asystent AI (czat): `src/components/ChatWidget.tsx` (okienko w prawym dolnym rogu, rozmowa w sessionStorage), `src/server/chat.ts` (server function, wywołuje API Anthropic, model `claude-haiku-5-5` lub `CHAT_MODEL`, prompt caching, limit 20 wiadomości / 10 min na IP, brak zapisu rozmów), `src/lib/chat-knowledge.ts` (wiedza budowana z `services.ts`, `os-services.ts`, `pricing.ts`, `site.ts` + `ZASADY_NATALII` do uzupełnienia). Sekret `ANTHROPIC_API_KEY` wyłącznie jako sekret Workera. Włączenie: `site.chat.enabled = true` (do czasu włączenia podgląd pod `?asystent=1`). `CHAT_MOCK=1` w `.dev.vars` = odpowiedź testowa bez API. W koncie Anthropic ustawić miesięczny limit wydatków.
 - `supabase/migrations/` – migracje (zastosowane w Supabase, region eu-central-1).
 
 ## Zasady
@@ -32,5 +33,6 @@ Strona usług BHP i ochrony środowiska. Usługę prowadzi Natalia Krysztofiak (
 ## Do zrobienia
 - Domena podpięta (strefa w Cloudflare, Custom Domain w Workerze, www -> apeks 301). Turnstile: klucz witryny wpisany w `site.ts`; sekret `TURNSTILE_SECRET_KEY` ustawić w Workerze (bez niego weryfikacja serwerowa jest wyłączona).
 - Treści podstron BHP, OŚ, o nas i ceny OŚ do zatwierdzenia przez Natalię. Czekamy na jej odpowiedzi (m.in. szkolenia specjalistyczne: pierwsza pomoc, ppoż., wysokość; stawka Transport; ocena ryzyka dla wielu stanowisk), potem ewentualne dodatkowe strony. Certyfikaty i kwalifikacje: dodać na `/o-nas`, gdy będą.
+- Asystent AI: czeka na odpowiedzi Natalii (zakres, czego nie robić, ton, najczęstsze pytania) → `ZASADY_NATALII`; klucz API do Workera i włączenie `site.chat.enabled`. Dalej: panel klienta z przypomnieniami o szkoleniach, sprzedaż online.
 - Blogi (3 osobne w Soro, Brand DNA po akceptacji kierunku), SEO, schema.
 - Polityka prywatności i regulamin do sprawdzenia przez prawnika. Certyfikaty i kwalifikacje do uzupełnienia.

@@ -5,6 +5,7 @@ import appCss from '../styles.css?url'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
 import { CookieBanner } from '../components/CookieBanner'
+import { ChatWidget } from '../components/ChatWidget'
 import { site } from '../config/site'
 
 export const Route = createRootRoute({
@@ -46,6 +47,7 @@ function RootComponent() {
       <Outlet />
       <Footer />
       <CookieBanner />
+      <ChatWidget />
     </RootDocument>
   )
 }

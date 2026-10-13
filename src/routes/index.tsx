@@ -161,12 +161,15 @@ function Home() {
           <div>
             <h2>Kto się Tobą zajmie</h2>
             <p className="mt-5 max-w-[60ch] text-lg">
-              Od 2022 roku koordynuję obsługę BHP i ochrony środowiska w firmach różnej wielkości. Wszystkie
+              Od kilku lat koordynuję obsługę BHP i ochrony środowiska w firmach różnej wielkości. Wszystkie
               dokumenty podpisuję osobiście, więc wiesz, kto za nie odpowiada.
             </p>
             <p className="mt-5">
               <strong className="font-naglowek text-xl">{site.person.name}</strong>
               <span className="block text-tusz-2">{site.person.role}</span>
+            </p>
+            <p className="mt-4">
+              <Link to="/o-nas" className="link font-semibold">Dowiedz się więcej →</Link>
             </p>
           </div>
         </div>

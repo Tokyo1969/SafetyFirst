@@ -18,7 +18,16 @@ export type Service = {
   prices: readonly ServicePrice[]
   priceNote?: string
   steps: readonly string[]
+  // Opcjonalny opis pod "Jak to wygląda" (na razie czesc podstron OS, z "oferta_ochrona_srodowiska.md").
+  details?: ServiceDetails
   formServices: readonly string[]
+}
+
+export type ServiceDetails = {
+  heading: string
+  intro: readonly string[]
+  items: readonly { title: string; forWhom: string; scope: string }[]
+  why: string
 }
 
 export const SERVICES: readonly Service[] = [

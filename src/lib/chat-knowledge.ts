@@ -26,6 +26,11 @@ function servicesText(): string {
     }
     if (s.priceNote) lines.push(s.priceNote)
     if (s.steps.length) lines.push(`Jak to wygląda: ${s.steps.join(' ')}`)
+    if (s.details) {
+      lines.push(s.details.intro.join(' '))
+      for (const d of s.details.items) lines.push(`- ${d.title}. Dla kogo: ${d.forWhom} Zakres: ${d.scope}`)
+      lines.push(`Dlaczego Safety First: ${s.details.why}`)
+    }
     return lines.join('\n')
   }).join('\n\n')
 }

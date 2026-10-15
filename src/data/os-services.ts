@@ -83,6 +83,35 @@ export const OS_SERVICES: readonly Service[] = [
       'Przekazujemy wyniki z listą braków i zaleceniami.',
       'Pomagamy uzupełnić braki.',
     ],
+    details: {
+      heading: 'Audyt, który pokazuje realny stan firmy',
+      intro: [
+        'Audyt środowiskowy to sprawdzenie, czy firma spełnia wymagania prawa ochrony środowiska. Pozwala znaleźć braki, zanim zrobi to kontrola, i jest ważną częścią badania (due diligence) przed zakupem nieruchomości komercyjnej lub zakładu.',
+        'Przeprowadzimy rzetelny audyt, który pokaże realny stan Twojej firmy i plan dojścia do pełnej zgodności z przepisami.',
+      ],
+      items: [
+        {
+          title: 'Audyt zgodności z przepisami',
+          forWhom:
+            'Dla właścicieli i zarządów, którzy chcą mieć pewność, że firma działa zgodnie z aktualnymi przepisami środowiskowymi.',
+          scope:
+            'Sprawdzamy decyzje, pozwolenia i sprawozdania (BDO, KOBiZE, opłaty), a także to, jak w praktyce magazynowane są substancje chemiczne i odpady.',
+        },
+        {
+          title: 'Audyt przed zakupem (due diligence)',
+          forWhom: 'Dla inwestorów, którzy planują zakup działki, hali produkcyjnej lub całego przedsiębiorstwa.',
+          scope:
+            'Badamy historię środowiskową lokalizacji, ryzyko zanieczyszczenia gleby i wód gruntowych oraz szacujemy koszty dostosowania obiektu do planowanej działalności.',
+        },
+        {
+          title: 'Raport z zaleceniami',
+          forWhom: 'Dla kadry zarządzającej, która potrzebuje jasnych wskazówek, co zrobić.',
+          scope:
+            'Przygotowujemy poufny raport, który bez prawniczego żargonu opisuje uchybienia, ocenia ryzyko finansowe (możliwe kary) i zawiera harmonogram działań naprawczych.',
+        },
+      ],
+      why: 'Nasz audyt to nie szukanie dziury w całym, tylko ochrona Twojej firmy. Wykrywamy błędy i pomagamy je usunąć na Twoich warunkach: dyskretnie, sprawnie i z naciskiem na praktyczne rozwiązania.',
+    },
     formServices: ['Ochrona środowiska'],
   },
   {
@@ -154,6 +183,36 @@ export const OS_SERVICES: readonly Service[] = [
       'Przygotowujemy procedury i instrukcje albo wskazujemy poprawki.',
       'Prowadzimy dalszą obsługę, jeśli jej potrzebujesz.',
     ],
+    details: {
+      heading: 'Gospodarka odpadami bez ryzyka',
+      intro: [
+        'Prawidłowe zarządzanie odpadami to podstawa działania każdej firmy. Przepisy nakładają na wytwórców odpadów, np. budowlanych, medycznych, niebezpiecznych, zużytego sprzętu czy chemikaliów, obowiązki związane z ich segregacją, magazynowaniem i przekazywaniem uprawnionym odbiorcom. Niewłaściwe magazynowanie albo przekazanie odpadów firmie bez uprawnień grozi wysokimi karami, a nawet odpowiedzialnością karną.',
+        'Projektujemy i wdrażamy bezpieczne i opłacalne zasady postępowania z odpadami, dopasowane do Twojej branży.',
+      ],
+      items: [
+        {
+          title: 'Procedury i instrukcje gospodarki odpadami',
+          forWhom:
+            'Dla zakładów produkcyjnych, warsztatów, firm budowlanych i innych firm, w których powstają odpady przemysłowe.',
+          scope:
+            'Przygotowujemy instrukcje postępowania z odpadami w firmie, doradzamy w oznakowaniu miejsc magazynowania i dobieramy właściwe kody odpadów.',
+        },
+        {
+          title: 'Legalni odbiorcy i niższe koszty',
+          forWhom: 'Dla firm, które szukają oszczędności, ale bez ryzyka nielegalnych rozwiązań.',
+          scope:
+            'Sprawdzamy decyzje i uprawnienia firm transportowych i instalacji przetwarzania odpadów, z którymi współpracujesz lub chcesz współpracować. Chroni Cię to przed współodpowiedzialnością za nielegalne postępowanie z odpadami.',
+        },
+        {
+          title: 'Decyzje i zezwolenia',
+          forWhom:
+            'Dla firm, które rozwijają działalność albo potrzebują zezwoleń na wytwarzanie, zbieranie lub przetwarzanie odpadów.',
+          scope:
+            'Przygotowujemy wnioski o wydanie decyzji i reprezentujemy klienta przed organami ochrony środowiska.',
+        },
+      ],
+      why: 'Zamieniamy skomplikowane przepisy o odpadach w proste zasady dla pracowników. Dzięki właściwej klasyfikacji i segregacji u źródła pomagamy obniżyć koszty odbioru odpadów.',
+    },
     formServices: ['Ochrona środowiska'],
   },
   {
@@ -187,6 +246,36 @@ export const OS_SERVICES: readonly Service[] = [
       'Przygotowujemy wpis albo aktualizację.',
       'Prowadzimy dalszą obsługę rejestru, jeśli tego chcesz.',
     ],
+    details: {
+      heading: 'Kompleksowa obsługa BDO',
+      intro: [
+        'BDO (Baza Danych o Produktach i Opakowaniach oraz o Gospodarce Odpadami) to obowiązkowy rejestr elektroniczny dla firm, które wytwarzają odpady, wprowadzają na rynek produkty w opakowaniach, opony czy oleje. Prowadzenie takiej działalności bez wymaganego wpisu grozi administracyjną karą pieniężną od 5 000 zł do 1 000 000 zł.',
+        'Zdejmujemy z Twoich barków formalności urzędowe i pilnujemy, żeby firma spełniała obowiązki wynikające z przepisów o odpadach.',
+      ],
+      items: [
+        {
+          title: 'Wpis do rejestru BDO',
+          forWhom:
+            'Dla nowych firm oraz takich, które zmieniają profil działalności i zaczynają podlegać przepisom o odpadach.',
+          scope:
+            'Analizujemy specyfikę Twojej działalności, klasyfikujemy odpady według katalogu, kompletujemy dokumenty i składamy wniosek do właściwego urzędu marszałkowskiego.',
+        },
+        {
+          title: 'Aktualizacja danych w BDO',
+          forWhom: 'Dla firm już zarejestrowanych, w których zaszły zmiany formalne lub w działalności.',
+          scope:
+            'Wniosek o zmianę wpisu trzeba złożyć w ciągu 30 dni od zmiany. Robimy to za Ciebie przy zmianie adresu, nazwy lub formy prawnej firmy, a także przy rozszerzeniu działalności o nowe kody odpadów.',
+        },
+        {
+          title: 'Bieżące prowadzenie i ewidencja',
+          forWhom:
+            'Dla firm, które chcą oddać codzienną obsługę BDO w ręce specjalisty, oszczędzić czas i uniknąć błędów.',
+          scope:
+            'Wystawiamy i zatwierdzamy karty przekazania odpadów (KPO), prowadzimy karty ewidencji odpadów (KEO) oraz przygotowujemy i składamy roczne sprawozdanie o odpadach (do 15 marca za poprzedni rok).',
+        },
+      ],
+      why: 'Działamy na terenie województwa opolskiego. Pilnujemy terminów i poprawności wpisów, dzięki czemu spokojnie przechodzisz kontrolę Inspekcji Ochrony Środowiska (WIOŚ) i możesz skupić się na rozwoju firmy.',
+    },
     formServices: ['Ochrona środowiska'],
   },
   {
@@ -341,6 +430,35 @@ export const OS_SERVICES: readonly Service[] = [
       'Przygotowujemy raport do wysłania.',
       'Pilnujemy terminu kolejnego raportu.',
     ],
+    details: {
+      heading: 'Raporty KOBiZE od rejestracji po roczne rozliczenie',
+      intro: [
+        'Raport o emisjach do Krajowej bazy prowadzonej przez KOBiZE (Krajowy Ośrodek Bilansowania i Zarządzania Emisjami) składa niemal każda firma, która ma choćby jeden samochód służbowy, klimatyzację w biurze czy kocioł grzewczy. Raport za poprzedni rok trzeba złożyć do końca lutego. Za jego brak grozi grzywna, a zaległości zwykle wychodzą przy kontroli WIOŚ.',
+        'Przeprowadzimy Cię przez cały proces: od założenia konta po coroczne rozliczenie emisji.',
+      ],
+      items: [
+        {
+          title: 'Rejestracja w Krajowej bazie KOBiZE',
+          forWhom:
+            'Dla firm, które jeszcze nie założyły konta, a korzystają z samochodów, kotłowni lub urządzeń chłodniczych.',
+          scope:
+            'Zakładamy konto w bazie, poprawnie przypisujemy instalacje i urządzenia oraz pomagamy przejść weryfikację.',
+        },
+        {
+          title: 'Wyliczenie wielkości emisji',
+          forWhom: 'Dla firm, które co roku muszą raportować emisje z instalacji i urządzeń.',
+          scope:
+            'Analizujemy faktury za paliwo do samochodów, zużycie gazu, węgla i innych paliw oraz karty serwisowe klimatyzacji. Na tej podstawie, według oficjalnych wskaźników, wyliczamy ilość wyemitowanych gazów i pyłów.',
+        },
+        {
+          title: 'Przygotowanie i wysłanie raportu rocznego',
+          forWhom: 'Dla firm, które chcą mieć pewność, że raport nie zawiera błędów w obliczeniach.',
+          scope:
+            'Wprowadzamy dane do bazy, przygotowujemy raport, sprawdzamy jego poprawność i wysyłamy go w terminie.',
+        },
+      ],
+      why: 'Dokładnie wyliczamy emisje, a te same dane służą później do naliczenia opłat środowiskowych. Unikasz błędów w obliczeniach i masz porządek w rejestrach państwowych.',
+    },
     formServices: ['Ochrona środowiska'],
   },
   {
@@ -372,6 +490,34 @@ export const OS_SERVICES: readonly Service[] = [
       'Przygotowujemy wykaz do złożenia.',
       'Pilnujemy kolejnych terminów.',
     ],
+    details: {
+      heading: 'Rozliczenie opłat za korzystanie ze środowiska',
+      intro: [
+        'Opłaty za korzystanie ze środowiska to ustawowy obowiązek firm, których działalność wpływa na środowisko. Dotyczy to m.in. spalin z samochodów firmowych, kotłowni, poboru wód i odprowadzania ścieków. Wykaz za poprzedni rok składa się do urzędu marszałkowskiego, a opłatę wnosi na jego rachunek do 31 marca. Niezłożenie wykazu albo zaniżenie opłat kończy się koniecznością zapłaty zaległości z odsetkami.',
+        'Przeanalizujemy Twoje dokumenty i prawidłowo rozliczymy opłaty środowiskowe firmy.',
+      ],
+      items: [
+        {
+          title: 'Ustalenie, za co firma płaci',
+          forWhom: 'Dla firm, które nie wiedzą, które obszary ich działalności podlegają opłatom.',
+          scope:
+            'Sprawdzamy samochody, ogrzewanie i procesy technologiczne i wskazujemy, z czego trzeba się rozliczyć.',
+        },
+        {
+          title: 'Naliczenie opłat i przygotowanie wykazów',
+          forWhom: 'Dla firm, które chcą zapłacić tyle, ile trzeba: bez nadpłat i bez zaległości.',
+          scope:
+            'Obliczamy należne kwoty według aktualnych stawek ogłaszanych przez ministra właściwego do spraw klimatu i przygotowujemy wykazy zawierające informacje i dane o zakresie korzystania ze środowiska.',
+        },
+        {
+          title: 'Kontakt z urzędem marszałkowskim',
+          forWhom: 'Dla przedsiębiorców, którzy nie chcą tracić czasu na sprawy urzędowe.',
+          scope:
+            'Składamy wykazy do właściwego urzędu marszałkowskiego (np. w Opolu) i wyjaśniamy sprawy, gdy urząd ma pytania.',
+        },
+      ],
+      why: 'Jeśli roczna opłata nie przekracza 800 zł, nie trzeba jej wnosić, ale gdy przekracza 100 zł, wykaz i tak trzeba złożyć. Pilnujemy tego obowiązku, żeby nie zaskoczyło Cię wezwanie z urzędu.',
+    },
     formServices: ['Ochrona środowiska'],
   },
 
@@ -599,6 +745,36 @@ export const OS_SERVICES: readonly Service[] = [
       'Uzupełniamy braki.',
       'Wspieramy Cię w trakcie kontroli.',
     ],
+    details: {
+      heading: 'Wsparcie przed, w trakcie i po kontroli',
+      intro: [
+        'Zapowiedziana lub niespodziewana wizyta inspektorów Wojewódzkiego Inspektoratu Ochrony Środowiska (WIOŚ) to jeden z najbardziej stresujących momentów dla przedsiębiorcy. Inspektorzy mogą wejść na teren firmy, żądać dokumentów i pobierać próbki. Brak przygotowania, błędy w dokumentach lub niewłaściwe zachowanie podczas kontroli mogą skończyć się mandatem, karą pieniężną, a w skrajnych przypadkach wstrzymaniem działalności.',
+        'Pomagamy przed kontrolą, w jej trakcie i po niej, żeby ograniczyć jej skutki dla firmy.',
+      ],
+      items: [
+        {
+          title: 'Pomoc w trakcie kontroli',
+          forWhom:
+            'Dla firm, które dostały zawiadomienie o kontroli albo u których inspektorzy właśnie rozpoczęli czynności.',
+          scope:
+            'Możemy uczestniczyć w kontroli jako Twój pełnomocnik. Pilnujemy, żeby przebiegała zgodnie z procedurami, i pomagamy odpowiadać na pytania inspektorów.',
+        },
+        {
+          title: 'Sprawdzenie protokołu kontroli',
+          forWhom: 'Dla firm, u których kontrola się zakończyła i które otrzymały protokół z ustaleniami.',
+          scope:
+            'Sprawdzamy protokół pod kątem błędów formalnych i nadinterpretacji faktów. Pomagamy przygotować uzasadnione zastrzeżenia do protokołu.',
+        },
+        {
+          title: 'Zalecenia pokontrolne i odwołania',
+          forWhom:
+            'Dla firm, które otrzymały decyzję o karze, mandat albo zarządzenie pokontrolne nakazujące usunięcie uchybień.',
+          scope:
+            'Przygotowujemy odwołania od decyzji WIOŚ do Głównego Inspektora Ochrony Środowiska i pomagamy sprawnie wdrożyć działania naprawcze, żeby zamknąć sprawę bez dalszych sankcji.',
+        },
+      ],
+      why: 'Znamy procedury kontroli i przepisy ochrony środowiska, więc wiemy, jak rozmawiać z inspektorami. Pilnujemy, żeby kary nie były nakładane bez podstaw, i pomagamy Twojej firmie wyjść z kontroli z obronną ręką.',
+    },
     formServices: ['Ochrona środowiska'],
   },
 ]

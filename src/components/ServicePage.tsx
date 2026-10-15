@@ -1,6 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { CheckList, ConsultationSection, PageHero, SectionHeading, Steps } from './blocks'
-import type { Service } from '../data/services'
+import type { Service, ServiceDetails } from '../data/services'
 import { relatedServices, servicePath } from '../data/catalog'
 import { heroImage } from '../lib/hero'
 
@@ -54,6 +54,8 @@ export function ServicePage({ service }: { service: Service }) {
         </div>
       </section>
 
+      {service.details && <Details details={service.details} />}
+
       <ConsultationSection
         title="Zapytaj o wycenę"
         lead="Napisz, czym zajmuje się firma i ile osób zatrudnia. Wrócimy z konkretną ofertą."
@@ -85,6 +87,41 @@ export function ServicePage({ service }: { service: Service }) {
         </div>
       </section>
     </main>
+  )
+}
+
+function Details({ details }: { details: ServiceDetails }) {
+  const [lead, ...rest] = details.intro
+  return (
+    <section className="sekcja bg-papier">
+      <div className="kontener">
+        <SectionHeading title={details.heading} lead={lead} />
+        {rest.map((p) => (
+          <p key={p} className="-mt-4 mb-10 max-w-[44rem] md:mb-12">{p}</p>
+        ))}
+        <ol className="grid gap-5 lg:grid-cols-3">
+          {details.items.map((item) => (
+            <li key={item.title} className="rounded-[var(--radius-panel)] border border-linia bg-white p-6 sm:p-7">
+              <h3>{item.title}</h3>
+              <dl className="mt-5 grid gap-4">
+                <div>
+                  <dt className="font-naglowek font-semibold">Dla kogo</dt>
+                  <dd className="mt-1 text-tusz-2">{item.forWhom}</dd>
+                </div>
+                <div>
+                  <dt className="font-naglowek font-semibold">Zakres usługi</dt>
+                  <dd className="mt-1 text-tusz-2">{item.scope}</dd>
+                </div>
+              </dl>
+            </li>
+          ))}
+        </ol>
+        <div className="mt-8 rounded-[var(--radius-panel)] bg-znak-jasny p-6 sm:p-8">
+          <h3>Dlaczego Safety First?</h3>
+          <p className="mt-3 max-w-[52rem]">{details.why}</p>
+        </div>
+      </div>
+    </section>
   )
 }
 

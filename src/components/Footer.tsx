@@ -18,7 +18,7 @@ export function Footer() {
           <div>
             <Logo inverted />
             <p className="mt-5 max-w-[32ch] text-papier/75">
-              Obsługa BHP i ochrony środowiska dla małych firm, {site.region}.
+              Obsługa BHP i ochrony środowiska dla firm z województwa opolskiego, w stałej współpracy lub jednorazowo.
             </p>
           </div>
           <nav aria-label="Usługi">
@@ -51,7 +51,7 @@ export function Footer() {
             </address>
             <nav aria-label="Najważniejsze linki" className="mt-12">
               <p className="font-naglowek text-lg font-semibold">Najważniejsze linki</p>
-              <ul className="mt-3 space-y-2">
+              <ul className="mt-3 space-y-2 text-sm">
                 {site.usefulLinks.map((l) => (
                   <li key={l.url}>
                     <a className={footLink} href={l.url} target="_blank" rel="noopener">{l.label}</a>

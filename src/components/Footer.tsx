@@ -41,13 +41,25 @@ export function Footer() {
               <li><Link to="/kontakt" className={footLink}>Kontakt</Link></li>
             </ul>
           </nav>
-          <address className="not-italic">
-            <p className="font-naglowek text-lg font-semibold">Kontakt</p>
-            <ul className="mt-3 space-y-2">
-              <li><a className={footLink} href={`mailto:${site.emails.main}`}>{site.emails.main}</a></li>
-              <li><a className={footLink} href={site.phone.href}>{site.phone.display}</a></li>
-            </ul>
-          </address>
+          <div>
+            <address className="not-italic">
+              <p className="font-naglowek text-lg font-semibold">Kontakt</p>
+              <ul className="mt-3 space-y-2">
+                <li><a className={footLink} href={`mailto:${site.emails.main}`}>{site.emails.main}</a></li>
+                <li><a className={footLink} href={site.phone.href}>{site.phone.display}</a></li>
+              </ul>
+            </address>
+            <nav aria-label="Najważniejsze linki" className="mt-12">
+              <p className="font-naglowek text-lg font-semibold">Najważniejsze linki</p>
+              <ul className="mt-3 space-y-2">
+                {site.usefulLinks.map((l) => (
+                  <li key={l.url}>
+                    <a className={footLink} href={l.url} target="_blank" rel="noopener">{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
           <div>
             <p className="font-naglowek text-lg font-semibold">Dane firmy</p>
             <div className="mt-3 space-y-1 text-papier/85">

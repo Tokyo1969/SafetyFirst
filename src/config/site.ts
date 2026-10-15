@@ -6,7 +6,7 @@ export const site = {
   tagline: 'BHP i ochrona środowiska',
   person: {
     name: 'Natalia Krysztofiak',
-    role: 'specjalista ds. BHP i Ochrony Środowiska',
+    role: 'Główny Specjalista ds. BHP i Ochrony Środowiska',
   },
   // Dane tymczasowe do czasu zalozenia sp. z o.o.
   company: {

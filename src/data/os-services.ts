@@ -101,7 +101,7 @@ export const OS_SERVICES: readonly Service[] = [
           title: 'Audyt przed zakupem (due diligence)',
           forWhom: 'Dla inwestorów, którzy planują zakup działki, hali produkcyjnej lub całego przedsiębiorstwa.',
           scope:
-            'Badamy historię środowiskową lokalizacji, ryzyko zanieczyszczenia gleby i wód gruntowych oraz szacujemy koszty dostosowania obiektu do planowanej działalności.',
+            'Badamy historię środowiskową lokalizacji, ryzyko zanieczyszczenia gleby i wód gruntowych oraz szacujemy koszty dostosowania obiektu do planowanej działalności. Ten audyt wykonujemy razem z firmą partnerską, która specjalizuje się w takich badaniach, dlatego zakres i termin ustalamy po kontakcie.',
         },
         {
           title: 'Raport z zaleceniami',
@@ -433,14 +433,14 @@ export const OS_SERVICES: readonly Service[] = [
     details: {
       heading: 'Raporty KOBiZE od rejestracji po roczne rozliczenie',
       intro: [
-        'Raport o emisjach do Krajowej bazy prowadzonej przez KOBiZE (Krajowy Ośrodek Bilansowania i Zarządzania Emisjami) składa niemal każda firma, która ma choćby jeden samochód służbowy, klimatyzację w biurze czy kocioł grzewczy. Raport za poprzedni rok trzeba złożyć do końca lutego. Za jego brak grozi grzywna, a zaległości zwykle wychodzą przy kontroli WIOŚ.',
+        'Raport o emisjach do Krajowej bazy prowadzonej przez KOBiZE (Krajowy Ośrodek Bilansowania i Zarządzania Emisjami) składa niemal każda firma, która ma choćby jeden samochód służbowy czy kocioł grzewczy. Raport za poprzedni rok trzeba złożyć do końca lutego. Za jego brak grozi grzywna, a zaległości zwykle wychodzą przy kontroli WIOŚ.',
         'Przeprowadzimy Cię przez cały proces: od założenia konta po coroczne rozliczenie emisji.',
       ],
       items: [
         {
           title: 'Rejestracja w Krajowej bazie KOBiZE',
           forWhom:
-            'Dla firm, które jeszcze nie założyły konta, a korzystają z samochodów, kotłowni lub urządzeń chłodniczych.',
+            'Dla firm, które jeszcze nie założyły konta, a korzystają z samochodów lub kotłowni.',
           scope:
             'Zakładamy konto w bazie, poprawnie przypisujemy instalacje i urządzenia oraz pomagamy przejść weryfikację.',
         },
@@ -448,7 +448,7 @@ export const OS_SERVICES: readonly Service[] = [
           title: 'Wyliczenie wielkości emisji',
           forWhom: 'Dla firm, które co roku muszą raportować emisje z instalacji i urządzeń.',
           scope:
-            'Analizujemy faktury za paliwo do samochodów, zużycie gazu, węgla i innych paliw oraz karty serwisowe klimatyzacji. Na tej podstawie, według oficjalnych wskaźników, wyliczamy ilość wyemitowanych gazów i pyłów.',
+            'Analizujemy faktury za paliwo do samochodów, zużycie gazu, węgla i innych paliw. Na tej podstawie, według oficjalnych wskaźników, wyliczamy ilość wyemitowanych gazów i pyłów.',
         },
         {
           title: 'Przygotowanie i wysłanie raportu rocznego',

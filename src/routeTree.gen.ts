@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as DlaBranzRouteImport } from './routes/dla-branz'
 import { Route as DokumentacjaBhpRouteImport } from './routes/dokumentacja-bhp'
+import { Route as KalkulatorKobizeSamochodyRouteImport } from './routes/kalkulator-kobize-samochody'
 import { Route as KonsultacjeBhpRouteImport } from './routes/konsultacje-bhp'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as KontrolaIAudytBhpRouteImport } from './routes/kontrola-i-audyt-bhp'
@@ -47,6 +48,12 @@ const DokumentacjaBhpRoute = DokumentacjaBhpRouteImport.update({
   path: '/dokumentacja-bhp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KalkulatorKobizeSamochodyRoute =
+  KalkulatorKobizeSamochodyRouteImport.update({
+    id: '/kalkulator-kobize-samochody',
+    path: '/kalkulator-kobize-samochody',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const KonsultacjeBhpRoute = KonsultacjeBhpRouteImport.update({
   id: '/konsultacje-bhp',
   path: '/konsultacje-bhp',
@@ -118,6 +125,7 @@ export interface FileRoutesByFullPath {
   '/cennik': typeof CennikRoute
   '/dla-branz': typeof DlaBranzRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/kalkulator-kobize-samochody': typeof KalkulatorKobizeSamochodyRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontakt': typeof KontaktRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
@@ -137,6 +145,7 @@ export interface FileRoutesByTo {
   '/cennik': typeof CennikRoute
   '/dla-branz': typeof DlaBranzRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/kalkulator-kobize-samochody': typeof KalkulatorKobizeSamochodyRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontakt': typeof KontaktRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
@@ -157,6 +166,7 @@ export interface FileRoutesById {
   '/cennik': typeof CennikRoute
   '/dla-branz': typeof DlaBranzRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/kalkulator-kobize-samochody': typeof KalkulatorKobizeSamochodyRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontakt': typeof KontaktRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
@@ -178,6 +188,7 @@ export interface FileRouteTypes {
     | '/cennik'
     | '/dla-branz'
     | '/dokumentacja-bhp'
+    | '/kalkulator-kobize-samochody'
     | '/konsultacje-bhp'
     | '/kontakt'
     | '/kontrola-i-audyt-bhp'
@@ -197,6 +208,7 @@ export interface FileRouteTypes {
     | '/cennik'
     | '/dla-branz'
     | '/dokumentacja-bhp'
+    | '/kalkulator-kobize-samochody'
     | '/konsultacje-bhp'
     | '/kontakt'
     | '/kontrola-i-audyt-bhp'
@@ -216,6 +228,7 @@ export interface FileRouteTypes {
     | '/cennik'
     | '/dla-branz'
     | '/dokumentacja-bhp'
+    | '/kalkulator-kobize-samochody'
     | '/konsultacje-bhp'
     | '/kontakt'
     | '/kontrola-i-audyt-bhp'
@@ -236,6 +249,7 @@ export interface RootRouteChildren {
   CennikRoute: typeof CennikRoute
   DlaBranzRoute: typeof DlaBranzRoute
   DokumentacjaBhpRoute: typeof DokumentacjaBhpRoute
+  KalkulatorKobizeSamochodyRoute: typeof KalkulatorKobizeSamochodyRoute
   KonsultacjeBhpRoute: typeof KonsultacjeBhpRoute
   KontaktRoute: typeof KontaktRoute
   KontrolaIAudytBhpRoute: typeof KontrolaIAudytBhpRoute
@@ -279,6 +293,13 @@ declare module '@tanstack/react-router' {
       path: '/dokumentacja-bhp'
       fullPath: '/dokumentacja-bhp'
       preLoaderRoute: typeof DokumentacjaBhpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kalkulator-kobize-samochody': {
+      id: '/kalkulator-kobize-samochody'
+      path: '/kalkulator-kobize-samochody'
+      fullPath: '/kalkulator-kobize-samochody'
+      preLoaderRoute: typeof KalkulatorKobizeSamochodyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/konsultacje-bhp': {
@@ -380,6 +401,7 @@ const rootRouteChildren: RootRouteChildren = {
   CennikRoute: CennikRoute,
   DlaBranzRoute: DlaBranzRoute,
   DokumentacjaBhpRoute: DokumentacjaBhpRoute,
+  KalkulatorKobizeSamochodyRoute: KalkulatorKobizeSamochodyRoute,
   KonsultacjeBhpRoute: KonsultacjeBhpRoute,
   KontaktRoute: KontaktRoute,
   KontrolaIAudytBhpRoute: KontrolaIAudytBhpRoute,

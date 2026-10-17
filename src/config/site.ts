@@ -48,8 +48,8 @@ export const site = {
   // Podglad na zywo przed wlaczeniem: dopisz ?asystent=1 do adresu strony.
   // saveConversations: zapis rozmow do bazy (tabela chat_messages) do analiz, decyzja Natalii z 17.10.2026.
   // Wymaga migracji 20261017000000_chat_messages.sql, informacji w oknie czatu i akapitu w polityce prywatnosci.
-  // Skrot rozmow na info@ wysyla n8n (do zrobienia).
-  chat: { enabled: false, saveConversations: true },
+  // Skrot rozmow na info@ wysyla n8n (workflow "Safety First - Skrot rozmow z asystentem na info@").
+  chat: { enabled: true, saveConversations: true },
   region: 'województwo opolskie',
   maxEmployees: 50,
 } as const

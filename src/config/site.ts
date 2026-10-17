@@ -44,7 +44,7 @@ export const site = {
   builder: { name: 'NexXsite', url: 'https://nexxsite.pl' },
   // Google Analytics 4 (ID pomiaru, publiczny). Pusty = bez analityki.
   gaId: 'G-XDCZRXJ50V',
-  // Asystent AI na stronie (okienko czatu). Wlaczyc (true) po ustawieniu sekretu ANTHROPIC_API_KEY w Workerze.
+  // Asystent AI na stronie (okienko czatu). Wlaczyc (true) po ustawieniu sekretu OPENAI_API_KEY w Workerze.
   // Podglad na zywo przed wlaczeniem: dopisz ?asystent=1 do adresu strony.
   // saveConversations: zapis rozmow do bazy (tabela chat_messages) do analiz, decyzja Natalii z 17.10.2026.
   // Wymaga migracji 20261017000000_chat_messages.sql, informacji w oknie czatu i akapitu w polityce prywatnosci.

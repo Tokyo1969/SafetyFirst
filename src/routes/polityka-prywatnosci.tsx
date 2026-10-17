@@ -41,7 +41,7 @@ function Privacy() {
         w bazie (Supabase, region UE) wraz z losowym identyfikatorem rozmowy, bez adresu IP i bez Twoich danych
         kontaktowych, wyłącznie w celu analizy i ulepszania odpowiedzi. Prosimy, aby nie podawać w rozmowie danych
         osobowych. Zapisane rozmowy przechowujemy do 12 miesięcy, a ich skrót trafia na skrzynkę{' '}
-        {site.emails.chatLog}. Treść pytań jest przetwarzana przez Anthropic PBC, dostawcę modelu językowego,
+        {site.emails.chatLog}. Treść pytań jest przetwarzana przez OpenAI, dostawcę modelu językowego,
         który generuje odpowiedzi.
       </p>
     </main>

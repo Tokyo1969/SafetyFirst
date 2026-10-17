@@ -88,6 +88,18 @@ export function breadcrumbLd(items: { name: string; path: string }[]): JsonLd {
   }
 }
 
+export function faqLd(items: { q: string; a: string }[]): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((it) => ({
+      '@type': 'Question',
+      name: it.q,
+      acceptedAnswer: { '@type': 'Answer', text: it.a },
+    })),
+  }
+}
+
 export function serviceLd(s: Service, path: string): JsonLd {
   return {
     '@context': 'https://schema.org',

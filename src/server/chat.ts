@@ -1,9 +1,10 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeader } from '@tanstack/react-start/server'
 import { buildSystemPrompt } from '../lib/chat-knowledge'
+import { site } from '../config/site'
 
 export type ChatMessage = { role: 'user' | 'assistant'; content: string }
-export type ChatInput = { messages: ChatMessage[] }
+export type ChatInput = { messages: ChatMessage[]; sessionId?: string }
 export type ChatResult =
   | { ok: true; reply: string }
   | { ok: false; error: 'invalid' | 'limit' | 'not_configured' | 'failed' }
@@ -46,6 +47,35 @@ function oczysc(messages: unknown): ChatMessage[] | null {
   return out
 }
 
+// Zapis pary pytanie-odpowiedz do Supabase (do analiz, bez adresu IP). Blad zapisu nie psuje rozmowy.
+// Rola anon moze tylko dodawac wiersze (RLS), odczyt przez klucz serwisowy lub panel Supabase.
+async function zapiszRozmowe(sessionId: unknown, pytanie: string, odpowiedz: string): Promise<void> {
+  if (!site.chat.saveConversations) return
+  const url = process.env.SUPABASE_URL
+  const key = process.env.SUPABASE_ANON_KEY
+  if (!url || !key) return
+  const sesja = typeof sessionId === 'string' ? sessionId.replace(/[^a-zA-Z0-9-]/g, '').slice(0, 64) : ''
+  try {
+    const response = await fetch(`${url}/rest/v1/chat_messages`, {
+      method: 'POST',
+      headers: {
+        apikey: key,
+        ...(key.startsWith('sb_') ? {} : { Authorization: `Bearer ${key}` }),
+        'Content-Type': 'application/json',
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({
+        session_id: sesja || 'brak',
+        user_message: pytanie.slice(0, MAX_CHARS),
+        assistant_reply: odpowiedz.slice(0, 4000),
+      }),
+    })
+    if (!response.ok) console.error('chat: zapis rozmowy nie powiodl sie', response.status)
+  } catch (e) {
+    console.error('chat: blad zapisu rozmowy', e)
+  }
+}
+
 export const askAssistant = createServerFn({ method: 'POST' })
   .inputValidator((data: ChatInput) => data)
   .handler(async ({ data }): Promise<ChatResult> => {
@@ -57,7 +87,8 @@ export const askAssistant = createServerFn({ method: 'POST' })
 
     // Tryb testowy bez wywolania API (tylko do sprawdzania wygladu: CHAT_MOCK=1 w .dev.vars).
     if (process.env.CHAT_MOCK === '1') {
-      return { ok: true, reply: 'To odpowiedź testowa. Szczegóły znajdziesz na stronie [Cennik](/cennik).' }
+      const test = 'To odpowiedź testowa. Szczegóły znajdziesz na stronie [Cennik](/cennik).'
+      return { ok: true, reply: test }
     }
 
     const key = process.env.ANTHROPIC_API_KEY
@@ -93,6 +124,7 @@ export const askAssistant = createServerFn({ method: 'POST' })
         .join('\n')
         .trim()
       if (!reply) return { ok: false, error: 'failed' }
+      await zapiszRozmowe(data.sessionId, messages[messages.length - 1].content, reply)
       return { ok: true, reply }
     } catch (e) {
       console.error('chat: blad polaczenia z Anthropic', e)

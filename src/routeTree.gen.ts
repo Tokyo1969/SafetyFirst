@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as CennikRouteImport } from './routes/cennik'
 import { Route as DlaBranzRouteImport } from './routes/dla-branz'
 import { Route as DokumentacjaBhpRouteImport } from './routes/dokumentacja-bhp'
+import { Route as FaqRouteImport } from './routes/faq'
 import { Route as KalkulatorKobizeSamochodyRouteImport } from './routes/kalkulator-kobize-samochody'
 import { Route as KonsultacjeBhpRouteImport } from './routes/konsultacje-bhp'
 import { Route as KontaktRouteImport } from './routes/kontakt'
@@ -46,6 +47,11 @@ const DlaBranzRoute = DlaBranzRouteImport.update({
 const DokumentacjaBhpRoute = DokumentacjaBhpRouteImport.update({
   id: '/dokumentacja-bhp',
   path: '/dokumentacja-bhp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KalkulatorKobizeSamochodyRoute =
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/cennik': typeof CennikRoute
   '/dla-branz': typeof DlaBranzRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/faq': typeof FaqRoute
   '/kalkulator-kobize-samochody': typeof KalkulatorKobizeSamochodyRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontakt': typeof KontaktRoute
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/cennik': typeof CennikRoute
   '/dla-branz': typeof DlaBranzRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/faq': typeof FaqRoute
   '/kalkulator-kobize-samochody': typeof KalkulatorKobizeSamochodyRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontakt': typeof KontaktRoute
@@ -166,6 +174,7 @@ export interface FileRoutesById {
   '/cennik': typeof CennikRoute
   '/dla-branz': typeof DlaBranzRoute
   '/dokumentacja-bhp': typeof DokumentacjaBhpRoute
+  '/faq': typeof FaqRoute
   '/kalkulator-kobize-samochody': typeof KalkulatorKobizeSamochodyRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontakt': typeof KontaktRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/cennik'
     | '/dla-branz'
     | '/dokumentacja-bhp'
+    | '/faq'
     | '/kalkulator-kobize-samochody'
     | '/konsultacje-bhp'
     | '/kontakt'
@@ -208,6 +218,7 @@ export interface FileRouteTypes {
     | '/cennik'
     | '/dla-branz'
     | '/dokumentacja-bhp'
+    | '/faq'
     | '/kalkulator-kobize-samochody'
     | '/konsultacje-bhp'
     | '/kontakt'
@@ -228,6 +239,7 @@ export interface FileRouteTypes {
     | '/cennik'
     | '/dla-branz'
     | '/dokumentacja-bhp'
+    | '/faq'
     | '/kalkulator-kobize-samochody'
     | '/konsultacje-bhp'
     | '/kontakt'
@@ -249,6 +261,7 @@ export interface RootRouteChildren {
   CennikRoute: typeof CennikRoute
   DlaBranzRoute: typeof DlaBranzRoute
   DokumentacjaBhpRoute: typeof DokumentacjaBhpRoute
+  FaqRoute: typeof FaqRoute
   KalkulatorKobizeSamochodyRoute: typeof KalkulatorKobizeSamochodyRoute
   KonsultacjeBhpRoute: typeof KonsultacjeBhpRoute
   KontaktRoute: typeof KontaktRoute
@@ -293,6 +306,13 @@ declare module '@tanstack/react-router' {
       path: '/dokumentacja-bhp'
       fullPath: '/dokumentacja-bhp'
       preLoaderRoute: typeof DokumentacjaBhpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kalkulator-kobize-samochody': {
@@ -401,6 +421,7 @@ const rootRouteChildren: RootRouteChildren = {
   CennikRoute: CennikRoute,
   DlaBranzRoute: DlaBranzRoute,
   DokumentacjaBhpRoute: DokumentacjaBhpRoute,
+  FaqRoute: FaqRoute,
   KalkulatorKobizeSamochodyRoute: KalkulatorKobizeSamochodyRoute,
   KonsultacjeBhpRoute: KonsultacjeBhpRoute,
   KontaktRoute: KontaktRoute,

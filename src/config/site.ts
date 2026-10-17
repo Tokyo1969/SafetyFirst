@@ -24,6 +24,8 @@ export const site = {
     os: 'os@safetyfirst.opole.pl',
     training: 'szkolenia@safetyfirst.opole.pl',
     service: 'serwis@safetyfirst.opole.pl',
+    // Skrzynka na skroty rozmow z asystentem (nie jest pokazywana na stronie).
+    chatLog: 'info@safetyfirst.opole.pl',
   },
   // Klucz witryny Cloudflare Turnstile (publiczny z zalozenia). Pusty = formularz bez widgetu.
   // Sekret TURNSTILE_SECRET_KEY ustawiamy tylko jako sekret Workera (wrangler secret / panel).
@@ -44,7 +46,10 @@ export const site = {
   gaId: 'G-XDCZRXJ50V',
   // Asystent AI na stronie (okienko czatu). Wlaczyc (true) po ustawieniu sekretu ANTHROPIC_API_KEY w Workerze.
   // Podglad na zywo przed wlaczeniem: dopisz ?asystent=1 do adresu strony.
-  chat: { enabled: false },
+  // saveConversations: zapis rozmow do bazy (tabela chat_messages) do analiz, decyzja Natalii z 17.10.2026.
+  // Wymaga migracji 20261017000000_chat_messages.sql, informacji w oknie czatu i akapitu w polityce prywatnosci.
+  // Skrot rozmow na info@ wysyla n8n (do zrobienia).
+  chat: { enabled: false, saveConversations: true },
   region: 'województwo opolskie',
   maxEmployees: 50,
 } as const

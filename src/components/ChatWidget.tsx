@@ -3,6 +3,7 @@ import { askAssistant, type ChatMessage } from '../server/chat'
 import { site } from '../config/site'
 
 const KLUCZ = 'sf-czat'
+const KLUCZ_ID = 'sf-czat-id'
 const MAX_PYTAN = 15 // limit pytan w jednej sesji przegladarki
 const PODPOWIEDZI = [
   'Ile kosztuje stała obsługa BHP?',
@@ -82,6 +83,7 @@ export function ChatWidget() {
   const [czeka, setCzeka] = useState(false)
   const [blad, setBlad] = useState<string | null>(null)
   const [odczytane, setOdczytane] = useState(false)
+  const idRozmowy = useRef('')
   const lista = useRef<HTMLDivElement>(null)
   const pole = useRef<HTMLInputElement>(null)
 
@@ -92,6 +94,11 @@ export function ChatWidget() {
     try {
       const zapis = sessionStorage.getItem(KLUCZ)
       if (zapis) setWiadomosci(JSON.parse(zapis) as ChatMessage[])
+      idRozmowy.current = sessionStorage.getItem(KLUCZ_ID) ?? ''
+      if (!idRozmowy.current) {
+        idRozmowy.current = crypto.randomUUID()
+        sessionStorage.setItem(KLUCZ_ID, idRozmowy.current)
+      }
     } catch {
       // brak dostepu do pamieci przegladarki: rozmowa trwa do przeladowania strony
     }
@@ -131,7 +138,7 @@ export function ChatWidget() {
     setBlad(null)
     setCzeka(true)
     try {
-      const wynik = await askAssistant({ data: { messages: nowe } })
+      const wynik = await askAssistant({ data: { messages: nowe, sessionId: idRozmowy.current } })
       if (wynik.ok) {
         setWiadomosci([...nowe, { role: 'assistant', content: wynik.reply }])
       } else {
@@ -235,8 +242,10 @@ export function ChatWidget() {
             </div>
             <p className="mt-2 text-xs leading-snug text-tusz-2">
               Asystent AI może się mylić, a ceny są orientacyjne (netto, „od”). Nie podawaj tu danych osobowych.
-              Wolisz człowieka? <a href={site.phone.href} className="link">{site.phone.display}</a> lub{' '}
-              <a href="/kontakt#konsultacja" className="link">formularz</a>.
+              {site.chat.saveConversations && (
+                <> Rozmowy zapisujemy anonimowo, żeby ulepszać odpowiedzi (<a href="/polityka-prywatnosci" className="link">szczegóły</a>).</>
+              )}{' '}
+              Potrzebujesz człowieka? Wypełnij <a href="/kontakt#konsultacja" className="link">formularz</a>.
             </p>
           </form>
         </section>

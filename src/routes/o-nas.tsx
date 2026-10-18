@@ -10,7 +10,7 @@ export const Route = createFileRoute('/o-nas')({
     pageHead({
       title: 'O nas – Natalia Krysztofiak, BHP i ochrona środowiska | Safety First, Opole',
       description:
-        'Safety First to obsługa BHP i ochrony środowiska dla firm z województwa opolskiego. Za dokumenty i kontrole odpowiada jedna osoba: Natalia Krysztofiak.',
+        'Safety First to obsługa BHP i ochrony środowiska dla firm: abonament na Opolszczyźnie, konsultacje i szkolenia online w całej Polsce. Za dokumenty i kontrole odpowiada jedna osoba: Natalia Krysztofiak.',
       path: '/o-nas',
       jsonLd: [
         organizationLd(),
@@ -46,7 +46,7 @@ function ONas() {
         image={heroImage('o-nas')}
         crumb="O nas"
         title="Za Twoje dokumenty odpowiada jedna osoba"
-        lead={`Safety First to marka usług BHP i ochrony środowiska dla firm z Opolszczyzny. Wszystkie dokumenty podpisuje ${site.person.name}.`}
+        lead={`Safety First to marka usług BHP i ochrony środowiska dla firm. Stałą obsługę abonamentową prowadzimy na terenie Opolszczyzny, a konsultacje, wsparcie w zakresie dokumentacji i szkolenia online są dostępne w całej Polsce. Wszystkie dokumenty podpisuje ${site.person.name}.`}
       >
         <a href="#konsultacja" className="btn btn-glowny">Umów bezpłatną konsultację</a>
       </PageHero>

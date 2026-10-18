@@ -36,6 +36,14 @@ function Privacy() {
         lokalizację i dane techniczne przeglądarki. Bez zgody analityka nie zapisuje ciasteczek. Zgodę możesz
         w każdej chwili zmienić lub wycofać przyciskiem „Ustawienia cookies” w stopce strony.
       </p>
+      <p className="mt-6">
+        Na stronie działa asystent AI, który odpowiada na pytania o usługi. Treść pytań i odpowiedzi zapisujemy
+        w bazie (Supabase, region UE) wraz z losowym identyfikatorem rozmowy, bez adresu IP i bez Twoich danych
+        kontaktowych, wyłącznie w celu analizy i ulepszania odpowiedzi. Prosimy, aby nie podawać w rozmowie danych
+        osobowych. Zapisane rozmowy przechowujemy do 12 miesięcy, a ich skrót trafia na skrzynkę{' '}
+        {site.emails.chatLog}. Treść pytań jest przetwarzana przez OpenAI, dostawcę modelu językowego,
+        który generuje odpowiedzi.
+      </p>
     </main>
   )
 }

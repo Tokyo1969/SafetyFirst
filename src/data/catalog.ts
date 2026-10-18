@@ -42,6 +42,7 @@ export const SITEMAP_PATHS: readonly string[] = [
   '/cennik',
   '/dla-branz',
   '/o-nas',
+  '/faq',
   '/kontakt',
   ...SERVICES.map(servicePath),
   '/ochrona-srodowiska',

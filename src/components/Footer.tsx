@@ -38,6 +38,7 @@ export function Footer() {
               <li><Link to="/cennik" className={footLink}>Cennik</Link></li>
               <li><Link to="/dla-branz" className={footLink}>Dla branż</Link></li>
               <li><Link to="/o-nas" className={footLink}>O nas</Link></li>
+              <li><Link to="/faq" className={footLink}>Najczęstsze pytania</Link></li>
               <li><Link to="/kontakt" className={footLink}>Kontakt</Link></li>
             </ul>
           </nav>

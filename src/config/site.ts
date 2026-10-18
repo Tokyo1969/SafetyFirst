@@ -1,4 +1,7 @@
 // Dane firmy i kontaktowe w jednym miejscu.
+
+import { truncate } from "node:fs";
+
 // Po zalozeniu sp. z o.o. zmieniamy tylko ten plik (stopka, polityka prywatnosci, formularz).
 export const site = {
   brand: 'Safety First',
@@ -44,7 +47,7 @@ export const site = {
   gaId: 'G-XDCZRXJ50V',
   // Asystent AI na stronie (okienko czatu). Wlaczyc (true) po ustawieniu sekretu ANTHROPIC_API_KEY w Workerze.
   // Podglad na zywo przed wlaczeniem: dopisz ?asystent=1 do adresu strony.
-  chat: { enabled: false },
+  chat: { enabled: true },
   region: 'województwo opolskie',
   maxEmployees: 50,
 } as const

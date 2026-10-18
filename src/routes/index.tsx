@@ -140,12 +140,34 @@ function Home() {
 
       <section className="sekcja">
         <div className="kontener">
+          <div className="grid items-center gap-8 rounded-[var(--radius-panel)] border border-linia bg-papier p-6 sm:p-10 lg:grid-cols-[1.4fr_1fr]">
+            <div>
+              <p className="inline-block rounded-full bg-tasma px-3 py-1 text-sm font-semibold text-tusz">Wkrótce</p>
+              <h2 className="mt-4">Szkolenia BHP online</h2>
+              <p className="mt-4 max-w-[56ch] text-lg text-tusz-2">
+                Przygotowujemy szkolenia online, które pracownik odbywa w dowolnym miejscu i czasie, z egzaminem
+                i certyfikatem. Będą dostępne dla firm z całej Polski.
+              </p>
+              <p className="mt-4 max-w-[56ch] text-tusz-2">
+                Chcesz dowiedzieć się o starcie jako jeden z pierwszych? Napisz w formularzu poniżej, a damy
+                znać, gdy szkolenia ruszą.
+              </p>
+            </div>
+            <div className="lg:justify-self-end">
+              <a href="#konsultacja" className="btn btn-glowny">Napisz, że jesteś zainteresowany</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="sekcja bg-papier">
+        <div className="kontener">
           <SectionHeading title="Jak wygląda współpraca" />
           <Steps steps={STEPS} />
         </div>
       </section>
 
-      <section className="sekcja bg-papier">
+      <section className="sekcja">
         <div className="kontener grid items-center gap-10 md:grid-cols-[auto_1fr] md:gap-16">
           <div className="relative mx-auto w-full max-w-[18rem] md:mx-0 md:w-72">
             <img

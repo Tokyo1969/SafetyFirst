@@ -6,7 +6,7 @@ import { SERVICES } from '../data/services'
 import { site } from '../config/site'
 import { FEATURED_OS, servicePath } from '../data/catalog'
 import { organizationLd, pageHead } from '../lib/seo'
-import photoUrl from '../assets/natalia-krysztofiak.jpg'
+import photoUrl from '../assets/natalia-krysztofiak-biuro.jpg'
 import heroBgUrl from '../assets/hero-tlo-glowna.jpg'
 
 export const Route = createFileRoute('/')({
@@ -173,10 +173,10 @@ function Home() {
             <img
               src={photoUrl}
               alt={`${site.person.name}, ${site.person.role}`}
-              width={984}
-              height={984}
+              width={864}
+              height={1296}
               loading="lazy"
-              className="aspect-[4/5] w-full rounded-[2rem] object-cover object-[50%_15%]"
+              className="aspect-[4/5] w-full rounded-[2rem] object-cover object-[50%_12%]"
             />
             <div aria-hidden="true" className="tasma absolute -bottom-3 left-1/2 h-4 w-32 -translate-x-1/2 rotate-2 rounded-sm" />
           </div>

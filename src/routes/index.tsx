@@ -13,7 +13,7 @@ export const Route = createFileRoute('/')({
   head: () =>
     pageHead({
       title: 'Safety First – obsługa BHP i ochrona środowiska dla firm',
-      description: `Stała obsługa BHP od ${PRICE_FROM} zł netto miesięcznie, szkolenia i ochrona środowiska dla firm z Opolszczyzny. Wszystko w rękach jednego specjalisty.`,
+      description: `Stała obsługa BHP od ${PRICE_FROM} zł netto miesięcznie, szkolenia i ochrona środowiska dla firm. Obsługa stacjonarna na Opolszczyźnie, konsultacje i szkolenia online w całej Polsce. Wszystko w rękach jednego specjalisty.`,
       path: '/',
       jsonLd: [organizationLd()],
     }),
@@ -61,7 +61,7 @@ function Home() {
         />
         <div className="kontener relative grid items-center gap-14 pt-12 pb-16 md:pt-20 lg:grid-cols-[1.15fr_1fr] lg:pb-24">
           <div>
-            <h1>BHP i ochrona środowiska dla firm z Opolszczyzny</h1>
+            <h1>BHP i ochrona środowiska dla firm</h1>
             <p className="mt-6 max-w-[54ch] text-lg text-tusz-2 md:text-xl">
               Dokumentację, szkolenia, kontrole i raporty prowadzi jeden specjalista. Ty zajmujesz się firmą,
               a my pilnujemy przepisów i terminów.

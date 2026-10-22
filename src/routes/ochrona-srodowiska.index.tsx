@@ -7,7 +7,7 @@ import { breadcrumbLd, pageHead } from '../lib/seo'
 
 const TITLE = 'Ochrona środowiska dla firm – odpady, BDO, KOBiZE, opłaty | Safety First'
 const DESCRIPTION =
-  'Obsługa ochrony środowiska dla firm z Opolszczyzny: gospodarka odpadami, BDO, raporty KOBiZE, opłaty środowiskowe, woda i ścieki, kontrole WIOŚ. Wycena po rozmowie.'
+  'Obsługa ochrony środowiska dla firm w całej Polsce, wizyty na miejscu na Opolszczyźnie: gospodarka odpadami, BDO, raporty KOBiZE, opłaty środowiskowe, woda i ścieki, kontrole WIOŚ. Wycena po rozmowie.'
 
 export const Route = createFileRoute('/ochrona-srodowiska/')({
   head: () =>
@@ -38,7 +38,7 @@ function OchronaSrodowiska() {
       <PageHero
         image={heroImage('ochrona-srodowiska')}
         crumb="Ochrona środowiska"
-        title="Ochrona środowiska dla firm z Opolszczyzny"
+        title="Ochrona środowiska dla firm"
         lead="Odpady, BDO, raporty, opłaty i kontrole. Obowiązki środowiskowe firmy prowadzi jedna osoba, więc dokumenty są kompletne, a terminy pod kontrolą."
       >
         <a href="#konsultacja" className="btn btn-glowny">Zapytaj o wycenę</a>

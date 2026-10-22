@@ -27,7 +27,7 @@ export const OS_SERVICES: readonly Service[] = [
     title: 'Stała obsługa środowiskowa firmy',
     metaTitle: 'Stała obsługa ochrony środowiska dla firm – outsourcing OŚ, Opole',
     metaDescription:
-      'Outsourcing ochrony środowiska: przegląd obowiązków, rejestr wymagań prawnych, doradztwo i pilnowanie terminów. Firmy z Opola i województwa opolskiego.',
+      'Outsourcing ochrony środowiska: przegląd obowiązków, rejestr wymagań prawnych, doradztwo i pilnowanie terminów. Konsultacje i dokumentacja w całej Polsce, wizyty na miejscu na Opolszczyźnie.',
     lead: 'Obowiązki środowiskowe firmy, od odpadów po opłaty i sprawozdania, prowadzi jedna osoba. Wiesz, co trzeba zrobić i kiedy, a dokumenty są aktualne.',
     scopeHeading: 'Co obejmuje stała obsługa',
     scope: [
@@ -346,7 +346,7 @@ export const OS_SERVICES: readonly Service[] = [
     title: 'Sprawozdania odpadowe',
     metaTitle: 'Sprawozdania odpadowe dla firm – Safety First, Opole',
     metaDescription:
-      'Przygotowanie sprawozdań odpadowych od 500 zł netto wraz z weryfikacją ewidencji i kart przekazania. Firmy z Opola i województwa opolskiego.',
+      'Przygotowanie sprawozdań odpadowych od 500 zł netto wraz z weryfikacją ewidencji i kart przekazania. Konsultacje i dokumentacja w całej Polsce, wizyty na miejscu na Opolszczyźnie.',
     lead: 'Przygotowujemy sprawozdanie na podstawie ewidencji i sprawdzamy wcześniej, czy dane się zgadzają, żeby nie było poprawek po terminie.',
     scopeHeading: 'Zakres',
     scope: [
@@ -410,7 +410,7 @@ export const OS_SERVICES: readonly Service[] = [
     title: 'Raporty KOBiZE i obsługa bazy',
     metaTitle: 'Raporty KOBiZE: przygotowanie i obsługa – Safety First, Opole',
     metaDescription:
-      'Obsługa KOBiZE od 500 zł netto rocznie, przygotowanie i weryfikacja raportów KOBiZE od 500 zł. Firmy z Opola i województwa opolskiego.',
+      'Obsługa KOBiZE od 500 zł netto rocznie, przygotowanie i weryfikacja raportów KOBiZE od 500 zł. Konsultacje i dokumentacja w całej Polsce, wizyty na miejscu na Opolszczyźnie.',
     lead: 'Raport do KOBiZE przygotowujemy na podstawie danych o emisjach firmy, a jeśli masz już swój, sprawdzamy go przed wysłaniem.',
     scopeHeading: 'Zakres',
     scope: [
@@ -629,7 +629,7 @@ export const OS_SERVICES: readonly Service[] = [
     title: 'Dokumentacja środowiskowa firmy',
     metaTitle: 'Dokumentacja środowiskowa: procedury, rejestry, instrukcje – Safety First',
     metaDescription:
-      'Procedury, instrukcje gospodarki odpadami, rejestry i raporty środowiskowe dla firm z Opola i województwa opolskiego. Instrukcja gospodarki odpadami od 500 zł netto.',
+      'Procedury, instrukcje gospodarki odpadami, rejestry i raporty środowiskowe dla firm w całej Polsce, wizyty na miejscu na Opolszczyźnie. Instrukcja gospodarki odpadami od 500 zł netto.',
     lead: 'Przygotowujemy dokumenty, o które pytają kontrolerzy: procedury, instrukcje, rejestry i sprawozdania, dopasowane do tego, co robi Twoja firma.',
     scopeHeading: 'Dokumenty, które przygotowujemy',
     scope: [

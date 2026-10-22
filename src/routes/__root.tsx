@@ -14,7 +14,7 @@ export const Route = createRootRoute({
       { charSet: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { name: 'theme-color', content: '#ffffff' },
-      { title: `${site.brand} – ${site.tagline} dla małych firm z Opola` },
+      { title: `${site.brand} – ${site.tagline} dla małych firm` },
     ],
     links: [
       { rel: 'stylesheet', href: appCss },

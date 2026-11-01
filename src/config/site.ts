@@ -57,7 +57,7 @@ export const site = {
   // Sekrety STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET i SUPABASE_SERVICE_ROLE_KEY tylko jako sekrety Workera.
   // fakturowniaDomain: subdomena konta Fakturowni (<domena>.fakturownia.pl). Pusta = bez automatycznych faktur.
   // Tryb test wystawia proforma, live faktury VAT (src/server/fakturownia.ts). Sekret FAKTUROWNIA_API_TOKEN w Workerze.
-  payments: { enabled: false, mode: 'test' as 'test' | 'live', fakturowniaDomain: '' as string },
+  payments: { enabled: false, mode: 'test' as 'test' | 'live', fakturowniaDomain: 'safetyfirst' as string },
   region: 'województwo opolskie',
   maxEmployees: 50,
 } as const

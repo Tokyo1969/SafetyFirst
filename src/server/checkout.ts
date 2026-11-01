@@ -149,6 +149,8 @@ export const startCheckout = createServerFn({ method: 'POST' })
         // Klienci to firmy: adres i NIP potrzebne do faktury (wystawiamy ja poza Stripe, docelowo Fakturownia i KSeF).
         billing_address_collection: 'required',
         'tax_id_collection[enabled]': 'true',
+        // NIP wymagany (sprzedaz tylko firmom, decyzja 1.11.2026). Stripe pokazuje wtedy tez pole nazwy firmy.
+        'tax_id_collection[required]': 'if_supported',
         success_url: `${base}/zamowienie?status=ok&nr=${encodeURIComponent(order.order_number)}`,
         cancel_url: `${base}/zamowienie?status=anulowano`,
       })

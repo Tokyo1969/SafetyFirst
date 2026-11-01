@@ -55,7 +55,9 @@ export const site = {
   // mode 'test': serwer przyjmuje tylko klucz testowy (sk_test_/rk_test_), webhook pomija zdarzenia z trybu live.
   // Produkty, ceny netto i stawki VAT sa w Supabase (products, app_settings), zamowienia w orders/order_items.
   // Sekrety STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET i SUPABASE_SERVICE_ROLE_KEY tylko jako sekrety Workera.
-  payments: { enabled: false, mode: 'test' as 'test' | 'live' },
+  // fakturowniaDomain: subdomena konta Fakturowni (<domena>.fakturownia.pl). Pusta = bez automatycznych faktur.
+  // Tryb test wystawia proforma, live faktury VAT (src/server/fakturownia.ts). Sekret FAKTUROWNIA_API_TOKEN w Workerze.
+  payments: { enabled: false, mode: 'test' as 'test' | 'live', fakturowniaDomain: '' as string },
   region: 'województwo opolskie',
   maxEmployees: 50,
 } as const

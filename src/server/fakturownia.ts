@@ -23,7 +23,13 @@ type OrderForInvoice = {
   status: string
   buyer_email: string
   fakturownia_invoice_id: string | null
-  order_items: { title: string; quantity: number; unit_net_cents: number; vat_rate: number | string }[]
+  order_items: {
+    title: string
+    quantity: number
+    unit_net_cents: number
+    vat_rate: number | string
+    products: { type: string } | null
+  }[]
 }
 
 export function invoicingConfigured(): boolean {
@@ -49,7 +55,7 @@ export async function ensureInvoice(orderId: string, buyer: InvoiceBuyer): Promi
   const token = process.env.FAKTUROWNIA_API_TOKEN as string
 
   const orderRes = await adminRest(
-    `orders?select=id,order_number,status,buyer_email,fakturownia_invoice_id,order_items(title,quantity,unit_net_cents,vat_rate)&id=eq.${orderId}`,
+    `orders?select=id,order_number,status,buyer_email,fakturownia_invoice_id,order_items(title,quantity,unit_net_cents,vat_rate,products(type))&id=eq.${orderId}`,
   )
   if (!orderRes.ok) return false
   const order = ((await orderRes.json()) as OrderForInvoice[])[0]
@@ -61,7 +67,9 @@ export async function ensureInvoice(orderId: string, buyer: InvoiceBuyer): Promi
     const rate = Number(item.vat_rate)
     // Brutto pozycji jak w Stripe (cena brutto sztuki x liczba), zeby faktura zgadzala sie z platnoscia.
     const gross = Math.round(item.unit_net_cents * (1 + rate / 100)) * item.quantity
-    return { name: item.title.slice(0, 256), quantity: item.quantity, tax: rate, total_price_gross: gross / 100 }
+    // Szkolenia liczymy na osoby, dokumenty i pakiety w sztukach.
+    const unit = item.products?.type?.startsWith('training_') ? 'os.' : 'szt.'
+    return { name: item.title.slice(0, 256), quantity: item.quantity, quantity_unit: unit, tax: rate, total_price_gross: gross / 100 }
   })
   const paid = positions.reduce((sum, p) => sum + p.total_price_gross, 0)
 

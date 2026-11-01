@@ -50,6 +50,12 @@ export const site = {
   // Wymaga migracji 20261017000000_chat_messages.sql, informacji w oknie czatu i akapitu w polityce prywatnosci.
   // Skrot rozmow na info@ wysyla n8n (workflow "Safety First - Skrot rozmow z asystentem na info@").
   chat: { enabled: true, saveConversations: true },
+  // Platnosci online (Stripe Checkout: klient placi na stronie Stripe, wracamy na /zamowienie).
+  // WYLACZONE do czasu regulaminu sklepu i dokumentow. Podglad przed wlaczeniem: /zamowienie?platnosci=1
+  // mode 'test': serwer przyjmuje tylko klucz testowy (sk_test_/rk_test_), webhook pomija zdarzenia z trybu live.
+  // Produkty, ceny netto i stawki VAT sa w Supabase (products, app_settings), zamowienia w orders/order_items.
+  // Sekrety STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET i SUPABASE_SERVICE_ROLE_KEY tylko jako sekrety Workera.
+  payments: { enabled: false, mode: 'test' as 'test' | 'live' },
   region: 'województwo opolskie',
   maxEmployees: 50,
 } as const

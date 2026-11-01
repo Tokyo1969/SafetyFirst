@@ -26,6 +26,7 @@ import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywa
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SzkoleniaBhpRouteImport } from './routes/szkolenia-bhp'
 import { Route as WypadkiPrzyPracyRouteImport } from './routes/wypadki-przy-pracy'
+import { Route as ZamowienieRouteImport } from './routes/zamowienie'
 import { Route as OchronaSrodowiskaIndexRouteImport } from './routes/ochrona-srodowiska.index'
 import { Route as OchronaSrodowiskaSlugRouteImport } from './routes/ochrona-srodowiska.$slug'
 
@@ -115,6 +116,11 @@ const WypadkiPrzyPracyRoute = WypadkiPrzyPracyRouteImport.update({
   path: '/wypadki-przy-pracy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ZamowienieRoute = ZamowienieRouteImport.update({
+  id: '/zamowienie',
+  path: '/zamowienie',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OchronaSrodowiskaIndexRoute = OchronaSrodowiskaIndexRouteImport.update({
   id: '/ochrona-srodowiska/',
   path: '/ochrona-srodowiska/',
@@ -144,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
+  '/zamowienie': typeof ZamowienieRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
   '/ochrona-srodowiska/': typeof OchronaSrodowiskaIndexRoute
 }
@@ -165,6 +172,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
+  '/zamowienie': typeof ZamowienieRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
   '/ochrona-srodowiska': typeof OchronaSrodowiskaIndexRoute
 }
@@ -187,6 +195,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
+  '/zamowienie': typeof ZamowienieRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
   '/ochrona-srodowiska/': typeof OchronaSrodowiskaIndexRoute
 }
@@ -210,6 +219,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/szkolenia-bhp'
     | '/wypadki-przy-pracy'
+    | '/zamowienie'
     | '/ochrona-srodowiska/$slug'
     | '/ochrona-srodowiska/'
   fileRoutesByTo: FileRoutesByTo
@@ -231,6 +241,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/szkolenia-bhp'
     | '/wypadki-przy-pracy'
+    | '/zamowienie'
     | '/ochrona-srodowiska/$slug'
     | '/ochrona-srodowiska'
   id:
@@ -252,6 +263,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/szkolenia-bhp'
     | '/wypadki-przy-pracy'
+    | '/zamowienie'
     | '/ochrona-srodowiska/$slug'
     | '/ochrona-srodowiska/'
   fileRoutesById: FileRoutesById
@@ -274,6 +286,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SzkoleniaBhpRoute: typeof SzkoleniaBhpRoute
   WypadkiPrzyPracyRoute: typeof WypadkiPrzyPracyRoute
+  ZamowienieRoute: typeof ZamowienieRoute
   OchronaSrodowiskaSlugRoute: typeof OchronaSrodowiskaSlugRoute
   OchronaSrodowiskaIndexRoute: typeof OchronaSrodowiskaIndexRoute
 }
@@ -399,6 +412,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WypadkiPrzyPracyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/zamowienie': {
+      id: '/zamowienie'
+      path: '/zamowienie'
+      fullPath: '/zamowienie'
+      preLoaderRoute: typeof ZamowienieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ochrona-srodowiska/': {
       id: '/ochrona-srodowiska/'
       path: '/ochrona-srodowiska'
@@ -434,6 +454,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SzkoleniaBhpRoute: SzkoleniaBhpRoute,
   WypadkiPrzyPracyRoute: WypadkiPrzyPracyRoute,
+  ZamowienieRoute: ZamowienieRoute,
   OchronaSrodowiskaSlugRoute: OchronaSrodowiskaSlugRoute,
   OchronaSrodowiskaIndexRoute: OchronaSrodowiskaIndexRoute,
 }

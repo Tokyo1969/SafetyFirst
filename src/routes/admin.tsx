@@ -5,7 +5,7 @@ import { Logo } from '../components/Logo'
 import { adminClient } from '../lib/admin'
 import { pageHead } from '../lib/seo'
 
-// Panel administracyjny (produkty, pliki, podglady). Logowanie Supabase Auth (e-mail i haslo), rola admin w profiles.
+// Panel administracyjny (produkty, pliki, podglady, zamowienia, kategorie, ustawienia). Logowanie Supabase Auth (e-mail i haslo), rola admin w profiles.
 // Konta tworzymy recznie w panelu Supabase, bez publicznej rejestracji. Strona renderuje sie w przegladarce.
 export const Route = createFileRoute('/admin')({
   head: () =>
@@ -49,6 +49,9 @@ function AdminLayout() {
           {stan.kind === 'admin' && (
             <nav aria-label="Panel" className="flex flex-wrap items-center gap-4 text-sm">
               <Link to="/admin" className="link" activeOptions={{ exact: true }}>Produkty</Link>
+              <Link to="/admin/zamowienia" className="link">Zamówienia</Link>
+              <Link to="/admin/kategorie" className="link">Kategorie</Link>
+              <Link to="/admin/ustawienia" className="link">Ustawienia</Link>
               <span className="text-tusz-2">{stan.email}</span>
               <button type="button" className="btn btn-obrys" onClick={wyloguj}>Wyloguj</button>
             </nav>

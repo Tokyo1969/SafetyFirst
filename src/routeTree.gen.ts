@@ -29,6 +29,9 @@ import { Route as SzkoleniaBhpRouteImport } from './routes/szkolenia-bhp'
 import { Route as WypadkiPrzyPracyRouteImport } from './routes/wypadki-przy-pracy'
 import { Route as ZamowienieRouteImport } from './routes/zamowienie'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as AdminKategorieRouteImport } from './routes/admin.kategorie'
+import { Route as AdminUstawieniaRouteImport } from './routes/admin.ustawienia'
+import { Route as AdminZamowieniaRouteImport } from './routes/admin.zamowienia'
 import { Route as OchronaSrodowiskaIndexRouteImport } from './routes/ochrona-srodowiska.index'
 import { Route as OchronaSrodowiskaSlugRouteImport } from './routes/ochrona-srodowiska.$slug'
 import { Route as AdminProduktIdRouteImport } from './routes/admin.produkt.$id'
@@ -134,6 +137,21 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminKategorieRoute = AdminKategorieRouteImport.update({
+  id: '/kategorie',
+  path: '/kategorie',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminUstawieniaRoute = AdminUstawieniaRouteImport.update({
+  id: '/ustawienia',
+  path: '/ustawienia',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminZamowieniaRoute = AdminZamowieniaRouteImport.update({
+  id: '/zamowienia',
+  path: '/zamowienia',
+  getParentRoute: () => AdminRoute,
+} as any)
 const OchronaSrodowiskaIndexRoute = OchronaSrodowiskaIndexRouteImport.update({
   id: '/ochrona-srodowiska/',
   path: '/ochrona-srodowiska/',
@@ -170,6 +188,9 @@ export interface FileRoutesByFullPath {
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
+  '/admin/kategorie': typeof AdminKategorieRoute
+  '/admin/ustawienia': typeof AdminUstawieniaRoute
+  '/admin/zamowienia': typeof AdminZamowieniaRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/ochrona-srodowiska/': typeof OchronaSrodowiskaIndexRoute
@@ -194,6 +215,9 @@ export interface FileRoutesByTo {
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
+  '/admin/kategorie': typeof AdminKategorieRoute
+  '/admin/ustawienia': typeof AdminUstawieniaRoute
+  '/admin/zamowienia': typeof AdminZamowieniaRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
   '/admin': typeof AdminIndexRoute
   '/ochrona-srodowiska': typeof OchronaSrodowiskaIndexRoute
@@ -220,6 +244,9 @@ export interface FileRoutesById {
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
+  '/admin/kategorie': typeof AdminKategorieRoute
+  '/admin/ustawienia': typeof AdminUstawieniaRoute
+  '/admin/zamowienia': typeof AdminZamowieniaRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/ochrona-srodowiska/': typeof OchronaSrodowiskaIndexRoute
@@ -247,6 +274,9 @@ export interface FileRouteTypes {
     | '/szkolenia-bhp'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
+    | '/admin/kategorie'
+    | '/admin/ustawienia'
+    | '/admin/zamowienia'
     | '/ochrona-srodowiska/$slug'
     | '/admin/'
     | '/ochrona-srodowiska/'
@@ -271,6 +301,9 @@ export interface FileRouteTypes {
     | '/szkolenia-bhp'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
+    | '/admin/kategorie'
+    | '/admin/ustawienia'
+    | '/admin/zamowienia'
     | '/ochrona-srodowiska/$slug'
     | '/admin'
     | '/ochrona-srodowiska'
@@ -296,6 +329,9 @@ export interface FileRouteTypes {
     | '/szkolenia-bhp'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
+    | '/admin/kategorie'
+    | '/admin/ustawienia'
+    | '/admin/zamowienia'
     | '/ochrona-srodowiska/$slug'
     | '/admin/'
     | '/ochrona-srodowiska/'
@@ -468,6 +504,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/kategorie': {
+      id: '/admin/kategorie'
+      path: '/kategorie'
+      fullPath: '/admin/kategorie'
+      preLoaderRoute: typeof AdminKategorieRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/ustawienia': {
+      id: '/admin/ustawienia'
+      path: '/ustawienia'
+      fullPath: '/admin/ustawienia'
+      preLoaderRoute: typeof AdminUstawieniaRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/zamowienia': {
+      id: '/admin/zamowienia'
+      path: '/zamowienia'
+      fullPath: '/admin/zamowienia'
+      preLoaderRoute: typeof AdminZamowieniaRouteImport
+      parentRoute: typeof AdminRoute
+    }
     '/ochrona-srodowiska/': {
       id: '/ochrona-srodowiska/'
       path: '/ochrona-srodowiska'
@@ -493,11 +550,17 @@ declare module '@tanstack/react-router' {
 }
 
 interface AdminRouteChildren {
+  AdminKategorieRoute: typeof AdminKategorieRoute
+  AdminUstawieniaRoute: typeof AdminUstawieniaRoute
+  AdminZamowieniaRoute: typeof AdminZamowieniaRoute
   AdminIndexRoute: typeof AdminIndexRoute
   AdminProduktIdRoute: typeof AdminProduktIdRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminKategorieRoute: AdminKategorieRoute,
+  AdminUstawieniaRoute: AdminUstawieniaRoute,
+  AdminZamowieniaRoute: AdminZamowieniaRoute,
   AdminIndexRoute: AdminIndexRoute,
   AdminProduktIdRoute: AdminProduktIdRoute,
 }

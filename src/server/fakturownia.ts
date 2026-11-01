@@ -17,6 +17,28 @@ export type InvoiceBuyer = {
   country?: string | null
 }
 
+// customer_details z sesji Stripe Checkout (webhook i ponowienie faktury z panelu).
+export type StripeCustomerDetails = {
+  email?: string | null
+  name?: string | null
+  business_name?: string | null
+  address?: { line1?: string | null; line2?: string | null; postal_code?: string | null; city?: string | null; country?: string | null } | null
+  tax_ids?: { type: string; value: string }[] | null
+} | null
+
+export function invoiceBuyer(d: StripeCustomerDetails | undefined): InvoiceBuyer {
+  return {
+    email: d?.email,
+    name: d?.name,
+    businessName: d?.business_name,
+    taxId: d?.tax_ids?.[0]?.value,
+    street: [d?.address?.line1, d?.address?.line2].filter(Boolean).join(' '),
+    postCode: d?.address?.postal_code,
+    city: d?.address?.city,
+    country: d?.address?.country,
+  }
+}
+
 type OrderForInvoice = {
   id: string
   order_number: string

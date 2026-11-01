@@ -14,7 +14,7 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const PRODUCT_FIELDS = 'id,sku,type,title,short_description,price_net_cents,vat_rate'
 
 // Klucz zgodny z trybem z site.payments.mode. W trybie testowym klucz live jest odrzucany.
-function keyForMode(key: string | undefined): string | null {
+export function keyForMode(key: string | undefined): string | null {
   if (!key) return null
   const test = key.startsWith('sk_test_') || key.startsWith('rk_test_')
   const live = key.startsWith('sk_live_') || key.startsWith('rk_live_')

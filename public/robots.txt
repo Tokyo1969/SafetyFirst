@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /zamowienie
 Content-Signal: ai-train=no, search=yes, ai-input=no
 
 Sitemap: https://safetyfirst.opole.pl/sitemap.xml

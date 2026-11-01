@@ -27,6 +27,12 @@ export const site = {
     // Skrzynka na skroty rozmow z asystentem (nie jest pokazywana na stronie).
     chatLog: 'info@safetyfirst.opole.pl',
   },
+  // Supabase w przegladarce (panel /admin). Te same wartosci co SUPABASE_URL i SUPABASE_ANON_KEY w wrangler.jsonc;
+  // klucz publishable jest publiczny z zalozenia, dostep pilnuje RLS (zapis tylko dla is_admin()).
+  supabase: {
+    url: 'https://rcizhcktflczrtadifwd.supabase.co',
+    anonKey: 'sb_publishable_FFj4g4XoQmM6a8sBn1zW2A_sg7jKQ4b',
+  },
   // Klucz witryny Cloudflare Turnstile (publiczny z zalozenia). Pusty = formularz bez widgetu.
   // Sekret TURNSTILE_SECRET_KEY ustawiamy tylko jako sekret Workera (wrangler secret / panel).
   turnstileSiteKey: '0x4AAAAAAFTBeyBlLr7YGEbb',

@@ -1,6 +1,6 @@
 /// <reference types="vite/client" />
 import type { ReactNode } from 'react'
-import { HeadContent, Outlet, Scripts, createRootRoute } from '@tanstack/react-router'
+import { HeadContent, Outlet, Scripts, createRootRoute, useRouterState } from '@tanstack/react-router'
 import appCss from '../styles.css?url'
 import { Header } from '../components/Header'
 import { Footer } from '../components/Footer'
@@ -41,13 +41,21 @@ export const Route = createRootRoute({
 })
 
 function RootComponent() {
+  // Panel /admin ma wlasny uklad: bez naglowka, stopki, banera cookies i asystenta.
+  const admin = useRouterState({ select: (s) => s.location.pathname.startsWith('/admin') })
   return (
     <RootDocument>
-      <Header />
-      <Outlet />
-      <Footer />
-      <CookieBanner />
-      <ChatWidget />
+      {admin ? (
+        <Outlet />
+      ) : (
+        <>
+          <Header />
+          <Outlet />
+          <Footer />
+          <CookieBanner />
+          <ChatWidget />
+        </>
+      )}
     </RootDocument>
   )
 }

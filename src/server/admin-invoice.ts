@@ -1,4 +1,5 @@
 import { createServerFn } from '@tanstack/react-start'
+import { isAdminToken as isAdmin } from './auth-admin'
 import { keyForMode } from './checkout'
 import { ensureInvoice, invoiceBuyer, invoicingConfigured, type StripeCustomerDetails } from './fakturownia'
 import { adminConfigured, adminRest } from './supabase-admin'
@@ -11,19 +12,6 @@ export type RetryInvoiceResult =
   | { ok: false; error: 'forbidden' | 'not_configured' | 'invalid' | 'failed'; message?: string }
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-
-// Supabase weryfikuje JWT sesji; is_admin() sprawdza role w profiles.
-async function isAdmin(accessToken: string): Promise<boolean> {
-  const url = process.env.SUPABASE_URL
-  const key = process.env.SUPABASE_ANON_KEY
-  if (!url || !key || !accessToken) return false
-  const response = await fetch(`${url}/rest/v1/rpc/is_admin`, {
-    method: 'POST',
-    headers: { apikey: key, Authorization: `Bearer ${accessToken}`, 'Content-Type': 'application/json' },
-    body: '{}',
-  })
-  return response.ok && (await response.json()) === true
-}
 
 export const retryInvoice = createServerFn({ method: 'POST' })
   .inputValidator((data: RetryInvoiceInput) => data)

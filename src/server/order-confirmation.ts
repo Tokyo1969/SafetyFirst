@@ -57,7 +57,7 @@ export function confirmationMail(o: OrderForMail): { subject: string; html: stri
           `<strong>Treści cyfrowe i prawo odstąpienia</strong><br>Przed płatnością (${e(data(o.digital_content_consent_at))}) złożono oświadczenie: „${e(DIGITAL_CONSENT_TEXT)}” Z chwilą rozpoczęcia dostarczania treści cyfrowych prawo odstąpienia od umowy wygasa (§8 ust. 2 Regulaminu). Do tego czasu przedsiębiorca na prawach konsumenta może odstąpić od umowy online: <a href="${base}${site.legal.withdrawalPath}">${base}${site.legal.withdrawalPath}</a>, e-mailem na ${e(site.emails.main)} lub pisemnie. Wzór formularza odstąpienia jest w Załączniku nr 1 do Regulaminu.`,
         ]
       : []),
-    'Fakturę VAT wyślemy w osobnej wiadomości. O dostępie do zakupionych materiałów poinformujemy w kolejnej wiadomości.',
+    `<strong>Dostęp do zakupów</strong><br>Zakupione dokumenty pobierzesz w Koncie, w zakładce „Moje zakupy”: <a href="${base}/konto">${base}/konto</a>. Konto założyliśmy na adres ${e(o.buyer_email)}. Zaloguj się linkiem, który wyślemy na ten adres, a potem możesz ustawić hasło. Limit pobrań i zasady aktualizacji opisuje §6 Regulaminu. Fakturę VAT wyślemy w osobnej wiadomości.`,
     `<strong>Regulamin</strong> (wersja ${e(o.terms_version ?? '')}), obowiązujący w chwili złożenia zamówienia: <a href="${base}${site.legal.regulaminPdf}">${base}${site.legal.regulaminPdf}</a> (PDF). Dane przetwarzamy zgodnie z Polityką prywatności: <a href="${base}${site.legal.privacyPath}">${base}${site.legal.privacyPath}</a>.`,
     `W razie pytań odpowiedz na tę wiadomość lub zadzwoń: ${e(site.phone.display)}.<br>Pozdrawiamy<br>${e(site.brand)}`,
   ])

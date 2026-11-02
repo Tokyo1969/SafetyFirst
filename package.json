@@ -19,6 +19,7 @@
     "marked": "^18.1.2",
     "node-html-markdown": "^2.0.0",
     "node-html-parser": "^6.1.13",
+    "pdf-lib": "^1.17.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },

@@ -42,6 +42,15 @@ type Odstapienie = {
   handled_at: string | null
 }
 
+type Dostep = {
+  id: string
+  download_limit: number | null
+  product_id: string
+  user_id: string
+  products: { title: string } | null
+  order_items: { order_id: string } | null
+}
+
 const STATUS: Record<Status, { label: string; className: string }> = {
   pending: { label: 'Oczekuje', className: 'bg-tasma/30' },
   paid: { label: 'Opłacone', className: 'bg-znak-jasny text-znak-ciemny' },
@@ -57,6 +66,9 @@ function Zamowienia() {
   const [lista, setLista] = useState<Zamowienie[] | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [odstapienia, setOdstapienia] = useState<Odstapienie[]>([])
+  const [dostepy, setDostepy] = useState<Dostep[]>([])
+  const [pobrania, setPobrania] = useState<Record<string, number>>({})
+  const [limitDomyslny, setLimitDomyslny] = useState(10)
   const [filtr, setFiltr] = useState<Status | ''>('')
   const [wTrakcie, setWTrakcie] = useState<string | null>(null)
   const [komunikat, setKomunikat] = useState<{ id: string; text: string; ok: boolean } | null>(null)
@@ -77,6 +89,19 @@ function Zamowienia() {
       .order('created_at', { ascending: false })
       .limit(300)
     setOdstapienia((w.data ?? []) as Odstapienie[])
+    const [d, l, s] = await Promise.all([
+      adminClient().from('entitlements').select('id,download_limit,product_id,user_id,products(title),order_items!inner(order_id)').limit(1000),
+      adminClient().from('download_log').select('user_id,product_id').limit(10000),
+      adminClient().from('app_settings').select('max_downloads_per_item').maybeSingle(),
+    ])
+    setDostepy((d.data ?? []) as unknown as Dostep[])
+    const count: Record<string, number> = {}
+    for (const r of (l.data ?? []) as { user_id: string | null; product_id: string | null }[]) {
+      const k = `${r.user_id}:${r.product_id}`
+      count[k] = (count[k] ?? 0) + 1
+    }
+    setPobrania(count)
+    if (s.data) setLimitDomyslny(s.data.max_downloads_per_item)
   }, [])
 
   useEffect(() => {
@@ -85,6 +110,16 @@ function Zamowienia() {
 
   const widoczne = useMemo(() => (lista ?? []).filter((z) => !filtr || z.status === filtr), [lista, filtr])
   const suma = widoczne.filter((z) => z.status === 'paid').reduce((s, z) => s + z.total_gross_cents, 0)
+
+  // Regulamin §6 ust. 2: limit pobran mozna zwiekszyc na prosbe klienta.
+  async function zwiekszLimit(d: Dostep) {
+    const { error } = await adminClient()
+      .from('entitlements')
+      .update({ download_limit: (d.download_limit ?? limitDomyslny) + 10 })
+      .eq('id', d.id)
+    if (error) return setError(dbError(error))
+    await wczytaj()
+  }
 
   async function oznaczObsluzone(o: Odstapienie) {
     const { error } = await adminClient().from('withdrawals').update({ handled_at: new Date().toISOString() }).eq('id', o.id)
@@ -187,6 +222,25 @@ function Zamowienia() {
                   <OdstapienieWiersz o={o} onHandled={oznaczObsluzone} />
                 </div>
               ))}
+
+            {dostepy.some((d) => d.order_items?.order_id === z.id) && (
+              <div className="mt-4">
+                <p className="font-semibold">Dostęp w Koncie klienta</p>
+                <ul className="mt-1 grid gap-1">
+                  {dostepy
+                    .filter((d) => d.order_items?.order_id === z.id)
+                    .map((d) => {
+                      const limit = d.download_limit ?? limitDomyslny
+                      return (
+                        <li key={d.id} className="flex flex-wrap items-center gap-3">
+                          <span>{d.products?.title ?? 'Produkt'}: pobrano {pobrania[`${d.user_id}:${d.product_id}`] ?? 0} z {limit}</span>
+                          <button type="button" className="link" onClick={() => zwiekszLimit(d)}>+10 pobrań</button>
+                        </li>
+                      )
+                    })}
+                </ul>
+              </div>
+            )}
 
             <div className="mt-4 grid gap-4 md:grid-cols-3">
               <div>

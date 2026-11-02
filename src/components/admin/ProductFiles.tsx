@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { FILES_BUCKET, adminClient, dbError, formatDate, formatSize, sha256Hex, type ProductFile } from '../../lib/admin'
+import { notifyProductUpdate } from '../../server/admin-updates'
 
 // Pliki dokumentu do sprzedazy (prywatny bucket product-files). Nowy plik = nowa wersja i od razu biezaca;
 // starsze wersje zostaja do wgladu i mozna do nich wrocic. Jedna biezaca wersja pilnuje baza (single_current_file).
@@ -9,11 +10,12 @@ export function ProductFiles({ productId }: { productId: string }) {
   const [pliki, setPliki] = useState<ProductFile[] | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [sending, setSending] = useState(false)
+  const [powiadomienie, setPowiadomienie] = useState<string | null>(null)
 
   const wczytaj = useCallback(async () => {
     const { data, error } = await adminClient()
       .from('product_files')
-      .select('id,version,storage_path,original_filename,mime_type,size_bytes,sha256,is_current,change_note,created_at')
+      .select('id,version,storage_path,original_filename,mime_type,size_bytes,sha256,is_current,change_note,created_at,update_notified_at')
       .eq('product_id', productId)
       .order('version', { ascending: false })
     if (error) return setError(dbError(error))
@@ -79,6 +81,22 @@ export function ProductFiles({ productId }: { productId: string }) {
     await wczytaj()
   }
 
+  // Regulamin §6 ust. 5: mail do klientow z zakupem z ostatnich 12 miesiecy (raz na wersje).
+  async function powiadom() {
+    if (!window.confirm('Wysłać klientom (zakup w ostatnich 12 miesiącach) informację o nowej wersji?')) return
+    setPowiadomienie(null)
+    setError(null)
+    const { data } = await adminClient().auth.getSession()
+    try {
+      const result = await notifyProductUpdate({ data: { productId, accessToken: data.session?.access_token ?? '' } })
+      if (result.ok) setPowiadomienie(`Wysłano ${result.sent} powiadomień${result.failed ? `, nieudane: ${result.failed}` : ''}.`)
+      else setError(result.message ?? (result.error === 'not_configured' ? 'Wysyłka maili nie jest skonfigurowana.' : 'Nie udało się wysłać powiadomień.'))
+      await wczytaj()
+    } catch {
+      setError('Nie udało się wysłać powiadomień.')
+    }
+  }
+
   async function pobierz(path: string) {
     const { data, error } = await adminClient().storage.from(FILES_BUCKET).createSignedUrl(path, 60, { download: true })
     if (error || !data) return setError('Nie udało się przygotować pobrania.')
@@ -104,6 +122,7 @@ export function ProductFiles({ productId }: { productId: string }) {
         <button type="submit" className="btn btn-zielony" disabled={sending}>{sending ? 'Wgrywam…' : 'Wgraj wersję'}</button>
       </form>
       {error && <p role="alert" className="mt-4 font-semibold text-blad">{error}</p>}
+      {powiadomienie && <p role="status" className="mt-4 font-semibold text-znak">{powiadomienie}</p>}
 
       {pliki && pliki.length === 0 && <p className="mt-4">Brak plików. Bez bieżącego pliku dokumentu nie da się opublikować.</p>}
       {pliki && pliki.length > 0 && (
@@ -124,6 +143,12 @@ export function ProductFiles({ productId }: { productId: string }) {
                 <button type="button" className="btn btn-obrys" onClick={() => pobierz(p.storage_path)}>Pobierz</button>
                 {!p.is_current && (
                   <button type="button" className="btn btn-obrys" onClick={() => ustawBiezaca(p.id)}>Ustaw jako bieżącą</button>
+                )}
+                {p.is_current && p.version > 1 && !p.update_notified_at && (
+                  <button type="button" className="btn btn-zielony" onClick={powiadom}>Powiadom klientów o aktualizacji</button>
+                )}
+                {p.is_current && p.update_notified_at && (
+                  <span className="self-center text-xs text-tusz-2">Powiadomiono {formatDate(p.update_notified_at)}</span>
                 )}
               </div>
             </li>

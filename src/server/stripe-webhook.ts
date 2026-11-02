@@ -1,4 +1,5 @@
 import { site } from '../config/site'
+import { grantOrderAccess } from './entitlements'
 import { ensureInvoice, invoiceBuyer } from './fakturownia'
 import { ensureOrderConfirmation } from './order-confirmation'
 import { adminConfigured, adminRest } from './supabase-admin'
@@ -116,8 +117,11 @@ async function markPaid(orderId: string, s: CheckoutSession): Promise<Response> 
 
   // Faktura i potwierdzenie zamowienia takze przy ponowionym zdarzeniu, jesli wczesniej sie nie udaly
   // (obie funkcje pomijaja zamowienia, ktore juz je maja). Niezaleznie od siebie: blad jednej nie blokuje drugiej.
+  // Dostep w Koncie przed potwierdzeniem, bo potwierdzenie odsyla do Konta.
+  const granted = await grantOrderAccess(orderId)
   const invoiced = await ensureInvoice(orderId, invoiceBuyer(s.customer_details))
-  const confirmed = await ensureOrderConfirmation(orderId)
+  const confirmed = granted && (await ensureOrderConfirmation(orderId))
+  if (!granted) return text('Access failed', 500)
   if (!invoiced) return text('Invoice failed', 500)
   return confirmed ? text('OK', 200) : text('Confirmation failed', 500)
 }

@@ -51,6 +51,7 @@ export type ProductFile = {
   is_current: boolean
   change_note: string | null
   created_at: string
+  update_notified_at: string | null
 }
 
 export type ProductPreview = { id: string; page_number: number; storage_path: string }

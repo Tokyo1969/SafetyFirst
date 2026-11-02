@@ -18,6 +18,7 @@ import { Route as FaqRouteImport } from './routes/faq'
 import { Route as KalkulatorKobizeSamochodyRouteImport } from './routes/kalkulator-kobize-samochody'
 import { Route as KonsultacjeBhpRouteImport } from './routes/konsultacje-bhp'
 import { Route as KontaktRouteImport } from './routes/kontakt'
+import { Route as KontoRouteImport } from './routes/konto'
 import { Route as KontrolaIAudytBhpRouteImport } from './routes/kontrola-i-audyt-bhp'
 import { Route as ONasRouteImport } from './routes/o-nas'
 import { Route as ObslugaBhpRouteImport } from './routes/obsluga-bhp'
@@ -82,6 +83,11 @@ const KonsultacjeBhpRoute = KonsultacjeBhpRouteImport.update({
 const KontaktRoute = KontaktRouteImport.update({
   id: '/kontakt',
   path: '/kontakt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KontoRoute = KontoRouteImport.update({
+  id: '/konto',
+  path: '/konto',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KontrolaIAudytBhpRoute = KontrolaIAudytBhpRouteImport.update({
@@ -190,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/kalkulator-kobize-samochody': typeof KalkulatorKobizeSamochodyRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontakt': typeof KontaktRoute
+  '/konto': typeof KontoRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
   '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
@@ -219,6 +226,7 @@ export interface FileRoutesByTo {
   '/kalkulator-kobize-samochody': typeof KalkulatorKobizeSamochodyRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontakt': typeof KontaktRoute
+  '/konto': typeof KontoRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
   '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
@@ -250,6 +258,7 @@ export interface FileRoutesById {
   '/kalkulator-kobize-samochody': typeof KalkulatorKobizeSamochodyRoute
   '/konsultacje-bhp': typeof KonsultacjeBhpRoute
   '/kontakt': typeof KontaktRoute
+  '/konto': typeof KontoRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
   '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
@@ -282,6 +291,7 @@ export interface FileRouteTypes {
     | '/kalkulator-kobize-samochody'
     | '/konsultacje-bhp'
     | '/kontakt'
+    | '/konto'
     | '/kontrola-i-audyt-bhp'
     | '/o-nas'
     | '/obsluga-bhp'
@@ -311,6 +321,7 @@ export interface FileRouteTypes {
     | '/kalkulator-kobize-samochody'
     | '/konsultacje-bhp'
     | '/kontakt'
+    | '/konto'
     | '/kontrola-i-audyt-bhp'
     | '/o-nas'
     | '/obsluga-bhp'
@@ -341,6 +352,7 @@ export interface FileRouteTypes {
     | '/kalkulator-kobize-samochody'
     | '/konsultacje-bhp'
     | '/kontakt'
+    | '/konto'
     | '/kontrola-i-audyt-bhp'
     | '/o-nas'
     | '/obsluga-bhp'
@@ -372,6 +384,7 @@ export interface RootRouteChildren {
   KalkulatorKobizeSamochodyRoute: typeof KalkulatorKobizeSamochodyRoute
   KonsultacjeBhpRoute: typeof KonsultacjeBhpRoute
   KontaktRoute: typeof KontaktRoute
+  KontoRoute: typeof KontoRoute
   KontrolaIAudytBhpRoute: typeof KontrolaIAudytBhpRoute
   ONasRoute: typeof ONasRoute
   ObslugaBhpRoute: typeof ObslugaBhpRoute
@@ -451,6 +464,13 @@ declare module '@tanstack/react-router' {
       path: '/kontakt'
       fullPath: '/kontakt'
       preLoaderRoute: typeof KontaktRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/konto': {
+      id: '/konto'
+      path: '/konto'
+      fullPath: '/konto'
+      preLoaderRoute: typeof KontoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kontrola-i-audyt-bhp': {
@@ -617,6 +637,7 @@ const rootRouteChildren: RootRouteChildren = {
   KalkulatorKobizeSamochodyRoute: KalkulatorKobizeSamochodyRoute,
   KonsultacjeBhpRoute: KonsultacjeBhpRoute,
   KontaktRoute: KontaktRoute,
+  KontoRoute: KontoRoute,
   KontrolaIAudytBhpRoute: KontrolaIAudytBhpRoute,
   ONasRoute: ONasRoute,
   ObslugaBhpRoute: ObslugaBhpRoute,

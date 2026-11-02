@@ -21,6 +21,10 @@ export function isDigital(type: ProductType): boolean {
   return type === 'document' || type === 'bundle' || type === 'training_online'
 }
 
+// Oswiadczenie z regulaminu (§8 ust. 2), zaznaczane przed platnoscia za tresci cyfrowe i powtarzane w potwierdzeniu.
+export const DIGITAL_CONSENT_TEXT =
+  'Chcę, aby dostęp do zakupionych treści cyfrowych został mi udostępniony niezwłocznie po zapłacie. Przyjmuję do wiadomości, że z chwilą rozpoczęcia ich dostarczania tracę prawo odstąpienia od umowy.'
+
 // Cena brutto jednej sztuki w groszach. Stripe pobiera brutto, w orders zapisujemy netto, VAT i brutto.
 export function unitGrossCents(netCents: number, vatRate: number): number {
   return Math.round(netCents * (1 + vatRate / 100))

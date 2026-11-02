@@ -2,7 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { PageHero } from '../components/blocks'
 import { site } from '../config/site'
-import { formatGrosze, isDigital, maxQuantity, unitGrossCents, type ShopProduct } from '../lib/shop'
+import { DIGITAL_CONSENT_TEXT, formatGrosze, isDigital, maxQuantity, unitGrossCents, type ShopProduct } from '../lib/shop'
 import { pageHead } from '../lib/seo'
 import { listShopProducts, startCheckout } from '../server/checkout'
 
@@ -112,6 +112,7 @@ function ProductCard({ product }: { product: ShopProduct }) {
           quantity,
           email: String(form.get('email') ?? ''),
           consent: form.get('consent') === 'on',
+          terms: form.get('terms') === 'on',
         },
       })
       if (result.ok) {
@@ -122,7 +123,9 @@ function ProductCard({ product }: { product: ShopProduct }) {
         result.field === 'email'
           ? 'Podaj poprawny adres e-mail.'
           : result.field === 'consent'
-            ? 'Zaznacz zgodę na dostarczenie treści cyfrowej.'
+            ? 'Zaznacz oświadczenie o dostarczeniu treści cyfrowych.'
+            : result.field === 'terms'
+              ? 'Zaakceptuj Regulamin i Politykę prywatności.'
             : result.error === 'invalid'
               ? 'Sprawdź dane i spróbuj jeszcze raz.'
               : BLAD_OGOLNY,
@@ -164,18 +167,26 @@ function ProductCard({ product }: { product: ShopProduct }) {
           </div>
         )}
       </div>
+      <label className="mt-4 flex gap-3 text-sm">
+        <input type="checkbox" name="terms" required className="mt-1" />
+        <span>
+          Akceptuję <Link to="/regulamin" className="link" target="_blank">Regulamin sklepu</Link> i{' '}
+          <Link to="/polityka-prywatnosci" className="link" target="_blank">Politykę prywatności</Link>.
+        </span>
+      </label>
       {digital && (
-        // Tresc zgody do przegladu prawnika razem z regulaminem sklepu.
-        <label className="mt-4 flex gap-3 text-sm">
+        // Oswiadczenie z regulaminu §8 ust. 2 (zapis daty w orders.digital_content_consent_at).
+        <label className="mt-3 flex gap-3 text-sm">
           <input type="checkbox" name="consent" required className="mt-1" />
-          <span>
-            Zgadzam się na dostarczenie treści cyfrowej przed upływem terminu na odstąpienie od umowy i przyjmuję do
-            wiadomości, że tracę wtedy prawo odstąpienia.
-          </span>
+          <span>{DIGITAL_CONSENT_TEXT}</span>
         </label>
       )}
-      <button type="submit" className="btn btn-glowny mt-6" disabled={sending}>
-        {sending ? 'Przekierowuję…' : `Zapłać ${formatGrosze(gross * quantity)}`}
+      <p className="mt-4 text-sm text-tusz-2">
+        Do zapłaty: <strong className="text-tusz">{formatGrosze(gross * quantity)} brutto</strong>. Dane do faktury (firma, adres,
+        NIP) i metodę płatności podasz na następnej stronie (Stripe).
+      </p>
+      <button type="submit" className="btn btn-glowny mt-4" disabled={sending}>
+        {sending ? 'Przekierowuję…' : 'Zamawiam z obowiązkiem zapłaty'}
       </button>
       {error && (
         <p role="alert" className="mt-4 rounded-xl border-l-4 border-blad bg-blad/8 p-4 font-semibold text-blad">{error}</p>

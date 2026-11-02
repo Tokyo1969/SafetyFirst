@@ -1,5 +1,6 @@
 import { site } from '../config/site'
 import { ensureInvoice, invoiceBuyer } from './fakturownia'
+import { ensureOrderConfirmation } from './order-confirmation'
 import { adminConfigured, adminRest } from './supabase-admin'
 
 // Webhook Stripe: aktualizuje zamowienie w orders (zalozone w src/server/checkout.ts ze statusem pending).
@@ -113,9 +114,12 @@ async function markPaid(orderId: string, s: CheckoutSession): Promise<Response> 
   })
   if (failed) return failed
 
-  // Faktura takze przy ponowionym zdarzeniu, jesli wczesniej sie nie udala (ensureInvoice pomija zamowienia z faktura).
+  // Faktura i potwierdzenie zamowienia takze przy ponowionym zdarzeniu, jesli wczesniej sie nie udaly
+  // (obie funkcje pomijaja zamowienia, ktore juz je maja). Niezaleznie od siebie: blad jednej nie blokuje drugiej.
   const invoiced = await ensureInvoice(orderId, invoiceBuyer(s.customer_details))
-  return invoiced ? text('OK', 200) : text('Invoice failed', 500)
+  const confirmed = await ensureOrderConfirmation(orderId)
+  if (!invoiced) return text('Invoice failed', 500)
+  return confirmed ? text('OK', 200) : text('Confirmation failed', 500)
 }
 
 export async function handleStripeWebhook(request: Request): Promise<Response> {

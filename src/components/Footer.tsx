@@ -102,8 +102,11 @@ export function Footer() {
                 .
               </p>
             </div>
-            <div className="flex flex-col gap-2 sm:flex-row sm:gap-6">
+            <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:gap-x-6">
+              <Link to="/regulamin" className={footLink}>Regulamin</Link>
               <Link to="/polityka-prywatnosci" className={footLink}>Polityka prywatności</Link>
+              {/* Funkcja odstapienia online (regulamin §8 ust. 4, dyrektywa 2023/2673). */}
+              <Link to="/odstapienie-od-umowy" className={footLink}>Odstąp od umowy tutaj</Link>
               {site.gaId ? (
                 <button
                   type="button"

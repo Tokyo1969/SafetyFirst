@@ -223,6 +223,13 @@ export function ConsultationForm({ defaultServices = ['BHP'] }: { defaultService
           {state === 'sending' ? 'Wysyłamy…' : 'Wyślij zgłoszenie'}
         </button>
       </div>
+      {/* Klauzula informacyjna (polityka prywatnosci pkt 2, wiersz "Zapytania i kontakt"). */}
+      <p className="text-sm text-tusz-2 sm:col-span-2">
+        Administratorem danych jest {site.company.name}, {site.company.street}, {site.company.postalCode} {site.company.city}.
+        Dane z formularza wykorzystujemy, żeby odpowiedzieć na zapytanie, i przechowujemy 12 miesięcy od ostatniego kontaktu.
+        Masz prawo dostępu do danych, ich sprostowania, usunięcia i ograniczenia przetwarzania oraz skargi do Prezesa UODO.
+        Szczegóły w <a href="/polityka-prywatnosci" className="link">Polityce prywatności</a>.
+      </p>
     </form>
   )
 }

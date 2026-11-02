@@ -22,8 +22,10 @@ import { Route as KontrolaIAudytBhpRouteImport } from './routes/kontrola-i-audyt
 import { Route as ONasRouteImport } from './routes/o-nas'
 import { Route as ObslugaBhpRouteImport } from './routes/obsluga-bhp'
 import { Route as OcenaRyzykaZawodowegoRouteImport } from './routes/ocena-ryzyka-zawodowego'
+import { Route as OdstapienieOdUmowyRouteImport } from './routes/odstapienie-od-umowy'
 import { Route as PakietyDokumentacjiBhpRouteImport } from './routes/pakiety-dokumentacji-bhp'
 import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywatnosci'
+import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SzkoleniaBhpRouteImport } from './routes/szkolenia-bhp'
 import { Route as WypadkiPrzyPracyRouteImport } from './routes/wypadki-przy-pracy'
@@ -102,6 +104,11 @@ const OcenaRyzykaZawodowegoRoute = OcenaRyzykaZawodowegoRouteImport.update({
   path: '/ocena-ryzyka-zawodowego',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OdstapienieOdUmowyRoute = OdstapienieOdUmowyRouteImport.update({
+  id: '/odstapienie-od-umowy',
+  path: '/odstapienie-od-umowy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PakietyDokumentacjiBhpRoute = PakietyDokumentacjiBhpRouteImport.update({
   id: '/pakiety-dokumentacji-bhp',
   path: '/pakiety-dokumentacji-bhp',
@@ -110,6 +117,11 @@ const PakietyDokumentacjiBhpRoute = PakietyDokumentacjiBhpRouteImport.update({
 const PolitykaPrywatnosciRoute = PolitykaPrywatnosciRouteImport.update({
   id: '/polityka-prywatnosci',
   path: '/polityka-prywatnosci',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegulaminRoute = RegulaminRouteImport.update({
+  id: '/regulamin',
+  path: '/regulamin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -182,8 +194,10 @@ export interface FileRoutesByFullPath {
   '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
+  '/odstapienie-od-umowy': typeof OdstapienieOdUmowyRoute
   '/pakiety-dokumentacji-bhp': typeof PakietyDokumentacjiBhpRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
@@ -209,8 +223,10 @@ export interface FileRoutesByTo {
   '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
+  '/odstapienie-od-umowy': typeof OdstapienieOdUmowyRoute
   '/pakiety-dokumentacji-bhp': typeof PakietyDokumentacjiBhpRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
@@ -238,8 +254,10 @@ export interface FileRoutesById {
   '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
+  '/odstapienie-od-umowy': typeof OdstapienieOdUmowyRoute
   '/pakiety-dokumentacji-bhp': typeof PakietyDokumentacjiBhpRoute
   '/polityka-prywatnosci': typeof PolitykaPrywatnosciRoute
+  '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
@@ -268,8 +286,10 @@ export interface FileRouteTypes {
     | '/o-nas'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
+    | '/odstapienie-od-umowy'
     | '/pakiety-dokumentacji-bhp'
     | '/polityka-prywatnosci'
+    | '/regulamin'
     | '/sitemap.xml'
     | '/szkolenia-bhp'
     | '/wypadki-przy-pracy'
@@ -295,8 +315,10 @@ export interface FileRouteTypes {
     | '/o-nas'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
+    | '/odstapienie-od-umowy'
     | '/pakiety-dokumentacji-bhp'
     | '/polityka-prywatnosci'
+    | '/regulamin'
     | '/sitemap.xml'
     | '/szkolenia-bhp'
     | '/wypadki-przy-pracy'
@@ -323,8 +345,10 @@ export interface FileRouteTypes {
     | '/o-nas'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
+    | '/odstapienie-od-umowy'
     | '/pakiety-dokumentacji-bhp'
     | '/polityka-prywatnosci'
+    | '/regulamin'
     | '/sitemap.xml'
     | '/szkolenia-bhp'
     | '/wypadki-przy-pracy'
@@ -352,8 +376,10 @@ export interface RootRouteChildren {
   ONasRoute: typeof ONasRoute
   ObslugaBhpRoute: typeof ObslugaBhpRoute
   OcenaRyzykaZawodowegoRoute: typeof OcenaRyzykaZawodowegoRoute
+  OdstapienieOdUmowyRoute: typeof OdstapienieOdUmowyRoute
   PakietyDokumentacjiBhpRoute: typeof PakietyDokumentacjiBhpRoute
   PolitykaPrywatnosciRoute: typeof PolitykaPrywatnosciRoute
+  RegulaminRoute: typeof RegulaminRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SzkoleniaBhpRoute: typeof SzkoleniaBhpRoute
   WypadkiPrzyPracyRoute: typeof WypadkiPrzyPracyRoute
@@ -455,6 +481,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OcenaRyzykaZawodowegoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/odstapienie-od-umowy': {
+      id: '/odstapienie-od-umowy'
+      path: '/odstapienie-od-umowy'
+      fullPath: '/odstapienie-od-umowy'
+      preLoaderRoute: typeof OdstapienieOdUmowyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pakiety-dokumentacji-bhp': {
       id: '/pakiety-dokumentacji-bhp'
       path: '/pakiety-dokumentacji-bhp'
@@ -467,6 +500,13 @@ declare module '@tanstack/react-router' {
       path: '/polityka-prywatnosci'
       fullPath: '/polityka-prywatnosci'
       preLoaderRoute: typeof PolitykaPrywatnosciRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/regulamin': {
+      id: '/regulamin'
+      path: '/regulamin'
+      fullPath: '/regulamin'
+      preLoaderRoute: typeof RegulaminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -581,8 +621,10 @@ const rootRouteChildren: RootRouteChildren = {
   ONasRoute: ONasRoute,
   ObslugaBhpRoute: ObslugaBhpRoute,
   OcenaRyzykaZawodowegoRoute: OcenaRyzykaZawodowegoRoute,
+  OdstapienieOdUmowyRoute: OdstapienieOdUmowyRoute,
   PakietyDokumentacjiBhpRoute: PakietyDokumentacjiBhpRoute,
   PolitykaPrywatnosciRoute: PolitykaPrywatnosciRoute,
+  RegulaminRoute: RegulaminRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SzkoleniaBhpRoute: SzkoleniaBhpRoute,
   WypadkiPrzyPracyRoute: WypadkiPrzyPracyRoute,

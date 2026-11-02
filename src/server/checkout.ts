@@ -4,7 +4,7 @@ import { site } from '../config/site'
 import { isDigital, maxQuantity, unitGrossCents, type ShopProduct } from '../lib/shop'
 import { adminConfigured, adminRest } from './supabase-admin'
 
-export type CheckoutInput = { productId: string; quantity: number; email: string; consent: boolean }
+export type CheckoutInput = { productId: string; quantity: number; email: string; consent: boolean; terms: boolean }
 export type CheckoutResult =
   | { ok: true; url: string }
   | { ok: false; error: 'invalid' | 'disabled' | 'not_configured' | 'failed'; field?: string }
@@ -65,6 +65,8 @@ export const startCheckout = createServerFn({ method: 'POST' })
     const quantity = Number.isInteger(data.quantity) ? data.quantity : 0
     if (!UUID.test(productId)) return { ok: false, error: 'invalid' }
     if (!EMAIL.test(email)) return { ok: false, error: 'invalid', field: 'email' }
+    // Akceptacja Regulaminu i Polityki prywatnosci (regulamin §4 ust. 1); wersja regulaminu trafia do zamowienia.
+    if (data.terms !== true) return { ok: false, error: 'invalid', field: 'terms' }
 
     const key = keyForMode(process.env.STRIPE_SECRET_KEY)
     if (!key || !adminConfigured()) {

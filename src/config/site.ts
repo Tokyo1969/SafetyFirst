@@ -33,6 +33,16 @@ export const site = {
     url: 'https://rcizhcktflczrtadifwd.supabase.co',
     anonKey: 'sb_publishable_FFj4g4XoQmM6a8sBn1zW2A_sg7jKQ4b',
   },
+  // Dokumenty prawne sklepu (tresc w src/content). Przy nowej wersji regulaminu: nowy PDF w public/dokumenty,
+  // zmiana regulaminPdf i wersji w panelu (Ustawienia > Wersja regulaminu), bo wersja trafia do kazdego zamowienia.
+  legal: {
+    regulaminPath: '/regulamin',
+    regulaminPdf: '/dokumenty/regulamin-2026-11-02.pdf',
+    privacyPath: '/polityka-prywatnosci',
+    withdrawalPath: '/odstapienie-od-umowy',
+    // Adres do korespondencji (biuro sprzedazy i szkolen), regulamin §1 ust. 2.
+    salesOffice: 'ul. Łangowskiego 4A, 45-031 Opole',
+  },
   // Klucz witryny Cloudflare Turnstile (publiczny z zalozenia). Pusty = formularz bez widgetu.
   // Sekret TURNSTILE_SECRET_KEY ustawiamy tylko jako sekret Workera (wrangler secret / panel).
   turnstileSiteKey: '0x4AAAAAAFTBeyBlLr7YGEbb',

@@ -31,6 +31,17 @@ type Zamowienie = {
   order_items: { title: string; sku: string; quantity: number }[]
 }
 
+type Odstapienie = {
+  id: string
+  created_at: string
+  order_id: string | null
+  order_number: string
+  buyer_name: string
+  email: string
+  confirmation_sent_at: string | null
+  handled_at: string | null
+}
+
 const STATUS: Record<Status, { label: string; className: string }> = {
   pending: { label: 'Oczekuje', className: 'bg-tasma/30' },
   paid: { label: 'Opłacone', className: 'bg-znak-jasny text-znak-ciemny' },
@@ -45,6 +56,7 @@ const STRIPE_DASHBOARD = `https://dashboard.stripe.com${site.payments.mode === '
 function Zamowienia() {
   const [lista, setLista] = useState<Zamowienie[] | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [odstapienia, setOdstapienia] = useState<Odstapienie[]>([])
   const [filtr, setFiltr] = useState<Status | ''>('')
   const [wTrakcie, setWTrakcie] = useState<string | null>(null)
   const [komunikat, setKomunikat] = useState<{ id: string; text: string; ok: boolean } | null>(null)
@@ -59,6 +71,12 @@ function Zamowienia() {
       .limit(300)
     if (error) return setError(dbError(error))
     setLista(data as Zamowienie[])
+    const w = await adminClient()
+      .from('withdrawals')
+      .select('id,created_at,order_id,order_number,buyer_name,email,confirmation_sent_at,handled_at')
+      .order('created_at', { ascending: false })
+      .limit(300)
+    setOdstapienia((w.data ?? []) as Odstapienie[])
   }, [])
 
   useEffect(() => {
@@ -67,6 +85,14 @@ function Zamowienia() {
 
   const widoczne = useMemo(() => (lista ?? []).filter((z) => !filtr || z.status === filtr), [lista, filtr])
   const suma = widoczne.filter((z) => z.status === 'paid').reduce((s, z) => s + z.total_gross_cents, 0)
+
+  async function oznaczObsluzone(o: Odstapienie) {
+    const { error } = await adminClient().from('withdrawals').update({ handled_at: new Date().toISOString() }).eq('id', o.id)
+    if (error) return setError(dbError(error))
+    await wczytaj()
+  }
+
+  const bezZamowienia = odstapienia.filter((o) => !o.order_id)
 
   async function wystawFakture(z: Zamowienie) {
     setKomunikat(null)
@@ -122,6 +148,18 @@ function Zamowienia() {
         </p>
       )}
 
+      {bezZamowienia.length > 0 && (
+        <section className="panel mt-6 border-l-4 border-tasma text-sm" aria-labelledby="odst-h">
+          <h2 id="odst-h" className="text-xl">Odstąpienia bez dopasowanego zamówienia</h2>
+          <p className="mt-1 text-tusz-2">Numer zamówienia lub e-mail nie zgadza się z żadnym zamówieniem. Sprawdź ręcznie.</p>
+          <ul className="mt-3 grid gap-3">
+            {bezZamowienia.map((o) => (
+              <li key={o.id}><OdstapienieWiersz o={o} onHandled={oznaczObsluzone} pokazNumer /></li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <ul className="mt-4 grid gap-4">
         {widoczne.map((z) => (
           <li key={z.id} className="panel text-sm">
@@ -141,6 +179,14 @@ function Zamowienia() {
                 <p className="text-tusz-2">{formatGrosze(z.total_net_cents)} netto</p>
               </div>
             </div>
+
+            {odstapienia
+              .filter((o) => o.order_id === z.id)
+              .map((o) => (
+                <div key={o.id} className="mt-4 rounded-xl border-l-4 border-blad bg-blad/5 p-3">
+                  <OdstapienieWiersz o={o} onHandled={oznaczObsluzone} />
+                </div>
+              ))}
 
             <div className="mt-4 grid gap-4 md:grid-cols-3">
               <div>
@@ -185,6 +231,27 @@ function Zamowienia() {
           </li>
         ))}
       </ul>
+    </div>
+  )
+}
+
+function OdstapienieWiersz({ o, onHandled, pokazNumer = false }: { o: Odstapienie; onHandled: (o: Odstapienie) => void; pokazNumer?: boolean }) {
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <p className="font-semibold">
+          Odstąpienie od umowy złożone {formatDate(o.created_at)}
+          {pokazNumer ? ` · zamówienie ${o.order_number}` : ''}
+        </p>
+        <p className="text-tusz-2">
+          {o.buyer_name} · {o.email} · {o.confirmation_sent_at ? 'potwierdzenie wysłane' : 'potwierdzenie NIE wysłane'}
+        </p>
+      </div>
+      {o.handled_at ? (
+        <span className="text-tusz-2">Obsłużone {formatDate(o.handled_at)}</span>
+      ) : (
+        <button type="button" className="btn btn-obrys" onClick={() => onHandled(o)}>Oznacz jako obsłużone</button>
+      )}
     </div>
   )
 }

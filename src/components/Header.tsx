@@ -19,11 +19,11 @@ const MAIN_LINKS: { to: string; label: string }[] = [
 ]
 
 // Informacja pod lista uslug BHP w menu: pomoc we wdrozeniu ISO 45001.
-function IsoNote() {
+function IsoNote({ norma = '45001' }: { norma?: '45001' | '14001' }) {
   return (
     <p className="mx-4 mt-3 border-t border-linia pt-3 text-[0.9375rem] text-tusz-2">
-      Pomagamy we wdrożeniu systemu ISO 45001 i monitorujemy jego utrzymanie.{' '}
-      <Link to="/wdrozenie-iso" className="link font-semibold" activeProps={menuActive}>
+      Pomagamy we wdrożeniu systemu ISO {norma} i monitorujemy jego utrzymanie.{' '}
+      <Link to="/wdrozenie-iso" hash={`iso-${norma}`} className="link font-semibold">
         Dowiedz się więcej
       </Link>
     </p>
@@ -129,6 +129,7 @@ export function Header() {
                       </Link>
                     </li>
                   </ul>
+                  <IsoNote norma="14001" />
                 </div>
               </div>
             )}
@@ -208,6 +209,7 @@ export function Header() {
                     Wszystkie usługi środowiskowe
                   </Link>
                 </li>
+                <li><IsoNote norma="14001" /></li>
               </ul>
             </details>
             {MAIN_LINKS.map((l) => (

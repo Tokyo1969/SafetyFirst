@@ -6,9 +6,9 @@ import { breadcrumbLd, pageHead } from '../lib/seo'
 export const Route = createFileRoute('/wdrozenie-iso')({
   head: () =>
     pageHead({
-      title: 'Wdrożenie ISO 45001 i ISO 14001 w firmie | Safety First',
+      title: 'Wdrożenie ISO 45001 i ISO 14001 – pomoc i monitoring | Safety First',
       description:
-        'Pomagamy we wdrożeniu systemu zarządzania BHP ISO 45001 i monitorujemy jego utrzymanie. Etapy wdrożenia, czas trwania, certyfikat i integracja z innymi normami.',
+        'Pomagamy we wdrożeniu systemów zarządzania ISO 45001 (BHP) i ISO 14001 (środowisko) i monitorujemy ich utrzymanie. Etapy wdrożenia, certyfikacja i integracja z innymi normami.',
       path: '/wdrozenie-iso',
       jsonLd: [
         breadcrumbLd([
@@ -26,7 +26,7 @@ function WdrozenieIso() {
       <PageHero
         crumb="Wdrożenie ISO"
         title="Wdrożenie systemów zarządzania ISO"
-        lead="Pomagamy firmom we wdrożeniu systemu zarządzania bezpieczeństwem i higieną pracy ISO 45001 oraz monitorujemy jego utrzymanie po certyfikacji."
+        lead="Pomagamy firmom we wdrożeniu systemów zarządzania: bezpieczeństwem i higieną pracy (ISO 45001) oraz środowiskowego (ISO 14001), a po certyfikacji monitorujemy ich utrzymanie."
       >
         <a href="#konsultacja" className="btn btn-glowny">Zapytaj o wdrożenie</a>
       </PageHero>

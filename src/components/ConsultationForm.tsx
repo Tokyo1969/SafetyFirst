@@ -3,7 +3,7 @@ import { submitConsultation, type ConsultationResult } from '../server/consultat
 import { INDUSTRIES } from '../data/pricing'
 import { site } from '../config/site'
 
-const SERVICES = ['BHP', 'Ochrona środowiska', 'Szkolenia']
+const SERVICES = ['BHP', 'Ochrona środowiska', 'Szkolenia', 'ISO']
 const EMPLOYEES = ['1–5', '6–10', '11–20', '21–30', '31–40', '41–50', 'powyżej 50']
 
 type TurnstileApi = {

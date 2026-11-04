@@ -40,7 +40,7 @@ function WdrozenieIso() {
 
       <ConsultationSection
         title="Zapytaj o wdrożenie ISO"
-        lead="Napisz, jak duża jest Twoja firma (liczba pracowników) i czy planujecie wdrożenie samodzielnie, czy z naszą pomocą. Wrócimy z propozycją zakresu."
+        lead="Napisz, w jakiej branży działa firma, ile ma pracowników, czy macie już inne systemy (np. ISO 9001) i czy planujecie wdrożenie samodzielnie, czy z pomocą konsultanta. Pomożemy dopasować plan działania do Twoich potrzeb."
         defaultServices={['Wdrożenie ISO']}
       />
     </main>
@@ -64,29 +64,48 @@ function Blok({ blok }: { blok: IsoBlok }) {
                 <span className="grid size-10 shrink-0 place-items-center rounded-full bg-tusz font-naglowek font-bold text-tasma">
                   {i + 1}
                 </span>
-                <p>
-                  <strong className="font-naglowek">{e.title}.</strong> {e.text}
-                </p>
+                <div>
+                  <p>
+                    <strong className="font-naglowek">{e.title}</strong>
+                    {e.text && <>. {e.text}</>}
+                  </p>
+                  {e.punkty && (
+                    <ul className="mt-2 grid gap-2 text-tusz-2">
+                      {e.punkty.map((p) => (
+                        <li key={p.title} className="flex gap-2.5">
+                          <span aria-hidden="true" className="mt-2.5 size-1.5 shrink-0 rounded-full bg-znak" />
+                          <span>
+                            <strong className="font-semibold text-tusz">{p.title}:</strong> {p.text}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
               </li>
             ))}
           </ol>
 
-          <h3 className="mt-10">Kluczowe informacje o normie</h3>
-          <dl className="mt-4 divide-y divide-linia overflow-hidden rounded-[var(--radius-panel)] border border-linia bg-white">
-            {blok.kluczowe.map((k) => (
-              <div key={k.title} className="px-5 py-4">
-                <dt className="font-naglowek font-semibold">{k.title}</dt>
-                <dd className="mt-1 text-tusz-2">{k.text}</dd>
-              </div>
-            ))}
-          </dl>
+          {blok.kluczowe.length > 0 && (
+            <>
+              <h3 className="mt-10">Kluczowe informacje o normie</h3>
+              <dl className="mt-4 divide-y divide-linia overflow-hidden rounded-[var(--radius-panel)] border border-linia bg-white">
+                {blok.kluczowe.map((k) => (
+                  <div key={k.title} className="px-5 py-4">
+                    <dt className="font-naglowek font-semibold">{k.title}</dt>
+                    <dd className="mt-1 text-tusz-2">{k.text}</dd>
+                  </div>
+                ))}
+              </dl>
+            </>
+          )}
 
           {blok.zrodla && (
             <p className="mt-6 text-[0.9375rem] text-tusz-2">
-              Szczegółowy opis wymagań i struktury standardu znajdziesz na stronach:{' '}
+              Więcej informacji:{' '}
               {blok.zrodla.map((z, i) => (
                 <span key={z.href}>
-                  {i > 0 && ' oraz '}
+                  {i > 0 && ', '}
                   <a href={z.href} className="link" target="_blank" rel="noopener noreferrer">
                     {z.label}
                   </a>

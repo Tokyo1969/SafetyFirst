@@ -1,7 +1,7 @@
 // Strona /wdrozenie-iso: etapy wdrozenia systemow zarzadzania (tresc od Macieja, 4.11.2026).
 // Blok ISO 14001 czeka na tresc (pole `gotowe: false` pokazuje komunikat zamiast etapow).
 
-export type IsoEtap = { title: string; text: string }
+export type IsoEtap = { title: string; text?: string; punkty?: readonly { title: string; text: string }[] }
 export type IsoLink = { label: string; href: string }
 
 export type IsoBlok = {
@@ -74,7 +74,94 @@ export const ISO_45001: IsoBlok = {
 export const ISO_14001: IsoBlok = {
   id: 'iso-14001',
   heading: 'Etapy wdrożenia ISO 14001',
-  gotowe: false,
-  etapy: [],
+  gotowe: true,
+  intro:
+    'Wdrożenie Systemu Zarządzania Środowiskowego (SZŚ) zgodnego z normą ISO 14001 opiera się na klasycznym cyklu Deminga. Z uwzględnieniem najnowszej aktualizacji normy (ISO 14001:2026) dzieli się na kilka kluczowych kroków:',
+  etapy: [
+    {
+      title: 'Decyzja kierownictwa i audyt zerowy (analiza luk)',
+      punkty: [
+        { title: 'Podjęcie decyzji', text: 'Zaangażowanie najwyższego kierownictwa i określenie kontekstu organizacji.' },
+        {
+          title: 'Audyt wstępny',
+          text: 'Ocena aktualnego stanu przedsiębiorstwa, infrastruktury i procedur pod kątem wymagań normy oraz przepisów prawa ochrony środowiska.',
+        },
+        {
+          title: 'Powołanie zespołu',
+          text: 'Wyznaczenie Pełnomocnika ds. Systemu Zarządzania Środowiskowego oraz zespołu wdrożeniowego.',
+        },
+      ],
+    },
+    {
+      title: 'Planowanie (Plan)',
+      punkty: [
+        { title: 'Polityka środowiskowa', text: 'Sformułowanie deklaracji i celów środowiskowych firmy.' },
+        {
+          title: 'Identyfikacja aspektów',
+          text: 'Wskazanie wszystkich obszarów, w których firma wpływa na środowisko (np. emisje, odpady, zużycie wody) z uwzględnieniem perspektywy cyklu życia produktu.',
+        },
+        { title: 'Analiza ryzyka', text: 'Ocena ryzyk i szans oraz zaplanowanie działań w sytuacjach awaryjnych.' },
+      ],
+    },
+    {
+      title: 'Wdrożenie i operacje (Do)',
+      punkty: [
+        {
+          title: 'Opracowanie dokumentacji',
+          text: 'Przygotowanie procedur, księgi systemu i instrukcji stanowiskowych dopasowanych do specyfiki firmy.',
+        },
+        {
+          title: 'Szkolenia pracowników',
+          text: 'Budowanie świadomości prośrodowiskowej w zespole oraz przeszkolenie osób odpowiedzialnych za konkretne procesy.',
+        },
+        {
+          title: 'Nadzór operacyjny',
+          text: 'Wprowadzenie procedur w codzienne życie firmy (np. zasady dla podwykonawców, kontrola zużycia zasobów).',
+        },
+      ],
+    },
+    {
+      title: 'Sprawdzanie i ocena efektów (Check)',
+      punkty: [
+        { title: 'Monitoring i pomiary', text: 'Regularna kontrola wskaźników środowiskowych i stopnia realizacji celów.' },
+        {
+          title: 'Audyty wewnętrzne',
+          text: 'Przeprowadzenie wewnętrznej kontroli mającej na celu wykrycie ewentualnych niezgodności z normą.',
+        },
+        {
+          title: 'Przegląd zarządzania',
+          text: 'Cykliczna ocena funkcjonowania systemu dokonywana przez najwyższe kierownictwo.',
+        },
+      ],
+    },
+    {
+      title: 'Certyfikacja (Act)',
+      punkty: [
+        {
+          title: 'Wybór jednostki',
+          text: 'Zgłoszenie się do akredytowanej jednostki certyfikującej (np. DNV czy BSI).',
+        },
+        {
+          title: 'Audyt certyfikujący',
+          text: 'Dwuetapowy proces zewnętrzny (etap 1: przegląd dokumentów, etap 2: weryfikacja działań na miejscu w firmie).',
+        },
+        {
+          title: 'Wydanie certyfikatu',
+          text: 'Pozytywny wynik audytu oznacza przyznanie certyfikatu na okres 3 lat, z zastrzeżeniem corocznych audytów nadzoru.',
+        },
+      ],
+    },
+  ],
   kluczowe: [],
+  zrodla: [
+    {
+      label: 'PKN: nowelizacja normy ISO 14001:2026',
+      href: 'https://www.pkn.pl/informacje/2026/04/nowelizacja-normy-iso-140012026-kluczowe-zmiany',
+    },
+    { label: 'DNV', href: 'https://www.dnv.pl/news/2025/ba_iso-14001---fdis-version/' },
+    {
+      label: 'BSI',
+      href: 'https://www.bsigroup.com/pl-PL/products-and-services/standards-services/iso-14001-key-changes-and-guidance/',
+    },
+  ],
 }

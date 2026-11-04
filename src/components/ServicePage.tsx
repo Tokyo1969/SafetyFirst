@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { CheckList, ConsultationSection, PageHero, SectionHeading, Steps } from './blocks'
+import { CheckList, ConsultationSection, PageHero, SectionHeading, SoonBadge, Steps } from './blocks'
 import type { Service, ServiceDetails } from '../data/services'
 import { relatedServices, servicePath } from '../data/catalog'
 import { heroImage } from '../lib/hero'
@@ -19,9 +19,21 @@ export function ServicePage({ service }: { service: Service }) {
         lead={service.lead}
         image={heroImage(service.slug)}
       >
-        <a href="#konsultacja" className="btn btn-glowny">Zapytaj o wycenę</a>
+        <a href="#konsultacja" className="btn btn-glowny">{service.soon ? 'Daj znać, że jesteś zainteresowany' : 'Zapytaj o wycenę'}</a>
         <Link to={hub.to as '/'} className="btn btn-obrys">{hub.cta}</Link>
       </PageHero>
+
+      {service.soon && (
+        <section className="bg-papier pt-8">
+          <div className="kontener">
+            <p className="rounded-[var(--radius-panel)] border border-znak/30 bg-znak-jasny px-5 py-4 text-znak-ciemny">
+              <SoonBadge className="!ml-0 mr-2" />
+              Ta usługa będzie dostępna niebawem. Zakres i ceny poniżej są orientacyjne. Napisz w formularzu, a damy
+              znać, gdy ruszymy.
+            </p>
+          </div>
+        </section>
+      )}
 
       <section className="sekcja bg-papier">
         <div className="kontener grid gap-12 lg:grid-cols-2 lg:gap-16">
@@ -57,8 +69,12 @@ export function ServicePage({ service }: { service: Service }) {
       {service.details && <Details details={service.details} />}
 
       <ConsultationSection
-        title="Zapytaj o wycenę"
-        lead="Napisz, czym zajmuje się firma i ile osób zatrudnia. Wrócimy z konkretną ofertą."
+        title={service.soon ? 'Daj znać, że jesteś zainteresowany' : 'Zapytaj o wycenę'}
+        lead={
+          service.soon
+            ? 'Napisz, czym zajmuje się firma. Odezwiemy się, gdy usługa będzie dostępna.'
+            : 'Napisz, czym zajmuje się firma i ile osób zatrudnia. Wrócimy z konkretną ofertą.'
+        }
         defaultServices={[...service.formServices]}
       />
 
@@ -78,7 +94,10 @@ export function ServicePage({ service }: { service: Service }) {
                   to={servicePath(s) as '/'}
                   className="flex h-full items-center justify-between gap-4 rounded-2xl bg-papier p-5 font-naglowek text-lg font-semibold hover:bg-znak-jasny"
                 >
-                  {s.navLabel}
+                  <span>
+                    {s.navLabel}
+                    {s.soon && <SoonBadge />}
+                  </span>
                   <Arrow />
                 </Link>
               </li>

@@ -17,6 +17,19 @@ export function CheckList({ items, columns = false }: { items: readonly string[]
   )
 }
 
+// Oznaczenie uslugi, ktora jeszcze nie jest dostepna (zielone, na ciemnym tle jasniejsza zielen).
+export function SoonBadge({ onDark = false, className = '' }: { onDark?: boolean; className?: string }) {
+  return (
+    <span
+      className={`ml-2 inline-block whitespace-nowrap rounded-full border px-2 py-px align-middle text-xs font-semibold ${
+        onDark ? 'border-znak-negatyw/60 text-znak-negatyw' : 'border-znak/40 bg-znak-jasny text-znak-ciemny'
+      } ${className}`}
+    >
+      Wkrótce
+    </span>
+  )
+}
+
 export function CheckIcon({ className = 'mt-0.5 size-6 shrink-0' }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={`${className} text-znak-logo`} fill="none" aria-hidden="true">

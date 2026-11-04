@@ -4,6 +4,7 @@ import { SERVICES } from '../data/services'
 import { OS_SERVICES } from '../data/os-services'
 import { servicePath } from '../data/catalog'
 import { Logo } from './Logo'
+import { SoonBadge } from './blocks'
 import { OTWORZ_USTAWIENIA } from './CookieBanner'
 
 const footLink = 'text-papier/85 underline-offset-4 hover:text-tasma hover:underline'
@@ -80,6 +81,7 @@ export function Footer() {
               {OS_SERVICES.map((s) => (
                 <li key={s.slug} className="break-inside-avoid">
                   <Link to={servicePath(s) as '/'} className={footLink}>{s.navLabel}</Link>
+                  {s.soon && <SoonBadge onDark />}
                 </li>
               ))}
             </ul>

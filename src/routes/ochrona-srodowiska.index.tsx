@@ -1,6 +1,6 @@
 import { heroImage } from '../lib/hero'
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { ConsultationSection, PageHero, SectionHeading, Steps } from '../components/blocks'
+import { ConsultationSection, PageHero, SectionHeading, SoonBadge, Steps } from '../components/blocks'
 import { OS_GROUPS, OS_SERVICES } from '../data/os-services'
 import { servicePath } from '../data/catalog'
 import { breadcrumbLd, pageHead } from '../lib/seo'
@@ -45,6 +45,15 @@ function OchronaSrodowiska() {
         <Link to="/obsluga-bhp" className="btn btn-obrys">Stała obsługa BHP</Link>
       </PageHero>
 
+      <section className="bg-papier pt-8">
+        <div className="kontener">
+          <p className="rounded-[var(--radius-panel)] border border-znak/30 bg-znak-jasny px-5 py-4 text-znak-ciemny">
+            Usługi oznaczone <SoonBadge className="!ml-0" /> będą dostępne niebawem. Chcesz wiedzieć, kiedy ruszą?
+            Napisz w formularzu na dole strony.
+          </p>
+        </div>
+      </section>
+
       {OS_GROUPS.map((group, i) => (
         <section key={group} className={`sekcja ${i % 2 === 0 ? 'bg-papier' : ''}`}>
           <div className="kontener">
@@ -57,10 +66,13 @@ function OchronaSrodowiska() {
                     className="group flex h-full flex-col justify-between gap-4 rounded-[var(--radius-panel)] border border-linia bg-white p-6 hover:border-znak hover:bg-znak-jasny"
                   >
                     <span>
-                      <span className="block font-naglowek text-xl font-semibold">{s.navLabel}</span>
+                      <span className="block font-naglowek text-xl font-semibold">
+                        {s.navLabel}
+                        {s.soon && <SoonBadge />}
+                      </span>
                       <span className="mt-2 block text-tusz-2">{s.summary}</span>
                     </span>
-                    <span className="link self-start text-[0.9375rem]">Zakres i ceny</span>
+                    <span className="link self-start text-[0.9375rem]">{s.soon ? 'Zobacz zakres' : 'Zakres i ceny'}</span>
                   </Link>
                 </li>
               ))}

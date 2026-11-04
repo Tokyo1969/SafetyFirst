@@ -4,6 +4,7 @@ import { site } from '../config/site'
 import { SERVICES } from '../data/services'
 import { FEATURED_OS, servicePath } from '../data/catalog'
 import { Logo } from './Logo'
+import { SoonBadge } from './blocks'
 
 const navLink = 'rounded-full px-3 py-2 whitespace-nowrap text-tusz hover:bg-znak-jasny'
 const navActive = { className: 'bg-znak-jasny text-znak-ciemny' }
@@ -100,6 +101,7 @@ export function Header() {
                       <li key={s.slug}>
                         <Link to={servicePath(s) as '/'} className={menuItem} activeProps={menuActive}>
                           {s.navLabel}
+                          {s.soon && <SoonBadge />}
                         </Link>
                       </li>
                     ))}
@@ -184,7 +186,7 @@ export function Header() {
               <ul className="pb-2 pl-3 font-tekst text-base font-medium">
                 {FEATURED_OS.map((s) => (
                   <li key={s.slug}>
-                    <Link to={servicePath(s) as '/'} className={menuItem} activeProps={menuActive}>{s.navLabel}</Link>
+                    <Link to={servicePath(s) as '/'} className={menuItem} activeProps={menuActive}>{s.navLabel}{s.soon && <SoonBadge />}</Link>
                   </li>
                 ))}
                 <li>

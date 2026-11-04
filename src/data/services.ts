@@ -9,6 +9,8 @@ export type Service = {
   group?: string
   summary?: string
   navLabel: string
+  // Usluga jeszcze niedostepna: oznaczenie "Wkrotce" w menu, na listach i na podstronie.
+  soon?: boolean
   title: string
   metaTitle: string
   metaDescription: string

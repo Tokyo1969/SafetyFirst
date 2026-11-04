@@ -1,6 +1,6 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ProtocolCard } from '../components/ProtocolCard'
-import { CheckIcon, CheckList, ConsultationSection, SectionHeading, Steps } from '../components/blocks'
+import { CheckIcon, CheckList, ConsultationSection, SectionHeading, SoonBadge, Steps } from '../components/blocks'
 import { PRICE_FROM, formatPln } from '../data/pricing'
 import { SERVICES } from '../data/services'
 import { site } from '../config/site'
@@ -27,12 +27,12 @@ const BHP = [
   'Kontrole stanowisk pracy',
   'Powypadkowe zespoły i dokumentacja',
 ]
-const OS = [
-  'Odpady i ewidencja BDO',
-  'Opłaty środowiskowe',
-  'Raporty KOBiZE',
-  'Pozwolenia i zgłoszenia',
-  'Audyty środowiskowe',
+const OS: readonly { label: string; soon?: boolean }[] = [
+  { label: 'Odpady i ewidencja BDO', soon: true },
+  { label: 'Opłaty środowiskowe', soon: true },
+  { label: 'Raporty KOBiZE', soon: true },
+  { label: 'Pozwolenia i zgłoszenia', soon: true },
+  { label: 'Audyty środowiskowe' },
 ]
 const STEPS = [
   'Rozmawiamy o Twojej firmie i stanowiskach pracy.',
@@ -117,7 +117,17 @@ function Home() {
             </div>
             <div className="rounded-[var(--radius-panel)] bg-znak-jasny p-6 sm:p-8">
               <h3>Ochrona środowiska</h3>
-              <div className="mt-6"><CheckList items={OS} /></div>
+              <ul className="mt-6 grid gap-3">
+                {OS.map((item) => (
+                  <li key={item.label} className="flex gap-3">
+                    <CheckIcon />
+                    <span>
+                      {item.label}
+                      {item.soon && <SoonBadge />}
+                    </span>
+                  </li>
+                ))}
+              </ul>
               <div className="mt-8 border-t border-znak/20 pt-6">
                 <Link to="/ochrona-srodowiska" className="link">Wszystkie usługi środowiskowe</Link>
                 <ul className="mt-4 flex flex-wrap gap-2">
@@ -128,6 +138,7 @@ function Home() {
                         className="inline-block rounded-full bg-papier px-4 py-2 text-[0.9375rem] font-medium hover:bg-white hover:text-znak-ciemny"
                       >
                         {s.navLabel}
+                        {s.soon && <SoonBadge className="!ml-1.5" />}
                       </Link>
                     </li>
                   ))}

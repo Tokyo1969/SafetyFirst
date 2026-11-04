@@ -16,7 +16,7 @@ export const OS_GROUPS = [
   'Dokumentacja i kontrole',
 ] as const
 
-export const OS_SERVICES: readonly Service[] = [
+const OS_SERVICES_BAZA: readonly Service[] = [
   // ---------- Obsługa i audyty ----------
   {
     section: 'os',
@@ -778,3 +778,22 @@ export const OS_SERVICES: readonly Service[] = [
     formServices: ['Ochrona środowiska'],
   },
 ]
+
+// Uslugi jeszcze niedostepne (decyzja z 4.11.2026): oznaczone "Wkrotce" wszedzie, gdzie wystepuja.
+// Usuniecie sluga z tej listy wlacza usluge (znika oznaczenie na stronie, w menu i w wiedzy asystenta).
+const WKROTCE = new Set([
+  'stala-obsluga-srodowiskowa',
+  'obsluga-bdo',
+  'ewidencja-odpadow',
+  'sprawozdania-odpadowe',
+  'emisje-do-powietrza',
+  'raporty-kobize',
+  'oplaty-srodowiskowe',
+  'gospodarka-wodno-sciekowa',
+  'pozwolenia-wodnoprawne',
+  'opakowania-i-produkty',
+])
+
+export const OS_SERVICES: readonly Service[] = OS_SERVICES_BAZA.map((s) =>
+  WKROTCE.has(s.slug) ? { ...s, soon: true } : s,
+)

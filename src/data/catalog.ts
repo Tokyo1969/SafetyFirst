@@ -43,6 +43,7 @@ export const SITEMAP_PATHS: readonly string[] = [
   '/dla-branz',
   '/o-nas',
   '/faq',
+  '/wdrozenie-iso',
   '/kontakt',
   ...SERVICES.map(servicePath),
   '/ochrona-srodowiska',

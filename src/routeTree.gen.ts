@@ -29,6 +29,7 @@ import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywa
 import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SzkoleniaBhpRouteImport } from './routes/szkolenia-bhp'
+import { Route as WdrozenieIsoRouteImport } from './routes/wdrozenie-iso'
 import { Route as WypadkiPrzyPracyRouteImport } from './routes/wypadki-przy-pracy'
 import { Route as ZamowienieRouteImport } from './routes/zamowienie'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
@@ -140,6 +141,11 @@ const SzkoleniaBhpRoute = SzkoleniaBhpRouteImport.update({
   path: '/szkolenia-bhp',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WdrozenieIsoRoute = WdrozenieIsoRouteImport.update({
+  id: '/wdrozenie-iso',
+  path: '/wdrozenie-iso',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WypadkiPrzyPracyRoute = WypadkiPrzyPracyRouteImport.update({
   id: '/wypadki-przy-pracy',
   path: '/wypadki-przy-pracy',
@@ -207,6 +213,7 @@ export interface FileRoutesByFullPath {
   '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
+  '/wdrozenie-iso': typeof WdrozenieIsoRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
   '/admin/kategorie': typeof AdminKategorieRoute
@@ -237,6 +244,7 @@ export interface FileRoutesByTo {
   '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
+  '/wdrozenie-iso': typeof WdrozenieIsoRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
   '/admin/kategorie': typeof AdminKategorieRoute
@@ -269,6 +277,7 @@ export interface FileRoutesById {
   '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
+  '/wdrozenie-iso': typeof WdrozenieIsoRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
   '/admin/kategorie': typeof AdminKategorieRoute
@@ -302,6 +311,7 @@ export interface FileRouteTypes {
     | '/regulamin'
     | '/sitemap.xml'
     | '/szkolenia-bhp'
+    | '/wdrozenie-iso'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
     | '/admin/kategorie'
@@ -332,6 +342,7 @@ export interface FileRouteTypes {
     | '/regulamin'
     | '/sitemap.xml'
     | '/szkolenia-bhp'
+    | '/wdrozenie-iso'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
     | '/admin/kategorie'
@@ -363,6 +374,7 @@ export interface FileRouteTypes {
     | '/regulamin'
     | '/sitemap.xml'
     | '/szkolenia-bhp'
+    | '/wdrozenie-iso'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
     | '/admin/kategorie'
@@ -395,6 +407,7 @@ export interface RootRouteChildren {
   RegulaminRoute: typeof RegulaminRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SzkoleniaBhpRoute: typeof SzkoleniaBhpRoute
+  WdrozenieIsoRoute: typeof WdrozenieIsoRoute
   WypadkiPrzyPracyRoute: typeof WypadkiPrzyPracyRoute
   ZamowienieRoute: typeof ZamowienieRoute
   OchronaSrodowiskaSlugRoute: typeof OchronaSrodowiskaSlugRoute
@@ -543,6 +556,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SzkoleniaBhpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wdrozenie-iso': {
+      id: '/wdrozenie-iso'
+      path: '/wdrozenie-iso'
+      fullPath: '/wdrozenie-iso'
+      preLoaderRoute: typeof WdrozenieIsoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/wypadki-przy-pracy': {
       id: '/wypadki-przy-pracy'
       path: '/wypadki-przy-pracy'
@@ -648,6 +668,7 @@ const rootRouteChildren: RootRouteChildren = {
   RegulaminRoute: RegulaminRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SzkoleniaBhpRoute: SzkoleniaBhpRoute,
+  WdrozenieIsoRoute: WdrozenieIsoRoute,
   WypadkiPrzyPracyRoute: WypadkiPrzyPracyRoute,
   ZamowienieRoute: ZamowienieRoute,
   OchronaSrodowiskaSlugRoute: OchronaSrodowiskaSlugRoute,

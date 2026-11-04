@@ -18,6 +18,18 @@ const MAIN_LINKS: { to: string; label: string }[] = [
   { to: '/kontakt', label: 'Kontakt' },
 ]
 
+// Informacja pod lista uslug BHP w menu: pomoc we wdrozeniu ISO 45001.
+function IsoNote() {
+  return (
+    <p className="mx-4 mt-3 border-t border-linia pt-3 text-[0.9375rem] text-tusz-2">
+      Pomagamy we wdrożeniu systemu ISO 45001 i monitorujemy jego utrzymanie.{' '}
+      <Link to="/wdrozenie-iso" className="link font-semibold" activeProps={menuActive}>
+        Dowiedz się więcej
+      </Link>
+    </p>
+  )
+}
+
 export function Header() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
   const [menuOpen, setMenuOpen] = useState(false)
@@ -93,6 +105,7 @@ export function Header() {
                       </li>
                     ))}
                   </ul>
+                  <IsoNote />
                 </div>
                 <div>
                   <p className="px-4 pt-1 pb-2 font-naglowek text-sm font-semibold text-tusz-2">Ochrona środowiska</p>
@@ -176,6 +189,7 @@ export function Header() {
                     <Link to={`/${s.slug}` as '/'} className={menuItem} activeProps={menuActive}>{s.navLabel}</Link>
                   </li>
                 ))}
+                <li><IsoNote /></li>
               </ul>
             </details>
             <details className="group" open={pathname.startsWith('/ochrona-srodowiska')}>

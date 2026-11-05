@@ -40,7 +40,7 @@ function WdrozenieIso() {
 
       <ConsultationSection
         title="Zapytaj o wdrożenie ISO"
-        lead="Napisz, w jakiej branży działa firma, ile ma pracowników, czy macie już inne systemy (np. ISO 9001) i czy planujecie wdrożenie samodzielnie, czy z pomocą konsultanta. Pomożemy dopasować plan działania do Twoich potrzeb."
+        lead="Napisz, w jakiej branży działa firma (np. produkcja, budownictwo, usługi), ile ma pracowników, czy macie już inne normy (np. ISO 9001 lub ISO 14001) i czy planujecie wdrożenie samodzielnie, czy z pomocą konsultanta. Pomożemy dopasować plan działania do Twoich potrzeb."
         defaultServices={['ISO']}
       />
     </main>

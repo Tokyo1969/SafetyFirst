@@ -18,27 +18,85 @@ export const ISO_45001: IsoBlok = {
   id: 'iso-45001',
   heading: 'Etapy wdrożenia ISO 45001',
   gotowe: true,
-  intro: 'Proces wdrożenia i certyfikacji składa się z kilku głównych kroków:',
+  intro: 'Proces wdrożenia, oparty na cyklu Deminga (Plan, Do, Check, Act), składa się z kilku głównych kroków:',
   etapy: [
     {
-      title: 'Audyt zerowy (stan zerowy)',
-      text: 'Analiza obecnego stanu BHP w firmie, przegląd dokumentacji oraz identyfikacja luk względem wymagań normy (GAP Analysis).',
+      title: 'Audyt zerowy (wstępny)',
+      punkty: [
+        {
+          title: 'Analiza stanu obecnego',
+          text: 'Inwentaryzacja aktualnie stosowanych w firmie rozwiązań oraz procedur związanych z BHP.',
+        },
+        {
+          title: 'Ocena luk (Gap Analysis)',
+          text: 'Wskazanie rozbieżności pomiędzy istniejącym systemem a restrykcyjnymi wymaganiami normy ISO 45001.',
+        },
+      ],
     },
     {
-      title: 'Opracowanie dokumentacji',
-      text: 'Przygotowanie polityki BHP, procedur, instrukcji oraz rejestrów oceny ryzyka zawodowego.',
+      title: 'Planowanie i zaangażowanie kierownictwa (Plan)',
+      punkty: [
+        {
+          title: 'Polityka BHP',
+          text: 'Sformułowanie i ogłoszenie oficjalnej polityki oraz celów dotyczących bezpieczeństwa i higieny pracy.',
+        },
+        {
+          title: 'Identyfikacja zagrożeń',
+          text: 'Przeprowadzenie kompleksowej oceny ryzyka zawodowego na wszystkich stanowiskach.',
+        },
+        {
+          title: 'Wymagania prawne',
+          text: 'Określenie i analiza przepisów prawnych, które firma musi bezwzględnie spełniać.',
+        },
+        {
+          title: 'Udział pracowników',
+          text: 'Włączenie personelu oraz ich przedstawicieli w proces planowania (jest to jeden z fundamentów normy ISO 45001).',
+        },
+      ],
     },
     {
-      title: 'Wdrożenie w praktyce',
-      text: 'Wprowadzenie nowych zasad do codziennej działalności firmy oraz przeszkolenie pracowników.',
+      title: 'Opracowanie dokumentacji i realizacja (Do)',
+      punkty: [
+        {
+          title: 'Tworzenie procedur',
+          text: 'Przygotowanie niezbędnej dokumentacji systemowej, w tym zasad reagowania na sytuacje awaryjne, instrukcji stanowiskowych oraz rejestrów.',
+        },
+        {
+          title: 'Szkolenia i budowanie świadomości',
+          text: 'Przeprowadzenie szkoleń dla pracowników, aby rozumieli nowe standardy oraz swoje role w systemie.',
+        },
+        {
+          title: 'Uruchomienie procesów',
+          text: 'Wprowadzenie procedur w życie i rozpoczęcie codziennego funkcjonowania zgodnie z nowo wyznaczonymi zasadami.',
+        },
+      ],
     },
     {
-      title: 'Audyt wewnętrzny i Przegląd Zarządzania',
-      text: 'Sprawdzenie skuteczności systemu przez firmę oraz ocena jego działania przez kadrę kierowniczą.',
+      title: 'Monitorowanie i ocena efektów (Check)',
+      punkty: [
+        {
+          title: 'Audyty wewnętrzne',
+          text: 'Regularne, niezależne kontrole sprawdzające, czy system działa efektywnie i jest zgodny z normą.',
+        },
+        {
+          title: 'Przegląd zarządzania',
+          text: 'Cykliczna ocena systemu dokonywana przez najwyższe kierownictwo w celu weryfikacji jego skuteczności.',
+        },
+        {
+          title: 'Badanie incydentów',
+          text: 'Analiza wszelkich wypadków, zdarzeń potencjalnie wypadkowych oraz niezgodności.',
+        },
+      ],
     },
     {
-      title: 'Certyfikacja',
-      text: 'Zewnętrzny audyt przeprowadzany przez niezależną jednostkę certyfikującą, składający się z dwóch etapów.',
+      title: 'Doskonalenie systemu (Act)',
+      punkty: [
+        { title: 'Działania korygujące', text: 'Natychmiastowe eliminowanie przyczyn wykrytych błędów i potknięć.' },
+        {
+          title: 'Ciągłe doskonalenie',
+          text: 'Wprowadzanie poprawek mających na celu stałe podnoszenie poziomu bezpieczeństwa w firmie.',
+        },
+      ],
     },
   ],
   kluczowe: [

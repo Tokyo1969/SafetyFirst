@@ -98,6 +98,15 @@ async function updatePending(orderId: string, sessionId: string, body: Record<st
   return text('Storage failed', 500)
 }
 
+async function safeStep(name: string, step: () => Promise<boolean>): Promise<boolean> {
+  try {
+    return await step()
+  } catch (e) {
+    console.error(`stripe-webhook: krok ${name}`, e)
+    return false
+  }
+}
+
 async function markPaid(orderId: string, s: CheckoutSession): Promise<Response> {
   // Kwota ze Stripe musi sie zgadzac z zamowieniem, inaczej zostawiamy pending do recznego sprawdzenia.
   const orderRes = await adminRest(`orders?select=total_gross_cents&id=eq.${orderId}`)
@@ -119,11 +128,13 @@ async function markPaid(orderId: string, s: CheckoutSession): Promise<Response> 
   // Faktura i potwierdzenie zamowienia takze przy ponowionym zdarzeniu, jesli wczesniej sie nie udaly
   // (obie funkcje pomijaja zamowienia, ktore juz je maja). Niezaleznie od siebie: blad jednej nie blokuje drugiej.
   // Dostep w Koncie przed potwierdzeniem, bo potwierdzenie odsyla do Konta.
-  const granted = await grantOrderAccess(orderId)
-  // Spersonalizowane PDF-y (n8n) po zapisaniu paid i po zalozeniu konta (orders.user_id). W tle, bledy tylko w logu.
+  // Kazdy krok osobno: wyjatek w jednym nie pomija nastepnych (zwlaszcza dokumentow z n8n).
+  const granted = await safeStep('dostep', () => grantOrderAccess(orderId))
+  // Spersonalizowane PDF-y (n8n) po zapisaniu paid i po zalozeniu konta (orders.user_id), niezaleznie od dostepu
+  // i faktury. W tle, nigdy nie rzuca, bledy tylko w logu.
   await requestPersonalizedDocuments(orderId)
-  const invoiced = await ensureInvoice(orderId, invoiceBuyer(s.customer_details))
-  const confirmed = granted && (await ensureOrderConfirmation(orderId))
+  const invoiced = await safeStep('faktura', () => ensureInvoice(orderId, invoiceBuyer(s.customer_details)))
+  const confirmed = granted && (await safeStep('potwierdzenie', () => ensureOrderConfirmation(orderId)))
   if (!granted) return text('Access failed', 500)
   if (!invoiced) return text('Invoice failed', 500)
   return confirmed ? text('OK', 200) : text('Confirmation failed', 500)

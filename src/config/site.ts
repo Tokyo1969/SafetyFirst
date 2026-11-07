@@ -37,7 +37,7 @@ export const site = {
   // zmiana regulaminPdf i wersji w panelu (Ustawienia > Wersja regulaminu), bo wersja trafia do kazdego zamowienia.
   legal: {
     regulaminPath: '/regulamin',
-    regulaminPdf: '/dokumenty/regulamin-2026-11-02.pdf',
+    regulaminPdf: '/dokumenty/regulamin-2026-11-08.pdf',
     privacyPath: '/polityka-prywatnosci',
     withdrawalPath: '/odstapienie-od-umowy',
     // Adres do korespondencji (biuro sprzedazy i szkolen), regulamin §1 ust. 2.

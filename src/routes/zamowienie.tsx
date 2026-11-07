@@ -2,7 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
 import { PageHero } from '../components/blocks'
 import { site } from '../config/site'
-import { DIGITAL_CONSENT_TEXT, formatGrosze, isDigital, maxQuantity, unitGrossCents, type ShopProduct } from '../lib/shop'
+import { DIGITAL_CONSENT_TEXT, formatGrosze, isDigital, maxQuantity, normalizeNip, unitGrossCents, type ShopProduct } from '../lib/shop'
 import { pageHead } from '../lib/seo'
 import { listShopProducts, startCheckout } from '../server/checkout'
 
@@ -41,7 +41,7 @@ function Zamowienie() {
       <PageHero
         crumb="Zamówienie"
         title="Płatność online"
-        lead="Zapłać kartą, BLIK-iem lub przelewem online. Płatność obsługuje Stripe, fakturę VAT wystawiamy na dane z formularza płatności."
+        lead="Zapłać kartą, BLIK-iem lub przelewem online. Płatność obsługuje Stripe, fakturę VAT wystawiamy na firmę i NIP z formularza zamówienia."
       />
       <section className="sekcja bg-papier">
         <div className="kontener max-w-3xl">
@@ -89,12 +89,14 @@ function Zamowienie() {
   )
 }
 
+const BLAD_NIP = 'Sprawdź NIP: powinien mieć 10 cyfr i poprawną sumę kontrolną.'
 const BLAD_OGOLNY = 'Płatności są chwilowo niedostępne. Napisz do nas przez formularz kontaktowy.'
 
 function ProductCard({ product }: { product: ShopProduct }) {
   const [quantity, setQuantity] = useState(1)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [nipError, setNipError] = useState<string | null>(null)
   const gross = unitGrossCents(product.price_net_cents, product.vat_rate)
   const max = maxQuantity(product.type)
   const digital = isDigital(product.type)
@@ -104,6 +106,12 @@ function ProductCard({ product }: { product: ShopProduct }) {
     e.preventDefault()
     const form = new FormData(e.currentTarget)
     setError(null)
+    const nip = String(form.get('nip') ?? '')
+    if (!normalizeNip(nip)) {
+      setNipError(BLAD_NIP)
+      document.getElementById(`nip-${product.id}`)?.focus()
+      return
+    }
     setSending(true)
     try {
       const result = await startCheckout({
@@ -111,6 +119,8 @@ function ProductCard({ product }: { product: ShopProduct }) {
           productId: product.id,
           quantity,
           email: String(form.get('email') ?? ''),
+          company: String(form.get('company') ?? ''),
+          nip,
           consent: form.get('consent') === 'on',
           terms: form.get('terms') === 'on',
         },
@@ -119,8 +129,13 @@ function ProductCard({ product }: { product: ShopProduct }) {
         window.location.assign(result.url)
         return
       }
+      if (result.field === 'nip') setNipError(BLAD_NIP)
       setError(
-        result.field === 'email'
+        result.field === 'company'
+          ? 'Podaj nazwę firmy.'
+          : result.field === 'nip'
+            ? BLAD_NIP
+          : result.field === 'email'
           ? 'Podaj poprawny adres e-mail.'
           : result.field === 'consent'
             ? 'Zaznacz oświadczenie o dostarczeniu treści cyfrowych.'
@@ -167,6 +182,38 @@ function ProductCard({ product }: { product: ShopProduct }) {
           </div>
         )}
       </div>
+      <div className="mt-4 grid gap-4 sm:grid-cols-[1fr_14rem]">
+        <div>
+          <label htmlFor={`firma-${id}`} className="block text-sm font-semibold">Nazwa firmy (do faktury)</label>
+          <input
+            id={`firma-${id}`}
+            name="company"
+            required
+            minLength={2}
+            maxLength={256}
+            autoComplete="organization"
+            className="pole mt-1 w-full"
+          />
+        </div>
+        <div>
+          <label htmlFor={`nip-${id}`} className="block text-sm font-semibold">NIP</label>
+          <input
+            id={`nip-${id}`}
+            name="nip"
+            required
+            inputMode="numeric"
+            maxLength={16}
+            aria-invalid={nipError ? true : undefined}
+            aria-describedby={nipError ? `nip-blad-${id}` : undefined}
+            onChange={() => nipError && setNipError(null)}
+            onBlur={(e) => setNipError(e.currentTarget.value && !normalizeNip(e.currentTarget.value) ? BLAD_NIP : null)}
+            className="pole mt-1 w-full"
+          />
+          {nipError && (
+            <p id={`nip-blad-${id}`} className="mt-1 text-sm font-semibold text-blad">{nipError}</p>
+          )}
+        </div>
+      </div>
       <label className="mt-4 flex gap-3 text-sm">
         <input type="checkbox" name="terms" required className="mt-1" />
         <span>
@@ -182,8 +229,8 @@ function ProductCard({ product }: { product: ShopProduct }) {
         </label>
       )}
       <p className="mt-4 text-sm text-tusz-2">
-        Do zapłaty: <strong className="text-tusz">{formatGrosze(gross * quantity)} brutto</strong>. Dane do faktury (firma, adres,
-        NIP) i metodę płatności podasz na następnej stronie (Stripe).
+        Do zapłaty: <strong className="text-tusz">{formatGrosze(gross * quantity)} brutto</strong>. Adres do faktury i metodę płatności
+        podasz na następnej stronie (Stripe).
       </p>
       <button type="submit" className="btn btn-glowny mt-4" disabled={sending}>
         {sending ? 'Przekierowuję…' : 'Zamawiam z obowiązkiem zapłaty'}

@@ -1,10 +1,18 @@
 import { createServerFn } from '@tanstack/react-start'
 import { getRequestHeader } from '@tanstack/react-start/server'
 import { site } from '../config/site'
-import { isDigital, maxQuantity, unitGrossCents, type ShopProduct } from '../lib/shop'
+import { isDigital, maxQuantity, normalizeNip, unitGrossCents, type ShopProduct } from '../lib/shop'
 import { adminConfigured, adminRest } from './supabase-admin'
 
-export type CheckoutInput = { productId: string; quantity: number; email: string; consent: boolean; terms: boolean }
+export type CheckoutInput = {
+  productId: string
+  quantity: number
+  email: string
+  company: string
+  nip: string
+  consent: boolean
+  terms: boolean
+}
 export type CheckoutResult =
   | { ok: true; url: string }
   | { ok: false; error: 'invalid' | 'disabled' | 'not_configured' | 'failed'; field?: string }
@@ -65,6 +73,11 @@ export const startCheckout = createServerFn({ method: 'POST' })
     const quantity = Number.isInteger(data.quantity) ? data.quantity : 0
     if (!UUID.test(productId)) return { ok: false, error: 'invalid' }
     if (!EMAIL.test(email)) return { ok: false, error: 'invalid', field: 'email' }
+    // Nazwa firmy i NIP do faktury podawane u nas (regulamin §4 ust. 1), NIP z suma kontrolna. Stripe zbiera tylko adres.
+    const company = typeof data.company === 'string' ? data.company.trim().replace(/\s+/g, ' ').slice(0, 256) : ''
+    if (company.length < 2) return { ok: false, error: 'invalid', field: 'company' }
+    const nip = normalizeNip(typeof data.nip === 'string' ? data.nip : '')
+    if (!nip) return { ok: false, error: 'invalid', field: 'nip' }
     // Akceptacja Regulaminu i Polityki prywatnosci (regulamin §4 ust. 1); wersja regulaminu trafia do zamowienia.
     if (data.terms !== true) return { ok: false, error: 'invalid', field: 'terms' }
 
@@ -103,6 +116,8 @@ export const startCheckout = createServerFn({ method: 'POST' })
         prefer: 'return=representation',
         body: {
           buyer_email: email,
+          buyer_company: company,
+          buyer_nip: nip,
           status: 'pending',
           total_net_cents: net,
           total_vat_cents: gross - net,
@@ -148,11 +163,9 @@ export const startCheckout = createServerFn({ method: 'POST' })
         'line_items[0][price_data][currency]': settings.currency.toLowerCase(),
         'line_items[0][price_data][unit_amount]': String(unitGross),
         'line_items[0][price_data][product_data][name]': product.title,
-        // Klienci to firmy: adres i NIP potrzebne do faktury (wystawiamy ja poza Stripe, docelowo Fakturownia i KSeF).
+        // Adres do faktury ze Stripe (fakture wystawia Fakturownia). Nazwa firmy i NIP sa juz w zamowieniu (nasz formularz,
+        // walidacja sumy kontrolnej), wiec Stripe o NIP nie pyta (bez tax_id_collection).
         billing_address_collection: 'required',
-        'tax_id_collection[enabled]': 'true',
-        // NIP wymagany (sprzedaz tylko firmom, decyzja 1.11.2026). Stripe pokazuje wtedy tez pole nazwy firmy.
-        'tax_id_collection[required]': 'if_supported',
         success_url: `${base}/zamowienie?status=ok&nr=${encodeURIComponent(order.order_number)}`,
         cancel_url: `${base}/zamowienie?status=anulowano`,
       })

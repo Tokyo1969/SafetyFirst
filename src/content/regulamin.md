@@ -1,6 +1,6 @@
 # Regulamin sklepu internetowego Safety First
 
-Wersja z dnia 2 listopada 2026 r.
+Wersja z dnia 8 listopada 2026 r.
 
 ## §1 Postanowienia ogólne i definicje
 
@@ -48,9 +48,9 @@ Sklep sprzedaje gotowe dokumenty BHP i ochrony środowiska w formacie PDF, pakie
 
 Umowa sprzedaży zostaje zawarta w chwili kliknięcia przycisku „Zamawiam z obowiązkiem zapłaty”, a dostęp do Produktu Klient otrzymuje po potwierdzeniu płatności. Zamówienie, które nie zostanie opłacone w ciągu 24 godzin, wygasa.
 
-1. Aby złożyć Zamówienie, Klient: wybiera Produkt (przy szkoleniu online także liczbę uczestników), podaje adres e-mail, zaznacza akceptację Regulaminu i Polityki prywatności i klika „Zamawiam z obowiązkiem zapłaty”. Następnie na stronie operatora płatności podaje dane do faktury (nazwę firmy, adres i NIP), wybiera metodę płatności i potwierdza płatność.
+1. Aby złożyć Zamówienie, Klient: wybiera Produkt (przy szkoleniu online także liczbę uczestników), podaje adres e-mail, nazwę firmy i numer NIP (Sklep sprawdza poprawność numeru NIP), zaznacza akceptację Regulaminu i Polityki prywatności i klika „Zamawiam z obowiązkiem zapłaty”. Następnie na stronie operatora płatności podaje adres do faktury, wybiera metodę płatności i potwierdza płatność.
 2. Przy zakupie Treści cyfrowych Klient musi dodatkowo zaznaczyć oświadczenie o zgodzie na niezwłoczne rozpoczęcie ich dostarczania i o utracie prawa odstąpienia (§8 ust. 2). Bez tego oświadczenia Zamówienie nie może zostać złożone.
-3. Klient może poprawić dane przed kliknięciem przycisku zamawiającego, a dane do faktury przed potwierdzeniem płatności. Należy podać prawidłowy adres e-mail, na który trafią potwierdzenie i dostęp do Konta.
+3. Klient może poprawić dane (w tym nazwę firmy i NIP) przed kliknięciem przycisku zamawiającego, a adres do faktury przed potwierdzeniem płatności. Należy podać prawidłowy adres e-mail, na który trafią potwierdzenie i dostęp do Konta.
 4. Po opłaceniu Zamówienia Sprzedawca wysyła na podany adres e-mail potwierdzenie na trwałym nośniku. Zawiera ono numer Zamówienia, wykaz Produktów, cenę, treść Regulaminu (w załączniku lub w postaci linku do pliku PDF), informację o utracie prawa odstąpienia przy Treściach cyfrowych oraz wzór formularza odstąpienia.
 5. W razie oczywistej omyłki w cenie lub opisie Sprzedawca niezwłocznie poinformuje Klienta i zaproponuje realizację Zamówienia po prawidłowej cenie albo anuluje Zamówienie i zwróci wpłatę.
 
@@ -140,7 +140,7 @@ Dane osobowe Klientów są przetwarzane zgodnie z Polityką prywatności dostęp
 2. Do umów sprzedaży stosuje się prawo polskie. Konsument zachowuje ochronę wynikającą z bezwzględnie obowiązujących przepisów państwa swojego zwykłego pobytu. Spory z Konsumentami rozstrzygają sądy właściwe według przepisów ogólnych, a spory z Przedsiębiorcami sąd właściwy dla siedziby Sprzedawcy.
 3. Sprzedawca może zmienić Regulamin z ważnych powodów: zmiany przepisów, zmiany oferty, zmian technicznych lub organizacyjnych w Sklepie albo zmiany danych Sprzedawcy (np. przejęcia sprzedaży przez spółkę). Zmiany są publikowane na stronie Sklepu z co najmniej 7-dniowym wyprzedzeniem, a Klientów posiadających Konto Sprzedawca informuje e-mailem. Zamówienia złożone przed zmianą są realizowane według Regulaminu obowiązującego w chwili ich złożenia.
 4. Klient, który nie akceptuje zmian, może przed ich wejściem w życie usunąć Konto (§2 ust. 4).
-5. Regulamin obowiązuje od 2 listopada 2026 r.
+5. Regulamin obowiązuje od 8 listopada 2026 r.
 
 ## Załącznik nr 1. Wzór formularza odstąpienia od umowy
 

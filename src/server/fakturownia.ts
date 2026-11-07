@@ -44,6 +44,8 @@ type OrderForInvoice = {
   order_number: string
   status: string
   buyer_email: string
+  buyer_company: string | null
+  buyer_nip: string | null
   fakturownia_invoice_id: string | null
   order_items: {
     title: string
@@ -77,7 +79,7 @@ export async function ensureInvoice(orderId: string, buyer: InvoiceBuyer): Promi
   const token = process.env.FAKTUROWNIA_API_TOKEN as string
 
   const orderRes = await adminRest(
-    `orders?select=id,order_number,status,buyer_email,fakturownia_invoice_id,order_items(title,quantity,unit_net_cents,vat_rate,products(type))&id=eq.${orderId}`,
+    `orders?select=id,order_number,status,buyer_email,buyer_company,buyer_nip,fakturownia_invoice_id,order_items(title,quantity,unit_net_cents,vat_rate,products(type))&id=eq.${orderId}`,
   )
   if (!orderRes.ok) return false
   const order = ((await orderRes.json()) as OrderForInvoice[])[0]
@@ -112,8 +114,9 @@ export async function ensureInvoice(orderId: string, buyer: InvoiceBuyer): Promi
         oid: order.order_number,
         oid_unique: 'yes',
         buyer_company: true,
-        buyer_name: (buyer.businessName || buyer.name || '').slice(0, 256),
-        buyer_tax_no: buyer.taxId ? taxNo(buyer.taxId, country) : '',
+        // Firma i NIP z zamowienia (formularz sklepu, od 7.11.2026); starsze zamowienia maja je tylko w sesji Stripe.
+        buyer_name: (order.buyer_company || buyer.businessName || buyer.name || '').slice(0, 256),
+        buyer_tax_no: order.buyer_nip ? taxNo(order.buyer_nip, country) : buyer.taxId ? taxNo(buyer.taxId, country) : '',
         buyer_street: buyer.street ?? '',
         buyer_post_code: buyer.postCode ?? '',
         buyer_city: buyer.city ?? '',

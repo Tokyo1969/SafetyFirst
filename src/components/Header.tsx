@@ -7,9 +7,17 @@ import { SoonBadge } from './blocks'
 
 const navLink = 'rounded-full px-3 py-2 whitespace-nowrap text-tusz hover:bg-znak-jasny'
 const navActive = { className: 'bg-znak-jasny text-znak-ciemny' }
-const menuItem = 'block rounded-xl px-4 py-2.5 hover:bg-mgla'
-const menuItemDesktop = 'block rounded-xl px-3 py-2 hover:bg-mgla'
-const menuActive = { className: 'bg-znak-jasny text-znak-ciemny' }
+const menuItem = 'block rounded-xl px-4 py-2.5'
+const menuItemDesktop = 'block rounded-xl px-3 py-2'
+const menuActive = { className: 'bg-papier text-znak-ciemny shadow-sm ring-1 ring-znak/30' }
+
+// Strefy kolorystyczne grup menu: BHP zolta (tasma) i szara, OS biala z zielona ramka i zielona.
+const TONE: Record<MenuGroup['tone'], { box: string; hover: string; dot: string }> = {
+  bhp: { box: 'bg-tasma/10 border-tasma/45', hover: 'hover:bg-papier', dot: 'bg-tasma' },
+  'bhp-doc': { box: 'bg-mgla border-linia', hover: 'hover:bg-papier', dot: 'bg-tusz-2' },
+  os: { box: 'bg-papier border-znak/30', hover: 'hover:bg-znak-jasny/60', dot: 'bg-znak-negatyw' },
+  'os-doc': { box: 'bg-znak-jasny border-znak/25', hover: 'hover:bg-papier', dot: 'bg-znak' },
+}
 
 const MAIN_LINKS: { to: string; label: string }[] = [
   { to: '/cennik', label: 'Cennik' },
@@ -88,15 +96,15 @@ export function Header() {
             {servicesOpen && (
               <div
                 id="menu-uslugi"
-                className="panel absolute inset-x-4 top-full mt-2 grid max-h-[calc(100dvh-6rem)] grid-cols-[1fr_1fr_2fr_1fr] gap-4 overflow-y-auto p-4 font-tekst text-[0.9375rem] md:inset-x-8"
+                className="panel absolute inset-x-4 top-full mt-2 grid max-h-[calc(100dvh-6rem)] grid-cols-[1fr_1fr_2fr_1fr] gap-3 overflow-y-auto p-3 font-tekst text-[0.9375rem] md:inset-x-8"
               >
                 {SERVICES_MENU.map((g) => (
-                  <div key={g.title}>
+                  <div key={g.title} className={`rounded-2xl border p-2 ${TONE[g.tone].box}`}>
                     <p className="px-3 pt-1 pb-2 font-naglowek text-sm font-semibold text-tusz-2">{g.title}</p>
                     <ul className={g.wide ? 'columns-2 gap-2' : ''}>
                       {g.items.map((i) => (
                         <li key={i.to} className="break-inside-avoid">
-                          <Link to={i.to as '/'} className={menuItemDesktop} activeProps={menuActive}>
+                          <Link to={i.to as '/'} className={`${menuItemDesktop} ${TONE[g.tone].hover}`} activeProps={menuActive}>
                             {i.label}
                             {i.soon && <SoonBadge />}
                           </Link>
@@ -107,7 +115,7 @@ export function Header() {
                       <Link
                         to={g.all.to as '/'}
                         activeOptions={{ exact: true }}
-                        className={`${menuItemDesktop} font-semibold text-znak`}
+                        className={`${menuItemDesktop} ${TONE[g.tone].hover} font-semibold text-znak`}
                         activeProps={menuActive}
                       >
                         {g.all.label}
@@ -166,18 +174,21 @@ export function Header() {
             {SERVICES_MENU.map((g) => (
               <details key={g.title} className="group" open={groupActive(g)}>
                 <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 hover:bg-mgla">
-                  {g.title}
+                  <span className="inline-flex items-center gap-3">
+                    <span className={`size-2.5 shrink-0 rounded-full ${TONE[g.tone].dot}`} aria-hidden="true" />
+                    {g.title}
+                  </span>
                   <Chevron />
                 </summary>
-                <ul className="pb-2 pl-3 font-tekst text-base font-medium">
+                <ul className={`mb-2 ml-3 rounded-2xl border p-2 font-tekst text-base font-medium ${TONE[g.tone].box}`}>
                   {g.items.map((i) => (
                     <li key={i.to}>
-                      <Link to={i.to as '/'} className={menuItem} activeProps={menuActive}>{i.label}{i.soon && <SoonBadge />}</Link>
+                      <Link to={i.to as '/'} className={`${menuItem} ${TONE[g.tone].hover}`} activeProps={menuActive}>{i.label}{i.soon && <SoonBadge />}</Link>
                     </li>
                   ))}
                   {g.all && (
                     <li>
-                      <Link to={g.all.to as '/'} activeOptions={{ exact: true }} className={`${menuItem} font-semibold text-znak`} activeProps={menuActive}>
+                      <Link to={g.all.to as '/'} activeOptions={{ exact: true }} className={`${menuItem} ${TONE[g.tone].hover} font-semibold text-znak`} activeProps={menuActive}>
                         {g.all.label}
                       </Link>
                     </li>

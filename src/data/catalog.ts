@@ -34,6 +34,7 @@ export type MenuGroup = {
   all?: MenuItem // link "wszystkie" pod lista
   iso?: '45001' | '14001'
   wide?: boolean // dluga lista w dwoch kolumnach
+  tone: 'bhp' | 'bhp-doc' | 'os' | 'os-doc' // strefa kolorystyczna w menu (klasy w Header.tsx)
 }
 
 const OS_DOC_SLUGS = [
@@ -57,6 +58,7 @@ export const SERVICES_MENU: readonly MenuGroup[] = [
       { to: '/kontrola-i-audyt-bhp', label: 'Kontrola i audyt BHP' },
     ],
     iso: '45001',
+    tone: 'bhp',
   },
   {
     title: 'Dokumentacja BHP',
@@ -65,6 +67,7 @@ export const SERVICES_MENU: readonly MenuGroup[] = [
       { to: '/pakiety-dokumentacji-bhp', label: 'Pakiety dokumentacji' },
       { to: '/ocena-ryzyka-zawodowego', label: 'Ocena ryzyka zawodowego' },
     ],
+    tone: 'bhp-doc',
   },
   {
     title: 'Usługi ochrony środowiska',
@@ -72,6 +75,7 @@ export const SERVICES_MENU: readonly MenuGroup[] = [
     all: { to: '/ochrona-srodowiska', label: 'Wszystkie usługi środowiskowe' },
     iso: '14001',
     wide: true,
+    tone: 'os',
   },
   {
     title: 'Dokumentacja ochrony środowiska',
@@ -79,6 +83,7 @@ export const SERVICES_MENU: readonly MenuGroup[] = [
       const s = getOsService(slug)
       return s ? [osItem(s)] : []
     }),
+    tone: 'os-doc',
   },
 ]
 

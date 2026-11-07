@@ -100,7 +100,7 @@ export function Header() {
               >
                 {SERVICES_MENU.map((g) => (
                   <div key={g.title} className={`rounded-2xl border p-2 ${TONE[g.tone].box}`}>
-                    <p className="px-3 pt-1 pb-2 font-naglowek text-sm font-semibold text-tusz-2">{g.title}</p>
+                    <p className="px-3 pt-1 pb-2 font-naglowek text-base font-bold text-znak">{g.title}</p>
                     <ul className={g.wide ? 'columns-2 gap-2' : ''}>
                       {g.items.map((i) => (
                         <li key={i.to} className="break-inside-avoid">

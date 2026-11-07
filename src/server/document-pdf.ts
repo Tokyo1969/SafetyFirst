@@ -1,5 +1,5 @@
 // Spersonalizowane PDF-y dla kupujacego: po oplaceniu zamowienia webhook Stripe wywoluje workflow n8n
-// (POST N8N_PDF_WEBHOOK_URL, naglowek X-LICON-CHAT-TOKEN = N8N_PDF_WEBHOOK_TOKEN, body { order_id }).
+// (POST N8N_PDF_WEBHOOK_URL, naglowek X-SAFETYFIRST-TOKEN = N8N_PDF_WEBHOOK_TOKEN, body { order_id }).
 // Workflow zapisuje pliki w buckecie product-files i wiersze w generated_documents (jeden na order_item_id),
 // a pozycje bez wgranego pliku pomija; dla nich pobieranie wydaje dalej plik z product_files (src/server/download.ts).
 // Ponowienie jest bezpieczne (workflow nadpisuje wynik). Blad lub timeout tylko logujemy: nie blokuje
@@ -22,7 +22,7 @@ async function callWorkflow(orderId: string, timeoutMs: number): Promise<void> {
   try {
     const response = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-LICON-CHAT-TOKEN': token },
+      headers: { 'Content-Type': 'application/json', 'X-SAFETYFIRST-TOKEN': token },
       body: JSON.stringify({ order_id: orderId }),
       signal: AbortSignal.timeout(timeoutMs),
     })

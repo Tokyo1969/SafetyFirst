@@ -7,12 +7,15 @@ import { adminConfigured, adminRest } from './supabase-admin'
 // naglowek Authorization: Bearer <token sesji Konta>. Sprawdza dostep (entitlements) i limit pobran, do PDF dodaje
 // stopke z kupujacym, data i numerem zamowienia oraz metadane, zapisuje pobranie w download_log (polityka pkt 7).
 // Pliki pozostaja w prywatnym buckecie product-files; przegladarka nie dostaje do nich linku.
+// Spersonalizowany dokument z n8n (generated_documents, po order_item_id uprawnienia) ma pierwszenstwo:
+// pobieramy go przez podpisany adres Storage. Bez takiego wpisu wydajemy biezacy plik z product_files.
 export const DOWNLOAD_PATH = '/api/konto/pobierz'
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 type Entitlement = {
   id: string
+  order_item_id: string | null
   download_limit: number | null
   revoked_at: string | null
   order_items: {
@@ -64,6 +67,57 @@ function fileName(title: string, ext: string): string {
   return `${ascii(title).replace(/[^A-Za-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80) || 'dokument'}.${ext}`
 }
 
+function storageHeaders(): Record<string, string> {
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY as string
+  return { apikey: key, ...(key.startsWith('sb_') ? {} : { Authorization: `Bearer ${key}` }) }
+}
+
+function objectPath(path: string): string {
+  return path.split('/').map(encodeURIComponent).join('/')
+}
+
+function fetchDirect(path: string): Promise<Response> {
+  return fetch(`${process.env.SUPABASE_URL}/storage/v1/object/product-files/${objectPath(path)}`, { headers: storageHeaders() })
+}
+
+// Podpisany adres (60 s) do pliku w product-files, pobierany od razu po stronie serwera.
+async function fetchSigned(path: string): Promise<Response | null> {
+  const signRes = await fetch(`${process.env.SUPABASE_URL}/storage/v1/object/sign/product-files/${objectPath(path)}`, {
+    method: 'POST',
+    headers: { ...storageHeaders(), 'Content-Type': 'application/json' },
+    body: JSON.stringify({ expiresIn: 60 }),
+  })
+  if (!signRes.ok) {
+    console.error('download: podpisany adres', signRes.status, await signRes.text())
+    return null
+  }
+  const { signedURL } = (await signRes.json()) as { signedURL?: string }
+  return signedURL ? fetch(`${process.env.SUPABASE_URL}/storage/v1${signedURL}`) : null
+}
+
+// Wpis z generated_documents dla pozycji zamowienia. Gdy ma product_id innego produktu (np. pozycja to pakiet,
+// a pobierany jest dokument z pakietu), nie uzywamy go i wydajemy plik z product_files.
+async function generatedDocument(orderItemId: string | null, productId: string): Promise<{ storage_path: string } | null> {
+  if (!orderItemId) return null
+  const res = await adminRest(`generated_documents?select=storage_path,product_id&order_item_id=eq.${orderItemId}&limit=1`)
+  if (!res.ok) {
+    console.error('download: generated_documents', res.status, await res.text())
+    return null
+  }
+  const row = ((await res.json()) as { storage_path: string; product_id: string | null }[])[0]
+  if (!row?.storage_path || (row.product_id && row.product_id !== productId)) return null
+  return row
+}
+
+const MIME: Record<string, string> = {
+  pdf: 'application/pdf',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+}
+function mimeFromPath(path: string): string {
+  return MIME[path.split('.').pop()?.toLowerCase() ?? ''] ?? 'application/octet-stream'
+}
+
 export async function handleDownload(request: Request): Promise<Response> {
   if (request.method !== 'POST') return json({ error: 'method' }, 405)
   if (!adminConfigured()) return json({ error: 'not_configured' }, 500)
@@ -75,7 +129,7 @@ export async function handleDownload(request: Request): Promise<Response> {
 
   try {
     const entRes = await adminRest(
-      `entitlements?select=id,download_limit,revoked_at,order_items(order_id,orders(order_number,paid_at,buyer_company,buyer_name,buyer_nip))&user_id=eq.${user.id}&product_id=eq.${productId}`,
+      `entitlements?select=id,order_item_id,download_limit,revoked_at,order_items(order_id,orders(order_number,paid_at,buyer_company,buyer_name,buyer_nip))&user_id=eq.${user.id}&product_id=eq.${productId}`,
     )
     const ent = entRes.ok ? ((await entRes.json()) as Entitlement[])[0] : undefined
     if (!ent || ent.revoked_at) return json({ error: 'forbidden' }, 403)
@@ -91,17 +145,17 @@ export async function handleDownload(request: Request): Promise<Response> {
     const limit = ent.download_limit ?? settings?.max_downloads_per_item ?? 10
     if (used >= limit) return json({ error: 'limit', used, limit }, 429)
 
-    const file = fileRes.ok ? ((await fileRes.json()) as { id: string; storage_path: string; mime_type: string; version: number }[])[0] : undefined
+    const current = fileRes.ok ? ((await fileRes.json()) as { id: string; storage_path: string; mime_type: string; version: number }[])[0] : undefined
     const product = productRes.ok ? ((await productRes.json()) as { title: string; edition: string | null }[])[0] : undefined
+    const generated = await generatedDocument(ent.order_item_id, productId)
+    const file = generated
+      ? { id: current?.id ?? null, storage_path: generated.storage_path, mime_type: mimeFromPath(generated.storage_path) }
+      : current
     if (!file || !product) return json({ error: 'no_file' }, 404)
 
-    const key = process.env.SUPABASE_SERVICE_ROLE_KEY as string
-    const objectRes = await fetch(
-      `${process.env.SUPABASE_URL}/storage/v1/object/product-files/${file.storage_path.split('/').map(encodeURIComponent).join('/')}`,
-      { headers: { apikey: key, ...(key.startsWith('sb_') ? {} : { Authorization: `Bearer ${key}` }) } },
-    )
-    if (!objectRes.ok) {
-      console.error('download: Storage odpowiedzial', objectRes.status, await objectRes.text())
+    const objectRes = generated ? await fetchSigned(file.storage_path) : await fetchDirect(file.storage_path)
+    if (!objectRes?.ok) {
+      console.error('download: Storage odpowiedzial', objectRes?.status, objectRes ? await objectRes.text() : '(brak podpisanego adresu)')
       return json({ error: 'failed' }, 500)
     }
     let bytes: ArrayBuffer | Uint8Array = await objectRes.arrayBuffer()

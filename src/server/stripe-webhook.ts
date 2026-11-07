@@ -1,4 +1,5 @@
 import { site } from '../config/site'
+import { requestPersonalizedDocuments } from './document-pdf'
 import { grantOrderAccess } from './entitlements'
 import { ensureInvoice, invoiceBuyer } from './fakturownia'
 import { ensureOrderConfirmation } from './order-confirmation'
@@ -119,6 +120,8 @@ async function markPaid(orderId: string, s: CheckoutSession): Promise<Response> 
   // (obie funkcje pomijaja zamowienia, ktore juz je maja). Niezaleznie od siebie: blad jednej nie blokuje drugiej.
   // Dostep w Koncie przed potwierdzeniem, bo potwierdzenie odsyla do Konta.
   const granted = await grantOrderAccess(orderId)
+  // Spersonalizowane PDF-y (n8n) po zapisaniu paid i po zalozeniu konta (orders.user_id). W tle, bledy tylko w logu.
+  await requestPersonalizedDocuments(orderId)
   const invoiced = await ensureInvoice(orderId, invoiceBuyer(s.customer_details))
   const confirmed = granted && (await ensureOrderConfirmation(orderId))
   if (!granted) return text('Access failed', 500)

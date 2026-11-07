@@ -30,6 +30,7 @@ import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SzkoleniaBhpRouteImport } from './routes/szkolenia-bhp'
 import { Route as WdrozenieIsoRouteImport } from './routes/wdrozenie-iso'
+import { Route as WeryfikacjaCertyfikatuRouteImport } from './routes/weryfikacja-certyfikatu'
 import { Route as WypadkiPrzyPracyRouteImport } from './routes/wypadki-przy-pracy'
 import { Route as ZamowienieRouteImport } from './routes/zamowienie'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
@@ -146,6 +147,11 @@ const WdrozenieIsoRoute = WdrozenieIsoRouteImport.update({
   path: '/wdrozenie-iso',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WeryfikacjaCertyfikatuRoute = WeryfikacjaCertyfikatuRouteImport.update({
+  id: '/weryfikacja-certyfikatu',
+  path: '/weryfikacja-certyfikatu',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const WypadkiPrzyPracyRoute = WypadkiPrzyPracyRouteImport.update({
   id: '/wypadki-przy-pracy',
   path: '/wypadki-przy-pracy',
@@ -214,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wdrozenie-iso': typeof WdrozenieIsoRoute
+  '/weryfikacja-certyfikatu': typeof WeryfikacjaCertyfikatuRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
   '/admin/kategorie': typeof AdminKategorieRoute
@@ -245,6 +252,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wdrozenie-iso': typeof WdrozenieIsoRoute
+  '/weryfikacja-certyfikatu': typeof WeryfikacjaCertyfikatuRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
   '/admin/kategorie': typeof AdminKategorieRoute
@@ -278,6 +286,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
   '/wdrozenie-iso': typeof WdrozenieIsoRoute
+  '/weryfikacja-certyfikatu': typeof WeryfikacjaCertyfikatuRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
   '/admin/kategorie': typeof AdminKategorieRoute
@@ -312,6 +321,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/szkolenia-bhp'
     | '/wdrozenie-iso'
+    | '/weryfikacja-certyfikatu'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
     | '/admin/kategorie'
@@ -343,6 +353,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/szkolenia-bhp'
     | '/wdrozenie-iso'
+    | '/weryfikacja-certyfikatu'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
     | '/admin/kategorie'
@@ -375,6 +386,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/szkolenia-bhp'
     | '/wdrozenie-iso'
+    | '/weryfikacja-certyfikatu'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
     | '/admin/kategorie'
@@ -408,6 +420,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SzkoleniaBhpRoute: typeof SzkoleniaBhpRoute
   WdrozenieIsoRoute: typeof WdrozenieIsoRoute
+  WeryfikacjaCertyfikatuRoute: typeof WeryfikacjaCertyfikatuRoute
   WypadkiPrzyPracyRoute: typeof WypadkiPrzyPracyRoute
   ZamowienieRoute: typeof ZamowienieRoute
   OchronaSrodowiskaSlugRoute: typeof OchronaSrodowiskaSlugRoute
@@ -563,6 +576,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WdrozenieIsoRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/weryfikacja-certyfikatu': {
+      id: '/weryfikacja-certyfikatu'
+      path: '/weryfikacja-certyfikatu'
+      fullPath: '/weryfikacja-certyfikatu'
+      preLoaderRoute: typeof WeryfikacjaCertyfikatuRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/wypadki-przy-pracy': {
       id: '/wypadki-przy-pracy'
       path: '/wypadki-przy-pracy'
@@ -669,6 +689,7 @@ const rootRouteChildren: RootRouteChildren = {
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SzkoleniaBhpRoute: SzkoleniaBhpRoute,
   WdrozenieIsoRoute: WdrozenieIsoRoute,
+  WeryfikacjaCertyfikatuRoute: WeryfikacjaCertyfikatuRoute,
   WypadkiPrzyPracyRoute: WypadkiPrzyPracyRoute,
   ZamowienieRoute: ZamowienieRoute,
   OchronaSrodowiskaSlugRoute: OchronaSrodowiskaSlugRoute,

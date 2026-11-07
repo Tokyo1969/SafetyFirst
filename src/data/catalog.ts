@@ -107,6 +107,7 @@ export const SITEMAP_PATHS: readonly string[] = [
   '/faq',
   '/wdrozenie-iso',
   '/kontakt',
+  '/weryfikacja-certyfikatu',
   ...SERVICES.map(servicePath),
   '/ochrona-srodowiska',
   ...OS_SERVICES.map(servicePath),

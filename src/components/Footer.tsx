@@ -41,6 +41,7 @@ export function Footer() {
               <li><Link to="/o-nas" className={footLink}>O nas</Link></li>
               <li><Link to="/faq" className={footLink}>Najczęstsze pytania</Link></li>
               <li><Link to="/kontakt" className={footLink}>Kontakt</Link></li>
+              <li><Link to="/weryfikacja-certyfikatu" className={footLink}>Weryfikacja certyfikatu</Link></li>
             </ul>
           </nav>
           <div>

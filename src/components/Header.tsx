@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useRouterState } from '@tanstack/react-router'
 import { site } from '../config/site'
-import { SERVICES } from '../data/services'
-import { FEATURED_OS, servicePath } from '../data/catalog'
+import { SERVICES_MENU, type MenuGroup } from '../data/catalog'
 import { Logo } from './Logo'
 import { SoonBadge } from './blocks'
 
 const navLink = 'rounded-full px-3 py-2 whitespace-nowrap text-tusz hover:bg-znak-jasny'
 const navActive = { className: 'bg-znak-jasny text-znak-ciemny' }
 const menuItem = 'block rounded-xl px-4 py-2.5 hover:bg-mgla'
+const menuItemDesktop = 'block rounded-xl px-3 py-2 hover:bg-mgla'
 const menuActive = { className: 'bg-znak-jasny text-znak-ciemny' }
 
 const MAIN_LINKS: { to: string; label: string }[] = [
@@ -18,10 +18,10 @@ const MAIN_LINKS: { to: string; label: string }[] = [
   { to: '/kontakt', label: 'Kontakt' },
 ]
 
-// Informacja pod lista uslug BHP w menu: pomoc we wdrozeniu ISO 45001.
-function IsoNote({ norma = '45001' }: { norma?: '45001' | '14001' }) {
+// Informacja pod lista uslug w menu: pomoc we wdrozeniu ISO 45001 / 14001.
+function IsoNote({ norma = '45001', className = 'mx-4' }: { norma?: '45001' | '14001'; className?: string }) {
   return (
-    <p className="mx-4 mt-3 border-t border-linia pt-3 text-[0.9375rem] text-tusz-2">
+    <p className={`${className} mt-3 border-t border-linia pt-3 text-[0.9375rem] text-tusz-2`}>
       Pomagamy we wdrożeniu systemu ISO {norma} i monitorujemy jego utrzymanie.{' '}
       <Link to="/wdrozenie-iso" hash={`iso-${norma}`} className="link font-semibold">
         Dowiedz się więcej
@@ -61,20 +61,18 @@ export function Header() {
     }
   }, [servicesOpen, menuOpen])
 
-  const serviceActive =
-    pathname === '/obsluga-bhp' ||
-    pathname.startsWith('/ochrona-srodowiska') ||
-    SERVICES.some((s) => pathname === `/${s.slug}`)
+  const groupActive = (g: MenuGroup) => g.items.some((i) => i.to === pathname) || g.all?.to === pathname
+  const serviceActive = SERVICES_MENU.some(groupActive)
 
   return (
     <header className="sticky top-0 z-40 border-b border-linia/70 bg-papier/90 backdrop-blur-md">
-      <div className="kontener flex h-16 items-center justify-between gap-6 md:h-20">
+      <div className="kontener relative flex h-16 items-center justify-between gap-6 md:h-20">
         <Link to="/" className="shrink-0" aria-label={`${site.brand}, strona główna`}>
           <Logo />
         </Link>
 
         <nav aria-label="Główna" className="hidden items-center gap-1 font-naglowek text-[1.0625rem] font-semibold xl:flex">
-          <div ref={servicesRef} className="relative">
+          <div ref={servicesRef}>
             <button
               type="button"
               aria-expanded={servicesOpen}
@@ -88,49 +86,36 @@ export function Header() {
               </svg>
             </button>
             {servicesOpen && (
-              <div id="menu-uslugi" className="panel absolute top-full left-0 mt-2 grid w-[40rem] grid-cols-2 gap-6 p-4 font-tekst text-base">
-                <div>
-                  <p className="px-4 pt-1 pb-2 font-naglowek text-sm font-semibold text-tusz-2">BHP</p>
-                  <ul>
-                    <li>
-                      <Link to="/obsluga-bhp" className={`${menuItem} font-semibold`} activeProps={menuActive}>
-                        Stała obsługa BHP
-                      </Link>
-                    </li>
-                    {SERVICES.map((s) => (
-                      <li key={s.slug}>
-                        <Link to={`/${s.slug}` as '/'} className={menuItem} activeProps={menuActive}>
-                          {s.navLabel}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                  <IsoNote />
-                </div>
-                <div>
-                  <p className="px-4 pt-1 pb-2 font-naglowek text-sm font-semibold text-tusz-2">Ochrona środowiska</p>
-                  <ul>
-                    {FEATURED_OS.map((s) => (
-                      <li key={s.slug}>
-                        <Link to={servicePath(s) as '/'} className={menuItem} activeProps={menuActive}>
-                          {s.navLabel}
-                          {s.soon && <SoonBadge />}
-                        </Link>
-                      </li>
-                    ))}
-                    <li>
+              <div
+                id="menu-uslugi"
+                className="panel absolute inset-x-4 top-full mt-2 grid max-h-[calc(100dvh-6rem)] grid-cols-[1fr_1fr_2fr_1fr] gap-4 overflow-y-auto p-4 font-tekst text-[0.9375rem] md:inset-x-8"
+              >
+                {SERVICES_MENU.map((g) => (
+                  <div key={g.title}>
+                    <p className="px-3 pt-1 pb-2 font-naglowek text-sm font-semibold text-tusz-2">{g.title}</p>
+                    <ul className={g.wide ? 'columns-2 gap-2' : ''}>
+                      {g.items.map((i) => (
+                        <li key={i.to} className="break-inside-avoid">
+                          <Link to={i.to as '/'} className={menuItemDesktop} activeProps={menuActive}>
+                            {i.label}
+                            {i.soon && <SoonBadge />}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                    {g.all && (
                       <Link
-                        to="/ochrona-srodowiska"
+                        to={g.all.to as '/'}
                         activeOptions={{ exact: true }}
-                        className={`${menuItem} font-semibold text-znak`}
+                        className={`${menuItemDesktop} font-semibold text-znak`}
                         activeProps={menuActive}
                       >
-                        Wszystkie usługi środowiskowe
+                        {g.all.label}
                       </Link>
-                    </li>
-                  </ul>
-                  <IsoNote norma="14001" />
-                </div>
+                    )}
+                    {g.iso && <IsoNote norma={g.iso} className="mx-3" />}
+                  </div>
+                ))}
               </div>
             )}
           </div>
@@ -178,40 +163,29 @@ export function Header() {
       {menuOpen && (
         <nav id="menu-mobilne" aria-label="Menu mobilne" className="max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-linia bg-papier xl:hidden">
           <div className="kontener flex flex-col gap-1 py-4 font-naglowek text-lg font-semibold">
-            <details className="group" open={pathname === '/obsluga-bhp' || SERVICES.some((s) => pathname === `/${s.slug}`)}>
-              <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 hover:bg-mgla">
-                Usługi BHP
-                <Chevron />
-              </summary>
-              <ul className="pb-2 pl-3 font-tekst text-base font-medium">
-                <li><Link to="/obsluga-bhp" className={menuItem} activeProps={menuActive}>Stała obsługa BHP</Link></li>
-                {SERVICES.map((s) => (
-                  <li key={s.slug}>
-                    <Link to={`/${s.slug}` as '/'} className={menuItem} activeProps={menuActive}>{s.navLabel}</Link>
-                  </li>
-                ))}
-                <li><IsoNote /></li>
-              </ul>
-            </details>
-            <details className="group" open={pathname.startsWith('/ochrona-srodowiska')}>
-              <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 hover:bg-mgla">
-                Ochrona środowiska
-                <Chevron />
-              </summary>
-              <ul className="pb-2 pl-3 font-tekst text-base font-medium">
-                {FEATURED_OS.map((s) => (
-                  <li key={s.slug}>
-                    <Link to={servicePath(s) as '/'} className={menuItem} activeProps={menuActive}>{s.navLabel}{s.soon && <SoonBadge />}</Link>
-                  </li>
-                ))}
-                <li>
-                  <Link to="/ochrona-srodowiska" activeOptions={{ exact: true }} className={`${menuItem} font-semibold text-znak`} activeProps={menuActive}>
-                    Wszystkie usługi środowiskowe
-                  </Link>
-                </li>
-                <li><IsoNote norma="14001" /></li>
-              </ul>
-            </details>
+            {SERVICES_MENU.map((g) => (
+              <details key={g.title} className="group" open={groupActive(g)}>
+                <summary className="flex cursor-pointer list-none items-center justify-between rounded-xl px-4 py-3 hover:bg-mgla">
+                  {g.title}
+                  <Chevron />
+                </summary>
+                <ul className="pb-2 pl-3 font-tekst text-base font-medium">
+                  {g.items.map((i) => (
+                    <li key={i.to}>
+                      <Link to={i.to as '/'} className={menuItem} activeProps={menuActive}>{i.label}{i.soon && <SoonBadge />}</Link>
+                    </li>
+                  ))}
+                  {g.all && (
+                    <li>
+                      <Link to={g.all.to as '/'} activeOptions={{ exact: true }} className={`${menuItem} font-semibold text-znak`} activeProps={menuActive}>
+                        {g.all.label}
+                      </Link>
+                    </li>
+                  )}
+                  {g.iso && <li><IsoNote norma={g.iso} /></li>}
+                </ul>
+              </details>
+            ))}
             {MAIN_LINKS.map((l) => (
               <Link key={l.to} to={l.to as '/'} className="block rounded-xl px-4 py-3 hover:bg-mgla" activeProps={navActive}>
                 {l.label}

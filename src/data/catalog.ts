@@ -25,7 +25,64 @@ export function relatedServices(s: Service): Service[] {
   return result
 }
 
-// Wyrozniowane uslugi srodowiskowe (menu, strona glowna).
+// Menu "Uslugi" w naglowku (uklad z 7.11.2026): 4 grupy. Uslugi OS = wszystkie z OS_SERVICES poza
+// dokumentacja (OS_DOC_SLUGS), wiec nowa usluga OS sama trafia do menu.
+export type MenuItem = { to: string; label: string; soon?: boolean }
+export type MenuGroup = {
+  title: string
+  items: MenuItem[]
+  all?: MenuItem // link "wszystkie" pod lista
+  iso?: '45001' | '14001'
+  wide?: boolean // dluga lista w dwoch kolumnach
+}
+
+const OS_DOC_SLUGS = [
+  'dokumentacja-srodowiskowa',
+  'obowiazki-prawne-srodowiskowe',
+  'aspekty-srodowiskowe',
+  'awarie-i-wycieki',
+  'pozwolenia-wodnoprawne',
+]
+
+const osItem = (s: Service): MenuItem => ({ to: servicePath(s), label: s.navLabel, soon: s.soon })
+
+export const SERVICES_MENU: readonly MenuGroup[] = [
+  {
+    title: 'Usługi BHP',
+    items: [
+      { to: '/obsluga-bhp', label: 'Stała obsługa BHP' },
+      { to: '/szkolenia-bhp', label: 'Szkolenia BHP' },
+      { to: '/konsultacje-bhp', label: 'Konsultacje BHP' },
+      { to: '/wypadki-przy-pracy', label: 'Wypadki przy pracy' },
+      { to: '/kontrola-i-audyt-bhp', label: 'Kontrola i audyt BHP' },
+    ],
+    iso: '45001',
+  },
+  {
+    title: 'Dokumentacja BHP',
+    items: [
+      { to: '/dokumentacja-bhp', label: 'Dokumentacja podstawowa' },
+      { to: '/pakiety-dokumentacji-bhp', label: 'Pakiety dokumentacji' },
+      { to: '/ocena-ryzyka-zawodowego', label: 'Ocena ryzyka zawodowego' },
+    ],
+  },
+  {
+    title: 'Usługi ochrony środowiska',
+    items: OS_SERVICES.filter((s) => !OS_DOC_SLUGS.includes(s.slug)).map(osItem),
+    all: { to: '/ochrona-srodowiska', label: 'Wszystkie usługi środowiskowe' },
+    iso: '14001',
+    wide: true,
+  },
+  {
+    title: 'Dokumentacja ochrony środowiska',
+    items: OS_DOC_SLUGS.flatMap((slug) => {
+      const s = getOsService(slug)
+      return s ? [osItem(s)] : []
+    }),
+  },
+]
+
+// Wyrozniowane uslugi srodowiskowe (strona glowna).
 export const FEATURED_OS: readonly Service[] = [
   'obsluga-bdo',
   'raporty-kobize',

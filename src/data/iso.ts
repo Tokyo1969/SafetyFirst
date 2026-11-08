@@ -21,7 +21,7 @@ export const ISO_45001: IsoBlok = {
   intro: 'Proces wdrożenia, oparty na cyklu Deminga (Plan, Do, Check, Act), składa się z kilku głównych kroków:',
   etapy: [
     {
-      title: 'Audyt zerowy (wstępny)',
+      title: 'Audit zerowy (wstępny)',
       punkty: [
         {
           title: 'Analiza stanu obecnego',
@@ -75,7 +75,7 @@ export const ISO_45001: IsoBlok = {
       title: 'Monitorowanie i ocena efektów (Check)',
       punkty: [
         {
-          title: 'Audyty wewnętrzne',
+          title: 'Audity wewnętrzne',
           text: 'Regularne, niezależne kontrole sprawdzające, czy system działa efektywnie i jest zgodny z normą.',
         },
         {
@@ -106,7 +106,7 @@ export const ISO_45001: IsoBlok = {
     },
     {
       title: 'Certyfikat',
-      text: 'Wydawany jest na okres 3 lat, przy czym co roku odbywają się audyty nadzoru.',
+      text: 'Wydawany jest na okres 3 lat, przy czym co roku odbywają się audity nadzoru.',
     },
     {
       title: 'Obowiązkowość',
@@ -137,11 +137,11 @@ export const ISO_14001: IsoBlok = {
     'Wdrożenie Systemu Zarządzania Środowiskowego (SZŚ) zgodnego z normą ISO 14001 opiera się na klasycznym cyklu Deminga. Z uwzględnieniem najnowszej aktualizacji normy (ISO 14001:2026) dzieli się na kilka kluczowych kroków:',
   etapy: [
     {
-      title: 'Decyzja kierownictwa i audyt zerowy (analiza luk)',
+      title: 'Decyzja kierownictwa i audit zerowy (analiza luk)',
       punkty: [
         { title: 'Podjęcie decyzji', text: 'Zaangażowanie najwyższego kierownictwa i określenie kontekstu organizacji.' },
         {
-          title: 'Audyt wstępny',
+          title: 'Audit wstępny',
           text: 'Ocena aktualnego stanu przedsiębiorstwa, infrastruktury i procedur pod kątem wymagań normy oraz przepisów prawa ochrony środowiska.',
         },
         {
@@ -183,7 +183,7 @@ export const ISO_14001: IsoBlok = {
       punkty: [
         { title: 'Monitoring i pomiary', text: 'Regularna kontrola wskaźników środowiskowych i stopnia realizacji celów.' },
         {
-          title: 'Audyty wewnętrzne',
+          title: 'Audity wewnętrzne',
           text: 'Przeprowadzenie wewnętrznej kontroli mającej na celu wykrycie ewentualnych niezgodności z normą.',
         },
         {
@@ -200,12 +200,12 @@ export const ISO_14001: IsoBlok = {
           text: 'Zgłoszenie się do akredytowanej jednostki certyfikującej (np. DNV czy BSI).',
         },
         {
-          title: 'Audyt certyfikujący',
+          title: 'Audit certyfikujący',
           text: 'Dwuetapowy proces zewnętrzny (etap 1: przegląd dokumentów, etap 2: weryfikacja działań na miejscu w firmie).',
         },
         {
           title: 'Wydanie certyfikatu',
-          text: 'Pozytywny wynik audytu oznacza przyznanie certyfikatu na okres 3 lat, z zastrzeżeniem corocznych audytów nadzoru.',
+          text: 'Pozytywny wynik auditu oznacza przyznanie certyfikatu na okres 3 lat, z zastrzeżeniem corocznych auditów nadzoru.',
         },
       ],
     },

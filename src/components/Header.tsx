@@ -4,6 +4,8 @@ import { site } from '../config/site'
 import { SERVICES_MENU, type MenuGroup } from '../data/catalog'
 import { Logo } from './Logo'
 import { SoonBadge } from './blocks'
+import { CartButton } from './shop'
+import { useShopEnabled } from '../lib/cart'
 
 const navLink = 'rounded-full px-3 py-2 whitespace-nowrap text-tusz hover:bg-znak-jasny'
 const navActive = { className: 'bg-znak-jasny text-znak-ciemny' }
@@ -40,6 +42,9 @@ function IsoNote({ norma = '45001', className = 'mx-4' }: { norma?: '45001' | '1
 
 export function Header() {
   const pathname = useRouterState({ select: (s) => s.location.pathname })
+  // Sklep i koszyk w menu dopiero po wlaczeniu platnosci (albo w podgladzie ?platnosci=1).
+  const shop = useShopEnabled()
+  const links = shop ? [{ to: '/sklep', label: 'Sklep' }, ...MAIN_LINKS] : MAIN_LINKS
   const [menuOpen, setMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const servicesRef = useRef<HTMLDivElement>(null)
@@ -127,11 +132,12 @@ export function Header() {
               </div>
             )}
           </div>
-          {MAIN_LINKS.map((l) => (
+          {links.map((l) => (
             <Link key={l.to} to={l.to as '/'} className={navLink} activeProps={navActive}>
               {l.label}
             </Link>
           ))}
+          {shop && <CartButton className="ml-1" />}
           <a
             href={site.phone.href}
             className={`${navLink} ml-1 inline-flex items-center gap-2`}
@@ -146,6 +152,7 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 xl:hidden">
+          {shop && <CartButton />}
           <a href={site.phone.href} className="grid size-11 place-items-center rounded-full bg-znak-jasny text-znak-ciemny" aria-label={`Zadzwoń: ${site.phone.display}`}>
             <PhoneIcon />
           </a>
@@ -197,7 +204,7 @@ export function Header() {
                 </ul>
               </details>
             ))}
-            {MAIN_LINKS.map((l) => (
+            {links.map((l) => (
               <Link key={l.to} to={l.to as '/'} className="block rounded-xl px-4 py-3 hover:bg-mgla" activeProps={navActive}>
                 {l.label}
               </Link>

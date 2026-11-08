@@ -4,9 +4,9 @@ import { site } from '../config/site'
 import { isDigital, maxQuantity, normalizeNip, unitGrossCents, type ShopProduct } from '../lib/shop'
 import { adminConfigured, adminRest } from './supabase-admin'
 
+export type CheckoutItem = { productId: string; quantity: number }
 export type CheckoutInput = {
-  productId: string
-  quantity: number
+  items: CheckoutItem[]
   email: string
   company: string
   nip: string
@@ -20,6 +20,7 @@ export type CheckoutResult =
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const PRODUCT_FIELDS = 'id,sku,type,title,short_description,price_net_cents,vat_rate'
+const MAX_ITEMS = 50
 
 // Klucz zgodny z trybem z site.payments.mode. W trybie testowym klucz live jest odrzucany.
 export function keyForMode(key: string | undefined): string | null {
@@ -41,37 +42,22 @@ function toProduct(row: Record<string, unknown>): ShopProduct {
   return { ...(row as ShopProduct), vat_rate: Number(row.vat_rate), price_net_cents: Number(row.price_net_cents) }
 }
 
-// Produkty widoczne w sklepie (opublikowane i widoczne). Odczyt kluczem anon, zgodnie z RLS products_public_read.
-export const listShopProducts = createServerFn({ method: 'GET' }).handler(async (): Promise<ShopProduct[]> => {
-  const url = process.env.SUPABASE_URL
-  const key = process.env.SUPABASE_ANON_KEY
-  if (!url || !key) return []
-  try {
-    const response = await fetch(
-      `${url}/rest/v1/products?select=${PRODUCT_FIELDS}&status=eq.published&is_visible=eq.true&order=sort_order,title`,
-      { headers: { apikey: key, ...(key.startsWith('sb_') ? {} : { Authorization: `Bearer ${key}` }) } },
-    )
-    if (!response.ok) {
-      console.error('checkout: lista produktow', response.status, await response.text())
-      return []
-    }
-    return ((await response.json()) as Record<string, unknown>[]).map(toProduct)
-  } catch (e) {
-    console.error('checkout: blad pobierania produktow', e)
-    return []
-  }
-})
-
 export const startCheckout = createServerFn({ method: 'POST' })
   .inputValidator((data: CheckoutInput) => data)
   .handler(async ({ data }): Promise<CheckoutResult> => {
     // Przed wlaczeniem dopuszczamy tylko tryb testowy (podglad ?platnosci=1), zeby nikt nie zaplacil naprawde.
     if (!site.payments.enabled && site.payments.mode !== 'test') return { ok: false, error: 'disabled' }
 
-    const productId = typeof data.productId === 'string' ? data.productId : ''
+    // Koszyk: kazdy produkt raz (powtorzenia sumujemy), najwyzej MAX_ITEMS pozycji.
+    const wanted = new Map<string, number>()
+    for (const item of Array.isArray(data.items) ? data.items : []) {
+      const id = typeof item?.productId === 'string' ? item.productId : ''
+      const qty = Number.isInteger(item?.quantity) ? item.quantity : 0
+      if (!UUID.test(id) || qty < 1) return { ok: false, error: 'invalid', field: 'items' }
+      wanted.set(id, (wanted.get(id) ?? 0) + qty)
+    }
+    if (!wanted.size || wanted.size > MAX_ITEMS) return { ok: false, error: 'invalid', field: 'items' }
     const email = typeof data.email === 'string' ? data.email.trim().slice(0, 160) : ''
-    const quantity = Number.isInteger(data.quantity) ? data.quantity : 0
-    if (!UUID.test(productId)) return { ok: false, error: 'invalid' }
     if (!EMAIL.test(email)) return { ok: false, error: 'invalid', field: 'email' }
     // Nazwa firmy i NIP do faktury podawane u nas (regulamin §4 ust. 1), NIP z suma kontrolna. Stripe zbiera tylko adres.
     const company = typeof data.company === 'string' ? data.company.trim().replace(/\s+/g, ' ').slice(0, 256) : ''
@@ -90,26 +76,34 @@ export const startCheckout = createServerFn({ method: 'POST' })
     let orderId = ''
     try {
       const [productRes, settingsRes] = await Promise.all([
-        adminRest(`products?select=${PRODUCT_FIELDS}&id=eq.${productId}&status=eq.published&is_visible=eq.true`),
+        adminRest(
+          `products?select=${PRODUCT_FIELDS},categories(is_active)&id=in.(${[...wanted.keys()].join(',')})&status=eq.published&is_visible=eq.true`,
+        ),
         adminRest('app_settings?select=terms_version,currency'),
       ])
       if (!productRes.ok || !settingsRes.ok) {
         console.error('checkout: Supabase odpowiedzial', productRes.status, settingsRes.status)
         return { ok: false, error: 'failed' }
       }
-      const rows = (await productRes.json()) as Record<string, unknown>[]
+      const rows = (await productRes.json()) as (Record<string, unknown> & { categories?: { is_active: boolean } | null })[]
       const settings = ((await settingsRes.json()) as { terms_version: string; currency: string }[])[0]
-      if (!rows.length || !settings) return { ok: false, error: 'invalid' }
-      const product = toProduct(rows[0])
-
-      if (quantity < 1 || quantity > maxQuantity(product.type)) return { ok: false, error: 'invalid', field: 'quantity' }
-      const digital = isDigital(product.type)
+      if (!settings) return { ok: false, error: 'failed' }
+      // Produkt bez kategorii albo z wylaczonej kategorii nie jest w sklepie (decyzja 8.11.2026).
+      const byId = new Map(rows.filter((r) => r.categories?.is_active).map((r) => [String(r.id), toProduct(r)]))
+      // Kolejnosc pozycji jak w koszyku. Brak ktoregokolwiek produktu = odmowa (koszyk odswiezy dane).
+      const lines: { product: ShopProduct; quantity: number; unitGross: number }[] = []
+      for (const [id, quantity] of wanted) {
+        const product = byId.get(id)
+        if (!product) return { ok: false, error: 'invalid', field: 'unavailable' }
+        if (quantity > maxQuantity(product.type)) return { ok: false, error: 'invalid', field: 'quantity' }
+        lines.push({ product, quantity, unitGross: unitGrossCents(product.price_net_cents, product.vat_rate) })
+      }
+      const digital = lines.some((l) => isDigital(l.product.type))
       if (digital && data.consent !== true) return { ok: false, error: 'invalid', field: 'consent' }
 
-      // Sumy zgodne z tym, co pobierze Stripe: brutto = cena brutto sztuki x liczba, VAT = brutto - netto.
-      const unitGross = unitGrossCents(product.price_net_cents, product.vat_rate)
-      const net = product.price_net_cents * quantity
-      const gross = unitGross * quantity
+      // Sumy zgodne z tym, co pobierze Stripe: brutto = suma (cena brutto sztuki x liczba), VAT = brutto - netto.
+      const net = lines.reduce((sum, l) => sum + l.product.price_net_cents * l.quantity, 0)
+      const gross = lines.reduce((sum, l) => sum + l.unitGross * l.quantity, 0)
 
       const orderRes = await adminRest('orders?select=id,order_number', {
         method: 'POST',
@@ -137,7 +131,7 @@ export const startCheckout = createServerFn({ method: 'POST' })
       const itemRes = await adminRest('order_items', {
         method: 'POST',
         prefer: 'return=minimal',
-        body: {
+        body: lines.map(({ product, quantity }) => ({
           order_id: order.id,
           product_id: product.id,
           sku: product.sku,
@@ -145,7 +139,7 @@ export const startCheckout = createServerFn({ method: 'POST' })
           quantity,
           unit_net_cents: product.price_net_cents,
           vat_rate: product.vat_rate,
-        },
+        })),
       })
       if (!itemRes.ok) throw new Error(`zapis pozycji: ${itemRes.status} ${await itemRes.text()}`)
 
@@ -159,19 +153,21 @@ export const startCheckout = createServerFn({ method: 'POST' })
         'metadata[order_number]': order.order_number,
         'payment_intent_data[description]': `Zamówienie ${order.order_number}`,
         'payment_intent_data[metadata][order_id]': order.id,
-        'line_items[0][quantity]': String(quantity),
-        'line_items[0][price_data][currency]': settings.currency.toLowerCase(),
-        'line_items[0][price_data][unit_amount]': String(unitGross),
-        'line_items[0][price_data][product_data][name]': product.title,
         // Adres do faktury ze Stripe (fakture wystawia Fakturownia). Nazwa firmy i NIP sa juz w zamowieniu (nasz formularz,
         // walidacja sumy kontrolnej), wiec Stripe o NIP nie pyta (bez tax_id_collection).
         billing_address_collection: 'required',
         success_url: `${base}/zamowienie?status=ok&nr=${encodeURIComponent(order.order_number)}`,
-        cancel_url: `${base}/zamowienie?status=anulowano`,
+        cancel_url: `${base}/koszyk?anulowano=1`,
       })
-      if (product.short_description) {
-        params.set('line_items[0][price_data][product_data][description]', product.short_description.slice(0, 500))
-      }
+      lines.forEach(({ product, quantity, unitGross }, i) => {
+        params.set(`line_items[${i}][quantity]`, String(quantity))
+        params.set(`line_items[${i}][price_data][currency]`, settings.currency.toLowerCase())
+        params.set(`line_items[${i}][price_data][unit_amount]`, String(unitGross))
+        params.set(`line_items[${i}][price_data][product_data][name]`, product.title.slice(0, 250))
+        if (product.short_description) {
+          params.set(`line_items[${i}][price_data][product_data][description]`, product.short_description.slice(0, 500))
+        }
+      })
       // Bez payment_method_types: metody (karta, BLIK, Przelewy24) wlaczamy w panelu Stripe (dynamic payment methods).
 
       const response = await fetch('https://api.stripe.com/v1/checkout/sessions', {

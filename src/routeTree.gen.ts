@@ -20,6 +20,7 @@ import { Route as KonsultacjeBhpRouteImport } from './routes/konsultacje-bhp'
 import { Route as KontaktRouteImport } from './routes/kontakt'
 import { Route as KontoRouteImport } from './routes/konto'
 import { Route as KontrolaIAudytBhpRouteImport } from './routes/kontrola-i-audyt-bhp'
+import { Route as KoszykRouteImport } from './routes/koszyk'
 import { Route as ONasRouteImport } from './routes/o-nas'
 import { Route as ObslugaBhpRouteImport } from './routes/obsluga-bhp'
 import { Route as OcenaRyzykaZawodowegoRouteImport } from './routes/ocena-ryzyka-zawodowego'
@@ -39,6 +40,8 @@ import { Route as AdminUstawieniaRouteImport } from './routes/admin.ustawienia'
 import { Route as AdminZamowieniaRouteImport } from './routes/admin.zamowienia'
 import { Route as OchronaSrodowiskaIndexRouteImport } from './routes/ochrona-srodowiska.index'
 import { Route as OchronaSrodowiskaSlugRouteImport } from './routes/ochrona-srodowiska.$slug'
+import { Route as SklepIndexRouteImport } from './routes/sklep.index'
+import { Route as SklepSlugRouteImport } from './routes/sklep.$slug'
 import { Route as AdminProduktIdRouteImport } from './routes/admin.produkt.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -95,6 +98,11 @@ const KontoRoute = KontoRouteImport.update({
 const KontrolaIAudytBhpRoute = KontrolaIAudytBhpRouteImport.update({
   id: '/kontrola-i-audyt-bhp',
   path: '/kontrola-i-audyt-bhp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KoszykRoute = KoszykRouteImport.update({
+  id: '/koszyk',
+  path: '/koszyk',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ONasRoute = ONasRouteImport.update({
@@ -192,6 +200,16 @@ const OchronaSrodowiskaSlugRoute = OchronaSrodowiskaSlugRouteImport.update({
   path: '/ochrona-srodowiska/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SklepIndexRoute = SklepIndexRouteImport.update({
+  id: '/sklep/',
+  path: '/sklep/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SklepSlugRoute = SklepSlugRouteImport.update({
+  id: '/sklep/$slug',
+  path: '/sklep/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminProduktIdRoute = AdminProduktIdRouteImport.update({
   id: '/produkt/$id',
   path: '/produkt/$id',
@@ -210,6 +228,7 @@ export interface FileRoutesByFullPath {
   '/kontakt': typeof KontaktRoute
   '/konto': typeof KontoRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
+  '/koszyk': typeof KoszykRoute
   '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
@@ -227,8 +246,10 @@ export interface FileRoutesByFullPath {
   '/admin/ustawienia': typeof AdminUstawieniaRoute
   '/admin/zamowienia': typeof AdminZamowieniaRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
+  '/sklep/$slug': typeof SklepSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/ochrona-srodowiska/': typeof OchronaSrodowiskaIndexRoute
+  '/sklep/': typeof SklepIndexRoute
   '/admin/produkt/$id': typeof AdminProduktIdRoute
 }
 export interface FileRoutesByTo {
@@ -242,6 +263,7 @@ export interface FileRoutesByTo {
   '/kontakt': typeof KontaktRoute
   '/konto': typeof KontoRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
+  '/koszyk': typeof KoszykRoute
   '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
@@ -259,8 +281,10 @@ export interface FileRoutesByTo {
   '/admin/ustawienia': typeof AdminUstawieniaRoute
   '/admin/zamowienia': typeof AdminZamowieniaRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
+  '/sklep/$slug': typeof SklepSlugRoute
   '/admin': typeof AdminIndexRoute
   '/ochrona-srodowiska': typeof OchronaSrodowiskaIndexRoute
+  '/sklep': typeof SklepIndexRoute
   '/admin/produkt/$id': typeof AdminProduktIdRoute
 }
 export interface FileRoutesById {
@@ -276,6 +300,7 @@ export interface FileRoutesById {
   '/kontakt': typeof KontaktRoute
   '/konto': typeof KontoRoute
   '/kontrola-i-audyt-bhp': typeof KontrolaIAudytBhpRoute
+  '/koszyk': typeof KoszykRoute
   '/o-nas': typeof ONasRoute
   '/obsluga-bhp': typeof ObslugaBhpRoute
   '/ocena-ryzyka-zawodowego': typeof OcenaRyzykaZawodowegoRoute
@@ -293,8 +318,10 @@ export interface FileRoutesById {
   '/admin/ustawienia': typeof AdminUstawieniaRoute
   '/admin/zamowienia': typeof AdminZamowieniaRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
+  '/sklep/$slug': typeof SklepSlugRoute
   '/admin/': typeof AdminIndexRoute
   '/ochrona-srodowiska/': typeof OchronaSrodowiskaIndexRoute
+  '/sklep/': typeof SklepIndexRoute
   '/admin/produkt/$id': typeof AdminProduktIdRoute
 }
 export interface FileRouteTypes {
@@ -311,6 +338,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/konto'
     | '/kontrola-i-audyt-bhp'
+    | '/koszyk'
     | '/o-nas'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
@@ -328,8 +356,10 @@ export interface FileRouteTypes {
     | '/admin/ustawienia'
     | '/admin/zamowienia'
     | '/ochrona-srodowiska/$slug'
+    | '/sklep/$slug'
     | '/admin/'
     | '/ochrona-srodowiska/'
+    | '/sklep/'
     | '/admin/produkt/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -343,6 +373,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/konto'
     | '/kontrola-i-audyt-bhp'
+    | '/koszyk'
     | '/o-nas'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
@@ -360,8 +391,10 @@ export interface FileRouteTypes {
     | '/admin/ustawienia'
     | '/admin/zamowienia'
     | '/ochrona-srodowiska/$slug'
+    | '/sklep/$slug'
     | '/admin'
     | '/ochrona-srodowiska'
+    | '/sklep'
     | '/admin/produkt/$id'
   id:
     | '__root__'
@@ -376,6 +409,7 @@ export interface FileRouteTypes {
     | '/kontakt'
     | '/konto'
     | '/kontrola-i-audyt-bhp'
+    | '/koszyk'
     | '/o-nas'
     | '/obsluga-bhp'
     | '/ocena-ryzyka-zawodowego'
@@ -393,8 +427,10 @@ export interface FileRouteTypes {
     | '/admin/ustawienia'
     | '/admin/zamowienia'
     | '/ochrona-srodowiska/$slug'
+    | '/sklep/$slug'
     | '/admin/'
     | '/ochrona-srodowiska/'
+    | '/sklep/'
     | '/admin/produkt/$id'
   fileRoutesById: FileRoutesById
 }
@@ -410,6 +446,7 @@ export interface RootRouteChildren {
   KontaktRoute: typeof KontaktRoute
   KontoRoute: typeof KontoRoute
   KontrolaIAudytBhpRoute: typeof KontrolaIAudytBhpRoute
+  KoszykRoute: typeof KoszykRoute
   ONasRoute: typeof ONasRoute
   ObslugaBhpRoute: typeof ObslugaBhpRoute
   OcenaRyzykaZawodowegoRoute: typeof OcenaRyzykaZawodowegoRoute
@@ -424,7 +461,9 @@ export interface RootRouteChildren {
   WypadkiPrzyPracyRoute: typeof WypadkiPrzyPracyRoute
   ZamowienieRoute: typeof ZamowienieRoute
   OchronaSrodowiskaSlugRoute: typeof OchronaSrodowiskaSlugRoute
+  SklepSlugRoute: typeof SklepSlugRoute
   OchronaSrodowiskaIndexRoute: typeof OchronaSrodowiskaIndexRoute
+  SklepIndexRoute: typeof SklepIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -504,6 +543,13 @@ declare module '@tanstack/react-router' {
       path: '/kontrola-i-audyt-bhp'
       fullPath: '/kontrola-i-audyt-bhp'
       preLoaderRoute: typeof KontrolaIAudytBhpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/koszyk': {
+      id: '/koszyk'
+      path: '/koszyk'
+      fullPath: '/koszyk'
+      preLoaderRoute: typeof KoszykRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/o-nas': {
@@ -639,6 +685,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OchronaSrodowiskaSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sklep/': {
+      id: '/sklep/'
+      path: '/sklep'
+      fullPath: '/sklep/'
+      preLoaderRoute: typeof SklepIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sklep/$slug': {
+      id: '/sklep/$slug'
+      path: '/sklep/$slug'
+      fullPath: '/sklep/$slug'
+      preLoaderRoute: typeof SklepSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/produkt/$id': {
       id: '/admin/produkt/$id'
       path: '/produkt/$id'
@@ -679,6 +739,7 @@ const rootRouteChildren: RootRouteChildren = {
   KontaktRoute: KontaktRoute,
   KontoRoute: KontoRoute,
   KontrolaIAudytBhpRoute: KontrolaIAudytBhpRoute,
+  KoszykRoute: KoszykRoute,
   ONasRoute: ONasRoute,
   ObslugaBhpRoute: ObslugaBhpRoute,
   OcenaRyzykaZawodowegoRoute: OcenaRyzykaZawodowegoRoute,
@@ -693,7 +754,9 @@ const rootRouteChildren: RootRouteChildren = {
   WypadkiPrzyPracyRoute: WypadkiPrzyPracyRoute,
   ZamowienieRoute: ZamowienieRoute,
   OchronaSrodowiskaSlugRoute: OchronaSrodowiskaSlugRoute,
+  SklepSlugRoute: SklepSlugRoute,
   OchronaSrodowiskaIndexRoute: OchronaSrodowiskaIndexRoute,
+  SklepIndexRoute: SklepIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

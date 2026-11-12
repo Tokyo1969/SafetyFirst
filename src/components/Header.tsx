@@ -116,6 +116,21 @@ export function Header() {
                         </li>
                       ))}
                     </ul>
+                    {g.sub && (
+                      <>
+                        <p className="mt-2 border-t border-linia px-3 pt-3 pb-1 font-naglowek text-sm font-bold text-tusz-2">{g.sub.title}</p>
+                        <ul>
+                          {g.sub.items.map((i) => (
+                            <li key={i.label}>
+                              <Link to={i.to as '/'} search={i.search as never} className={`${menuItemDesktop} ${TONE[g.tone].hover}`}>
+                                {i.label}
+                                {i.soon && <SoonBadge />}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
                     {g.all && (
                       <Link
                         to={g.all.to as '/'}
@@ -193,6 +208,16 @@ export function Header() {
                       <Link to={i.to as '/'} className={`${menuItem} ${TONE[g.tone].hover}`} activeProps={menuActive}>{i.label}{i.soon && <SoonBadge />}</Link>
                     </li>
                   ))}
+                  {g.sub && (
+                    <>
+                      <li className="mt-2 border-t border-linia px-4 pt-3 pb-1 font-naglowek text-sm font-bold text-tusz-2">{g.sub.title}</li>
+                      {g.sub.items.map((i) => (
+                        <li key={i.label}>
+                          <Link to={i.to as '/'} search={i.search as never} className={`${menuItem} ${TONE[g.tone].hover}`}>{i.label}{i.soon && <SoonBadge />}</Link>
+                        </li>
+                      ))}
+                    </>
+                  )}
                   {g.all && (
                     <li>
                       <Link to={g.all.to as '/'} activeOptions={{ exact: true }} className={`${menuItem} ${TONE[g.tone].hover} font-semibold text-znak`} activeProps={menuActive}>

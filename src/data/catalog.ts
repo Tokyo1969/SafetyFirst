@@ -1,6 +1,7 @@
 // Wspolny wykaz podstron uslug (BHP + ochrona srodowiska): sciezki, powiazania, mapa strony.
 import { SERVICES, type Service } from './services'
 import { OS_SERVICES } from './os-services'
+import { site } from '../config/site'
 
 export const ALL_SERVICES: readonly Service[] = [...SERVICES, ...OS_SERVICES]
 
@@ -27,15 +28,36 @@ export function relatedServices(s: Service): Service[] {
 
 // Menu "Uslugi" w naglowku (uklad z 7.11.2026): 4 grupy. Uslugi OS = wszystkie z OS_SERVICES poza
 // dokumentacja (OS_DOC_SLUGS), wiec nowa usluga OS sama trafia do menu.
-export type MenuItem = { to: string; label: string; soon?: boolean }
+export type MenuItem = { to: string; label: string; soon?: boolean; search?: Record<string, string> }
 export type MenuGroup = {
   title: string
   items: MenuItem[]
   all?: MenuItem // link "wszystkie" pod lista
+  sub?: { title: string; items: MenuItem[] } // druga lista pod pierwsza (np. rodzaje dokumentow)
   iso?: '45001' | '14001'
   wide?: boolean // dluga lista w dwoch kolumnach
   tone: 'bhp' | 'bhp-doc' | 'os' | 'os-doc' // strefa kolorystyczna w menu (klasy w Header.tsx)
 }
+
+// Rodzaje dokumentow BHP w menu (uwaga Natalii 12.11.2026, do wyszukiwania). Wartosci `q` odpowiadaja polu
+// `doc_type` produktow w sklepie (filtr `?q=` w /sklep); zestawy = kategoria `pakiety`. Do wlaczenia platnosci
+// sklep pokazuje komunikat "wkrotce", wiec pozycje maja znaczek.
+const sklep = (search: Record<string, string> | undefined, label: string): MenuItem => ({
+  to: '/sklep',
+  search,
+  label,
+  soon: !site.payments.enabled,
+})
+const DOC_TYPES_BHP: MenuItem[] = [
+  sklep({ q: 'instrukcja' }, 'Instrukcje BHP'),
+  sklep({ q: 'ocena ryzyka' }, 'Oceny ryzyka zawodowego'),
+  sklep({ q: 'procedura' }, 'Procedury'),
+  sklep({ q: 'lista kontrolna' }, 'Listy kontrolne'),
+  sklep({ q: 'formularz' }, 'Formularze'),
+  sklep({ q: 'tabela' }, 'Tabele'),
+  sklep(undefined, 'Wzory dokumentów'),
+  sklep({ kategoria: 'pakiety' }, 'Zestawy dokumentów'),
+]
 
 const OS_DOC_SLUGS = [
   'dokumentacja-srodowiskowa',
@@ -64,9 +86,8 @@ export const SERVICES_MENU: readonly MenuGroup[] = [
     title: 'Dokumentacja BHP',
     items: [
       { to: '/dokumentacja-bhp', label: 'Dokumentacja podstawowa' },
-      { to: '/pakiety-dokumentacji-bhp', label: 'Pakiety dokumentacji' },
-      { to: '/ocena-ryzyka-zawodowego', label: 'Ocena ryzyka zawodowego' },
     ],
+    sub: { title: 'Rodzaje dokumentów', items: DOC_TYPES_BHP },
     tone: 'bhp-doc',
   },
   {

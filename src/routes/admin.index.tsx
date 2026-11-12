@@ -10,7 +10,10 @@ export const Route = createFileRoute('/admin/')({
 type Wiersz = Pick<
   AdminProduct,
   'id' | 'sku' | 'title' | 'type' | 'status' | 'is_visible' | 'price_net_cents' | 'vat_rate' | 'category_id' | 'sort_order' | 'updated_at'
->
+> & {
+  product_files: { count: number }[]
+  bundle_items: { count: number }[]
+}
 
 type Kolumna = 'title' | 'sku' | 'type' | 'category' | 'price' | 'status' | 'shop' | 'updated'
 type Sort = { kol: Kolumna; rosnaco: boolean }
@@ -62,7 +65,8 @@ function ListaProduktow() {
     Promise.all([
       supabase
         .from('products')
-        .select('id,sku,title,type,status,is_visible,price_net_cents,vat_rate,category_id,sort_order,updated_at')
+        .select('id,sku,title,type,status,is_visible,price_net_cents,vat_rate,category_id,sort_order,updated_at,product_files(count),bundle_items!bundle_items_bundle_id_fkey(count)')
+        .eq('product_files.is_current', true)
         .order('sort_order')
         .order('title'),
       supabase.from('categories').select('id,name,area,is_active,sort_order').order('sort_order'),
@@ -240,6 +244,7 @@ function ListaProduktow() {
                 {naglowek('status', 'Status')}
                 {naglowek('shop', 'W sklepie')}
                 {naglowek('updated', 'Zmieniono')}
+                <th scope="col" className="px-3 py-3 text-right" title="Bieżący plik dokumentu lub liczba dokumentów w pakiecie">Dokumenty</th>
               </tr>
             </thead>
             <tbody>
@@ -259,6 +264,9 @@ function ListaProduktow() {
                   <td className="px-3 py-3">{wSklepie(p) ? 'Tak' : 'Nie'}</td>
                   <td className="px-3 py-3 whitespace-nowrap text-tusz-2">
                     {new Intl.DateTimeFormat('pl-PL', { dateStyle: 'short', timeZone: 'Europe/Warsaw' }).format(new Date(p.updated_at))}
+                  </td>
+                  <td className="px-3 py-3 text-right">
+                    {p.type === 'document' ? p.product_files[0].count : p.type === 'bundle' ? p.bundle_items[0].count : 0}
                   </td>
                 </tr>
               ))}

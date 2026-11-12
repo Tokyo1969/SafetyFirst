@@ -244,7 +244,7 @@ function ListaProduktow() {
                 {naglowek('status', 'Status')}
                 {naglowek('shop', 'W sklepie')}
                 {naglowek('updated', 'Zmieniono')}
-                <th scope="col" className="px-3 py-3 text-right" title="Bieżący plik dokumentu lub liczba dokumentów w pakiecie">Dokumenty</th>
+                <th scope="col" className="px-2 py-3 text-center" title="Bieżący plik dokumentu lub liczba dokumentów w pakiecie">Dok.</th>
               </tr>
             </thead>
             <tbody>
@@ -265,7 +265,7 @@ function ListaProduktow() {
                   <td className="px-3 py-3 whitespace-nowrap text-tusz-2">
                     {new Intl.DateTimeFormat('pl-PL', { dateStyle: 'short', timeZone: 'Europe/Warsaw' }).format(new Date(p.updated_at))}
                   </td>
-                  <td className="px-3 py-3 text-right">
+                  <td className="px-2 py-3 text-center">
                     {p.type === 'document' ? p.product_files[0].count : p.type === 'bundle' ? p.bundle_items[0].count : 0}
                   </td>
                 </tr>

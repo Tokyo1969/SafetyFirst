@@ -86,8 +86,6 @@ export const SERVICES_MENU: readonly MenuGroup[] = [
     title: 'Dokumentacja BHP',
     items: [
       { to: '/dokumentacja-bhp', label: 'Dokumentacja podstawowa' },
-      { to: '/pakiety-dokumentacji-bhp', label: 'Pakiety dokumentacji' },
-      { to: '/ocena-ryzyka-zawodowego', label: 'Ocena ryzyka zawodowego' },
     ],
     sub: { title: 'Rodzaje dokumentów', items: DOC_TYPES_BHP },
     tone: 'bhp-doc',

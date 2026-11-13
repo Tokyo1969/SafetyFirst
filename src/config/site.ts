@@ -79,14 +79,19 @@ export const site = {
   // Dane lokalne do schematu LocalBusiness (src/lib/seo.ts, organizationLd). Pole puste = pomijane w schemacie.
   // Nazwa, adres i telefon (NAP) maja byc IDENTYCZNE jak w Profilu Firmy w Google (zob. tez company i phone).
   local: {
-    // Pelny adres wizytowki w Mapach Google (https://www.google.com/maps/place/...), nie skrot share.google.
-    mapUrl: '',
-    // Dodatkowe profile firmowe (Profil Firmy w Google, LinkedIn, Facebook): pelne adresy URL.
-    sameAs: [] as string[],
-    // Wspolrzedne budynku z wizytowki, np. { lat: 50.67, lng: 17.92 } (nie wpisywac z pamieci).
-    geo: null as { lat: number; lng: number } | null,
-    // Godziny, jak w wizytowce: dni wg schema.org, np. { days: ['Monday','Tuesday'], opens: '08:00', closes: '16:00' }.
-    hours: [] as { days: string[]; opens: string; closes: string }[],
+    // Nazwa i adres dokladnie jak w Profilu Firmy w Google (13.11.2026). Siedziba prawna (company) zostaje w dokumentach.
+    name: 'Safety First Consulting',
+    address: { street: 'ul. Łangowskiego 4A', postalCode: '45-031', city: 'Opole' },
+    // Adres wizytowki w Mapach Google (wariant cid, stabilny).
+    mapUrl: 'https://maps.google.com/?cid=1820024980223681314',
+    // Dodatkowe profile firmowe (LinkedIn, Facebook): pelne adresy URL.
+    sameAs: ['https://www.facebook.com/groups/965714223096324'] as string[],
+    // Wspolrzedne z wizytowki.
+    geo: { lat: 50.6708162, lng: 17.92274 } as { lat: number; lng: number } | null,
+    // Godziny jak w wizytowce: pn-pt 9:00-17:00.
+    hours: [
+      { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '17:00' },
+    ] as { days: string[]; opens: string; closes: string }[],
   },
   maxEmployees: 50,
 } as const

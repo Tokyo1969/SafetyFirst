@@ -82,6 +82,8 @@ export const site = {
     // Nazwa i adres dokladnie jak w Profilu Firmy w Google (13.11.2026). Siedziba prawna (company) zostaje w dokumentach.
     name: 'Safety First Consulting',
     address: { street: 'ul. Łangowskiego 4A', postalCode: '45-031', city: 'Opole' },
+    // Godziny do wyswietlenia na stronie (te same co w hours).
+    hoursText: 'pn–pt 9:00–17:00',
     // Adres wizytowki w Mapach Google (wariant cid, stabilny).
     mapUrl: 'https://maps.google.com/?cid=1820024980223681314',
     // Dodatkowe profile firmowe (LinkedIn, Facebook): pelne adresy URL.

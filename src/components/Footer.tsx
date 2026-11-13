@@ -50,6 +50,13 @@ export function Footer() {
               <ul className="mt-3 space-y-2">
                 <li><a className={footLink} href={`mailto:${site.emails.main}`}>{site.emails.main}</a></li>
                 <li><a className={footLink} href={site.phone.href}>{site.phone.display}</a></li>
+                <li className="pt-2 text-papier/85">
+                  <span className="block">Biuro (wizyty po umówieniu)</span>
+                  <a className={footLink} href={site.local.mapUrl} target="_blank" rel="noopener">
+                    {site.local.address.street}, {site.local.address.postalCode} {site.local.address.city}
+                  </a>
+                </li>
+                <li className="text-papier/85">{site.local.hoursText}</li>
               </ul>
             </address>
             <nav aria-label="Najważniejsze linki" className="mt-12">

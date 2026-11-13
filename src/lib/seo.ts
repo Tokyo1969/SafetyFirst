@@ -70,8 +70,46 @@ export function organizationLd(): JsonLd {
       addressLocality: c.city,
       addressCountry: 'PL',
     },
-    areaServed: { '@type': 'AdministrativeArea', name: site.region },
+    image: absUrl('/og-image.jpg'),
+    taxID: c.nip,
+    // Obsluga stacjonarna na Opolszczyznie, konsultacje, dokumentacja i szkolenia online w calej Polsce.
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: site.region },
+      { '@type': 'Country', name: 'Polska' },
+    ],
+    knowsAbout: [
+      'BHP',
+      'ochrona środowiska',
+      'szkolenia BHP',
+      'ocena ryzyka zawodowego',
+      'gospodarka odpadami',
+      'BDO',
+      'ISO 45001',
+      'ISO 14001',
+    ],
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer service',
+      telephone: site.phone.display,
+      email: site.emails.main,
+      availableLanguage: 'pl',
+    },
     employee: { '@type': 'Person', name: site.person.name, jobTitle: site.person.role },
+    ...(site.local.mapUrl ? { hasMap: site.local.mapUrl } : {}),
+    ...(site.local.sameAs.length ? { sameAs: site.local.sameAs } : {}),
+    ...(site.local.geo
+      ? { geo: { '@type': 'GeoCoordinates', latitude: site.local.geo.lat, longitude: site.local.geo.lng } }
+      : {}),
+    ...(site.local.hours.length
+      ? {
+          openingHoursSpecification: site.local.hours.map((h) => ({
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: h.days,
+            opens: h.opens,
+            closes: h.closes,
+          })),
+        }
+      : {}),
   }
 }
 

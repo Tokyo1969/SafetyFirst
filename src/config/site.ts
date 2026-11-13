@@ -76,5 +76,17 @@ export const site = {
   // Tryb test wystawia proforma, live faktury VAT (src/server/fakturownia.ts). Sekret FAKTUROWNIA_API_TOKEN w Workerze.
   payments: { enabled: false, mode: 'test' as 'test' | 'live', fakturowniaDomain: 'safetyfirst' as string },
   region: 'województwo opolskie',
+  // Dane lokalne do schematu LocalBusiness (src/lib/seo.ts, organizationLd). Pole puste = pomijane w schemacie.
+  // Nazwa, adres i telefon (NAP) maja byc IDENTYCZNE jak w Profilu Firmy w Google (zob. tez company i phone).
+  local: {
+    // Pelny adres wizytowki w Mapach Google (https://www.google.com/maps/place/...), nie skrot share.google.
+    mapUrl: '',
+    // Dodatkowe profile firmowe (Profil Firmy w Google, LinkedIn, Facebook): pelne adresy URL.
+    sameAs: [] as string[],
+    // Wspolrzedne budynku z wizytowki, np. { lat: 50.67, lng: 17.92 } (nie wpisywac z pamieci).
+    geo: null as { lat: number; lng: number } | null,
+    // Godziny, jak w wizytowce: dni wg schema.org, np. { days: ['Monday','Tuesday'], opens: '08:00', closes: '16:00' }.
+    hours: [] as { days: string[]; opens: string; closes: string }[],
+  },
   maxEmployees: 50,
 } as const

@@ -102,7 +102,7 @@ function Logowanie({ info }: { info?: string }) {
         Konto zakładamy automatycznie przy pierwszym zakupie, na adres e-mail z zamówienia. Tu pobierzesz kupione dokumenty
         i faktury.
       </p>
-      <form className="panel grid content-start gap-3" onSubmit={link}>
+      <form className="panel grid content-start gap-3 p-6 sm:p-8" onSubmit={link}>
         <h2 className="text-xl">Zaloguj się linkiem</h2>
         {wyslano ? (
           <p role="status" className="rounded-xl bg-znak-jasny p-4">
@@ -121,7 +121,7 @@ function Logowanie({ info }: { info?: string }) {
           </>
         )}
       </form>
-      <form className="panel grid content-start gap-3" onSubmit={haslo}>
+      <form className="panel grid content-start gap-3 p-6 sm:p-8" onSubmit={haslo}>
         <h2 className="text-xl">Zaloguj się hasłem</h2>
         <label htmlFor="k-email2" className="text-sm font-semibold">E-mail</label>
         <input id="k-email2" name="email" type="email" required autoComplete="username" className="pole w-full" />
@@ -264,7 +264,7 @@ function Zakupy({ session }: { session: Session }) {
             const uzyte = pobrania[u.product_id] ?? 0
             const szkolenie = u.products?.type === 'training_online'
             return (
-              <li key={u.id} className="panel">
+              <li key={u.id} className="panel p-6 sm:p-8">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
                     <h3 className="text-lg">{u.products?.title ?? 'Produkt'}</h3>
@@ -301,7 +301,7 @@ function Zakupy({ session }: { session: Session }) {
         {zamowienia.length === 0 && <p className="mt-4">Brak zamówień.</p>}
         <ul className="mt-4 grid gap-3">
           {zamowienia.map((z) => (
-            <li key={z.id} className="panel flex flex-wrap items-center justify-between gap-4 text-sm">
+            <li key={z.id} className="panel flex flex-wrap items-center justify-between gap-4 p-6 text-sm sm:p-8">
               <div>
                 <p className="font-semibold">{z.order_number} · {STATUS[z.status] ?? z.status}</p>
                 <p className="text-tusz-2">
@@ -391,7 +391,7 @@ function DaneFirmy({ userId }: { userId: string }) {
   )
 
   return (
-    <form className="panel grid gap-4 md:grid-cols-2" onSubmit={zapisz} aria-labelledby="dane-h">
+    <form className="panel grid gap-4 p-6 sm:p-8 md:grid-cols-2" onSubmit={zapisz} aria-labelledby="dane-h">
       <h2 id="dane-h" className="text-2xl md:col-span-2">Dane firmy</h2>
       <p className="text-sm text-tusz-2 md:col-span-2">Faktury wystawiamy na dane podane przy płatności. Tu zapisujesz dane firmy w Koncie.</p>
       {pole('company_name', 'Nazwa firmy', true)}
@@ -430,7 +430,7 @@ function Haslo() {
   }
 
   return (
-    <form className="panel grid gap-4 md:grid-cols-2" onSubmit={zapisz} aria-labelledby="haslo-h">
+    <form className="panel grid gap-4 p-6 sm:p-8 md:grid-cols-2" onSubmit={zapisz} aria-labelledby="haslo-h">
       <h2 id="haslo-h" className="text-2xl md:col-span-2">Hasło</h2>
       <div>
         <label htmlFor="h-1" className="block text-sm font-semibold">Nowe hasło</label>

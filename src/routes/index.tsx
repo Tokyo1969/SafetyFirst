@@ -200,6 +200,9 @@ function Home() {
             <p className="mt-5">
               <strong className="font-naglowek text-xl">{site.person.name}</strong>
               <span className="block text-tusz-2">{site.person.role}</span>
+              <span className="block text-tusz-2">Audytor wiodący normy ISO 9001</span>
+              <span className="block text-tusz-2">Audytor wiodący normy ISO 14001</span>
+              <span className="block text-tusz-2">Audytor wiodący normy ISO 45001</span>
             </p>
             <p className="mt-4">
               <Link to="/o-nas" className="link font-semibold">Dowiedz się więcej →</Link>

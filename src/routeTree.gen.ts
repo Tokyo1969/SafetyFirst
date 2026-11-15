@@ -30,7 +30,6 @@ import { Route as PolitykaPrywatnosciRouteImport } from './routes/polityka-prywa
 import { Route as RegulaminRouteImport } from './routes/regulamin'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SzkoleniaBhpRouteImport } from './routes/szkolenia-bhp'
-import { Route as WdrozenieIsoRouteImport } from './routes/wdrozenie-iso'
 import { Route as WeryfikacjaCertyfikatuRouteImport } from './routes/weryfikacja-certyfikatu'
 import { Route as WypadkiPrzyPracyRouteImport } from './routes/wypadki-przy-pracy'
 import { Route as ZamowienieRouteImport } from './routes/zamowienie'
@@ -42,6 +41,8 @@ import { Route as OchronaSrodowiskaIndexRouteImport } from './routes/ochrona-sro
 import { Route as OchronaSrodowiskaSlugRouteImport } from './routes/ochrona-srodowiska.$slug'
 import { Route as SklepIndexRouteImport } from './routes/sklep.index'
 import { Route as SklepSlugRouteImport } from './routes/sklep.$slug'
+import { Route as WdrozenieIsoIndexRouteImport } from './routes/wdrozenie-iso.index'
+import { Route as WdrozenieIsoNormaRouteImport } from './routes/wdrozenie-iso.$norma'
 import { Route as AdminProduktIdRouteImport } from './routes/admin.produkt.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -150,11 +151,6 @@ const SzkoleniaBhpRoute = SzkoleniaBhpRouteImport.update({
   path: '/szkolenia-bhp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WdrozenieIsoRoute = WdrozenieIsoRouteImport.update({
-  id: '/wdrozenie-iso',
-  path: '/wdrozenie-iso',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const WeryfikacjaCertyfikatuRoute = WeryfikacjaCertyfikatuRouteImport.update({
   id: '/weryfikacja-certyfikatu',
   path: '/weryfikacja-certyfikatu',
@@ -210,6 +206,16 @@ const SklepSlugRoute = SklepSlugRouteImport.update({
   path: '/sklep/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WdrozenieIsoIndexRoute = WdrozenieIsoIndexRouteImport.update({
+  id: '/wdrozenie-iso/',
+  path: '/wdrozenie-iso/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WdrozenieIsoNormaRoute = WdrozenieIsoNormaRouteImport.update({
+  id: '/wdrozenie-iso/$norma',
+  path: '/wdrozenie-iso/$norma',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminProduktIdRoute = AdminProduktIdRouteImport.update({
   id: '/produkt/$id',
   path: '/produkt/$id',
@@ -238,7 +244,6 @@ export interface FileRoutesByFullPath {
   '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
-  '/wdrozenie-iso': typeof WdrozenieIsoRoute
   '/weryfikacja-certyfikatu': typeof WeryfikacjaCertyfikatuRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
@@ -247,9 +252,11 @@ export interface FileRoutesByFullPath {
   '/admin/zamowienia': typeof AdminZamowieniaRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
   '/sklep/$slug': typeof SklepSlugRoute
+  '/wdrozenie-iso/$norma': typeof WdrozenieIsoNormaRoute
   '/admin/': typeof AdminIndexRoute
   '/ochrona-srodowiska/': typeof OchronaSrodowiskaIndexRoute
   '/sklep/': typeof SklepIndexRoute
+  '/wdrozenie-iso/': typeof WdrozenieIsoIndexRoute
   '/admin/produkt/$id': typeof AdminProduktIdRoute
 }
 export interface FileRoutesByTo {
@@ -273,7 +280,6 @@ export interface FileRoutesByTo {
   '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
-  '/wdrozenie-iso': typeof WdrozenieIsoRoute
   '/weryfikacja-certyfikatu': typeof WeryfikacjaCertyfikatuRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
@@ -282,9 +288,11 @@ export interface FileRoutesByTo {
   '/admin/zamowienia': typeof AdminZamowieniaRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
   '/sklep/$slug': typeof SklepSlugRoute
+  '/wdrozenie-iso/$norma': typeof WdrozenieIsoNormaRoute
   '/admin': typeof AdminIndexRoute
   '/ochrona-srodowiska': typeof OchronaSrodowiskaIndexRoute
   '/sklep': typeof SklepIndexRoute
+  '/wdrozenie-iso': typeof WdrozenieIsoIndexRoute
   '/admin/produkt/$id': typeof AdminProduktIdRoute
 }
 export interface FileRoutesById {
@@ -310,7 +318,6 @@ export interface FileRoutesById {
   '/regulamin': typeof RegulaminRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/szkolenia-bhp': typeof SzkoleniaBhpRoute
-  '/wdrozenie-iso': typeof WdrozenieIsoRoute
   '/weryfikacja-certyfikatu': typeof WeryfikacjaCertyfikatuRoute
   '/wypadki-przy-pracy': typeof WypadkiPrzyPracyRoute
   '/zamowienie': typeof ZamowienieRoute
@@ -319,9 +326,11 @@ export interface FileRoutesById {
   '/admin/zamowienia': typeof AdminZamowieniaRoute
   '/ochrona-srodowiska/$slug': typeof OchronaSrodowiskaSlugRoute
   '/sklep/$slug': typeof SklepSlugRoute
+  '/wdrozenie-iso/$norma': typeof WdrozenieIsoNormaRoute
   '/admin/': typeof AdminIndexRoute
   '/ochrona-srodowiska/': typeof OchronaSrodowiskaIndexRoute
   '/sklep/': typeof SklepIndexRoute
+  '/wdrozenie-iso/': typeof WdrozenieIsoIndexRoute
   '/admin/produkt/$id': typeof AdminProduktIdRoute
 }
 export interface FileRouteTypes {
@@ -348,7 +357,6 @@ export interface FileRouteTypes {
     | '/regulamin'
     | '/sitemap.xml'
     | '/szkolenia-bhp'
-    | '/wdrozenie-iso'
     | '/weryfikacja-certyfikatu'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
@@ -357,9 +365,11 @@ export interface FileRouteTypes {
     | '/admin/zamowienia'
     | '/ochrona-srodowiska/$slug'
     | '/sklep/$slug'
+    | '/wdrozenie-iso/$norma'
     | '/admin/'
     | '/ochrona-srodowiska/'
     | '/sklep/'
+    | '/wdrozenie-iso/'
     | '/admin/produkt/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -383,7 +393,6 @@ export interface FileRouteTypes {
     | '/regulamin'
     | '/sitemap.xml'
     | '/szkolenia-bhp'
-    | '/wdrozenie-iso'
     | '/weryfikacja-certyfikatu'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
@@ -392,9 +401,11 @@ export interface FileRouteTypes {
     | '/admin/zamowienia'
     | '/ochrona-srodowiska/$slug'
     | '/sklep/$slug'
+    | '/wdrozenie-iso/$norma'
     | '/admin'
     | '/ochrona-srodowiska'
     | '/sklep'
+    | '/wdrozenie-iso'
     | '/admin/produkt/$id'
   id:
     | '__root__'
@@ -419,7 +430,6 @@ export interface FileRouteTypes {
     | '/regulamin'
     | '/sitemap.xml'
     | '/szkolenia-bhp'
-    | '/wdrozenie-iso'
     | '/weryfikacja-certyfikatu'
     | '/wypadki-przy-pracy'
     | '/zamowienie'
@@ -428,9 +438,11 @@ export interface FileRouteTypes {
     | '/admin/zamowienia'
     | '/ochrona-srodowiska/$slug'
     | '/sklep/$slug'
+    | '/wdrozenie-iso/$norma'
     | '/admin/'
     | '/ochrona-srodowiska/'
     | '/sklep/'
+    | '/wdrozenie-iso/'
     | '/admin/produkt/$id'
   fileRoutesById: FileRoutesById
 }
@@ -456,14 +468,15 @@ export interface RootRouteChildren {
   RegulaminRoute: typeof RegulaminRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SzkoleniaBhpRoute: typeof SzkoleniaBhpRoute
-  WdrozenieIsoRoute: typeof WdrozenieIsoRoute
   WeryfikacjaCertyfikatuRoute: typeof WeryfikacjaCertyfikatuRoute
   WypadkiPrzyPracyRoute: typeof WypadkiPrzyPracyRoute
   ZamowienieRoute: typeof ZamowienieRoute
   OchronaSrodowiskaSlugRoute: typeof OchronaSrodowiskaSlugRoute
   SklepSlugRoute: typeof SklepSlugRoute
+  WdrozenieIsoNormaRoute: typeof WdrozenieIsoNormaRoute
   OchronaSrodowiskaIndexRoute: typeof OchronaSrodowiskaIndexRoute
   SklepIndexRoute: typeof SklepIndexRoute
+  WdrozenieIsoIndexRoute: typeof WdrozenieIsoIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -615,13 +628,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SzkoleniaBhpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/wdrozenie-iso': {
-      id: '/wdrozenie-iso'
-      path: '/wdrozenie-iso'
-      fullPath: '/wdrozenie-iso'
-      preLoaderRoute: typeof WdrozenieIsoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/weryfikacja-certyfikatu': {
       id: '/weryfikacja-certyfikatu'
       path: '/weryfikacja-certyfikatu'
@@ -699,6 +705,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SklepSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wdrozenie-iso/': {
+      id: '/wdrozenie-iso/'
+      path: '/wdrozenie-iso'
+      fullPath: '/wdrozenie-iso/'
+      preLoaderRoute: typeof WdrozenieIsoIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wdrozenie-iso/$norma': {
+      id: '/wdrozenie-iso/$norma'
+      path: '/wdrozenie-iso/$norma'
+      fullPath: '/wdrozenie-iso/$norma'
+      preLoaderRoute: typeof WdrozenieIsoNormaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/produkt/$id': {
       id: '/admin/produkt/$id'
       path: '/produkt/$id'
@@ -749,14 +769,15 @@ const rootRouteChildren: RootRouteChildren = {
   RegulaminRoute: RegulaminRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SzkoleniaBhpRoute: SzkoleniaBhpRoute,
-  WdrozenieIsoRoute: WdrozenieIsoRoute,
   WeryfikacjaCertyfikatuRoute: WeryfikacjaCertyfikatuRoute,
   WypadkiPrzyPracyRoute: WypadkiPrzyPracyRoute,
   ZamowienieRoute: ZamowienieRoute,
   OchronaSrodowiskaSlugRoute: OchronaSrodowiskaSlugRoute,
   SklepSlugRoute: SklepSlugRoute,
+  WdrozenieIsoNormaRoute: WdrozenieIsoNormaRoute,
   OchronaSrodowiskaIndexRoute: OchronaSrodowiskaIndexRoute,
   SklepIndexRoute: SklepIndexRoute,
+  WdrozenieIsoIndexRoute: WdrozenieIsoIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

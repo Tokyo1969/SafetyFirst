@@ -173,3 +173,17 @@ export function serviceHead(s: Service, path: string) {
     jsonLd: [serviceLd(s, path), breadcrumbLd(crumbs)],
   })
 }
+
+// Podstrona normy ISO (/wdrozenie-iso/<slug>): usluga pomocy we wdrozeniu i certyfikacji.
+export function isoServiceLd(name: string, description: string, path: string): JsonLd {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name,
+    serviceType: name,
+    description,
+    url: absUrl(path),
+    provider: { '@id': ORG_ID },
+    areaServed: { '@type': 'AdministrativeArea', name: site.region },
+  }
+}

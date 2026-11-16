@@ -265,7 +265,7 @@ export type IsoNorma = {
 export const DROGA_CERTYFIKACJI: readonly { title: string; text: string }[] = [
   {
     title: 'Rozmowa wstępna i zgłoszenie',
-    text: 'Zgłaszasz zamiar certyfikacji. Jednostka certyfikująca zbiera dane o firmie (zakres, liczba pracowników, lokalizacje, inne certyfikaty) i na tej podstawie ustala czas auditu oraz ofertę. Te dane zbiera zgłoszenie w zakładce „Wypełnij zgłoszenie”.',
+    text: 'Zgłaszasz zamiar certyfikacji. Jednostka certyfikująca zbiera dane o firmie (zakres, liczba pracowników, lokalizacje, inne certyfikaty) i na tej podstawie ustala czas auditu oraz ofertę. Dane do tego wniosku zbieramy ze zgłoszenia w zakładce „Wypełnij zgłoszenie”: na jego podstawie przygotowujemy z Tobą wniosek na dokumentach jednostki.',
   },
   {
     title: 'Audit wstępny (opcjonalnie)',
@@ -404,7 +404,7 @@ const ISO_9001_NORMA: IsoNorma = {
       },
       {
         title: 'Koszt certyfikacji',
-        text: 'Ustala go jednostka certyfikująca na podstawie danych ze zgłoszenia: liczby pracowników, lokalizacji, zakresu i zintegrowanych systemów.',
+        text: 'Ustala go jednostka certyfikująca na podstawie danych o firmie: liczby pracowników, lokalizacji, zakresu i zintegrowanych systemów.',
       },
     ],
     wymagania: [

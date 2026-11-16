@@ -107,8 +107,8 @@ export function IsoNormaPage({
               <h2>Zgłoszenie do certyfikacji {norma.code}</h2>
               <p className="mt-3 mb-8 max-w-[62ch] text-lg text-tusz-2">
                 Wypełnij dane organizacji i pobierz zgłoszenie jako PDF. Certyfikację przeprowadza niezależna jednostka
-                certyfikująca, a my nadzorujemy cały proces. Na podstawie zgłoszenia jednostka ustala czas auditu i
-                ofertę.
+                certyfikująca, a my nadzorujemy cały proces. Na podstawie zgłoszenia przygotujemy z Tobą oficjalny
+                wniosek na dokumentach jednostki.
               </p>
               <IsoWniosek code={norma.code} />
             </div>

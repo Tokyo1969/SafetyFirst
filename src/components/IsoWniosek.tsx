@@ -149,7 +149,7 @@ export function IsoWniosek({ code }: { code: string }) {
 
         <Sekcja
           tytul="Zakres i wielkość organizacji"
-          opis="Pola opcjonalne, ale pomagają jednostce certyfikującej ustalić czas auditu i przygotować ofertę."
+          opis="Pola opcjonalne, ale pomagają przygotować wniosek i ustalić czas auditu."
         >
           <Tekst id="zakres" label="Zakres certyfikacji (czym zajmuje się firma)" d={d} ustaw={ustaw} bledy={bledy} szeroko />
           <Tekst id="pracownicy" label="Liczba pracowników" d={d} ustaw={ustaw} bledy={bledy} inputMode="numeric" />
@@ -235,7 +235,7 @@ export function IsoWniosek({ code }: { code: string }) {
                 >
                   {site.emails.main}
                 </a>
-                . Sprawdzimy, czy dane są kompletne, i ustalimy z Tobą dalsze kroki w procesie certyfikacji. Jeśli
+                . Sprawdzimy, czy dane są kompletne, i na ich podstawie przygotujemy z Tobą oficjalny wniosek na dokumentach jednostki certyfikującej. Jeśli
                 trzeba coś poprawić, zmień dane w formularzu i pobierz plik jeszcze raz.
               </p>
             </div>
@@ -256,7 +256,7 @@ export function IsoWniosek({ code }: { code: string }) {
             {[
               'Wypełnij dane firmy i zaznacz, co dotyczy Twojej organizacji.',
               'Pobierz gotowe zgłoszenie jako PDF.',
-              `Prześlij go na ${site.emails.main}. Sprawdzimy komplet danych.`,
+              `Prześlij go na ${site.emails.main}. Na jego podstawie przygotujemy wniosek.`,
             ].map((t, i) => (
               <li key={t} className="flex gap-3">
                 <span className="grid size-7 shrink-0 place-items-center rounded-full bg-tusz font-naglowek text-sm font-bold text-tasma">

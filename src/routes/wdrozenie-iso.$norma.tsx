@@ -4,7 +4,7 @@ import { getIsoNorma } from '../data/iso'
 import { breadcrumbLd, isoServiceLd, pageHead } from '../lib/seo'
 
 export const Route = createFileRoute('/wdrozenie-iso/$norma')({
-  // Zakladka w adresie (?zakladka=wniosek) pozwala linkowac prosto do wniosku; canonical zawsze bez parametru.
+  // Zakladka w adresie (?zakladka=zgloszenie) pozwala linkowac prosto do zgloszenia; canonical zawsze bez parametru.
   validateSearch: (search: Record<string, unknown>): { zakladka?: Zakladka } =>
     ZAKLADKI.includes(search.zakladka as Zakladka) ? { zakladka: search.zakladka as Zakladka } : {},
   loader: ({ params }) => {

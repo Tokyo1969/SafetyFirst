@@ -1,4 +1,4 @@
-// Wniosek o certyfikacje systemu zarzadzania (zakladka "Zloz wniosek" na /wdrozenie-iso/<norma>).
+// Zgloszenie do certyfikacji systemu zarzadzania (zakladka "Wypelnij zgloszenie" na /wdrozenie-iso/<norma>).
 // Zakres pol wg wniosku jednostki certyfikujacej (plik od Macieja, 15.11.2026). Bez numerow punktow normy,
 // bo numeracja moze sie roznic miedzy wydaniami; opisy sa po polsku, pisownia ISO: audit/auditor.
 // Dane zostaja w przegladarce: PDF powstaje na urzadzeniu uzytkownika (src/lib/iso-pdf.ts).

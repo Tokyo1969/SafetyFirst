@@ -8,7 +8,7 @@ export const Route = createFileRoute('/wdrozenie-iso/')({
     pageHead({
       title: 'Wdrożenie ISO 9001, ISO 14001 i ISO 45001 – pomoc i certyfikacja | Safety First',
       description:
-        'Pomagamy we wdrożeniu systemów zarządzania ISO 9001 (jakość), ISO 14001 (środowisko) i ISO 45001 (BHP) i monitorujemy ich utrzymanie. Opis norm, droga do certyfikatu i wniosek o certyfikację online.',
+        'Pomagamy we wdrożeniu systemów zarządzania ISO 9001 (jakość), ISO 14001 (środowisko) i ISO 45001 (BHP) i monitorujemy ich utrzymanie. Opis norm, droga do certyfikatu i zgłoszenie online.',
       path: '/wdrozenie-iso',
       jsonLd: [
         breadcrumbLd([
@@ -72,9 +72,9 @@ function NormaBlok({ norma }: { norma: IsoNorma }) {
           to="/wdrozenie-iso/$norma"
           params={{ norma: norma.slug }}
           className="btn btn-zielony"
-          aria-label={`Dowiedz się więcej o ${norma.code} i złóż wniosek`}
+          aria-label={`Dowiedz się więcej o ${norma.code} i wypełnij zgłoszenie`}
         >
-          Dowiedz się więcej i złóż wniosek
+          Dowiedz się więcej i wypełnij zgłoszenie
         </Link>
       </div>
     </article>

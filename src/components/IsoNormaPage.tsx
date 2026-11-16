@@ -3,13 +3,13 @@ import { CheckIcon, ConsultationSection, PageHero } from './blocks'
 import { IsoWniosek } from './IsoWniosek'
 import { DROGA_CERTYFIKACJI, type IsoEtap, type IsoLink, type IsoNorma } from '../data/iso'
 
-export const ZAKLADKI = ['czego-dotyczy', 'wdrozenie', 'wniosek'] as const
+export const ZAKLADKI = ['czego-dotyczy', 'wdrozenie', 'zgloszenie'] as const
 export type Zakladka = (typeof ZAKLADKI)[number]
 
 const ETYKIETY: Record<Zakladka, { pelna: string; krotka: string }> = {
   'czego-dotyczy': { pelna: 'Czego dotyczy norma', krotka: 'Czego dotyczy' },
   wdrozenie: { pelna: 'Instrukcja i wdrożenie', krotka: 'Instrukcja i wdrożenie' },
-  wniosek: { pelna: 'Złóż wniosek', krotka: 'Złóż wniosek' },
+  zgloszenie: { pelna: 'Wypełnij zgłoszenie', krotka: 'Wypełnij zgłoszenie' },
 }
 
 export function IsoNormaPage({
@@ -49,8 +49,8 @@ export function IsoNormaPage({
         title={norma.h1}
         lead={norma.lead}
       >
-        <button type="button" className="btn btn-glowny" onClick={() => wybierz('wniosek', true)}>
-          Złóż wniosek o certyfikację
+        <button type="button" className="btn btn-glowny" onClick={() => wybierz('zgloszenie', true)}>
+          Wypełnij zgłoszenie
         </button>
         <a href="#konsultacja" className="btn btn-obrys">Zapytaj o wdrożenie</a>
       </PageHero>
@@ -95,7 +95,7 @@ export function IsoNormaPage({
             })}
           </div>
 
-          {/* Wszystkie panele zostaja w DOM (ukryte), zeby wpisane dane wniosku nie znikaly przy zmianie zakladki. */}
+          {/* Wszystkie panele zostaja w DOM (ukryte), zeby wpisane dane zgloszenia nie znikaly przy zmianie zakladki. */}
           <div className="mt-8 md:mt-10">
             <div id="panel-czego-dotyczy" role="tabpanel" aria-labelledby="tab-czego-dotyczy" hidden={zakladka !== 'czego-dotyczy'}>
               <CoToJest norma={norma} wybierz={wybierz} />
@@ -103,11 +103,12 @@ export function IsoNormaPage({
             <div id="panel-wdrozenie" role="tabpanel" aria-labelledby="tab-wdrozenie" hidden={zakladka !== 'wdrozenie'}>
               <Wdrozenie norma={norma} wybierz={wybierz} />
             </div>
-            <div id="panel-wniosek" role="tabpanel" aria-labelledby="tab-wniosek" hidden={zakladka !== 'wniosek'}>
-              <h2>Wniosek o certyfikację {norma.code}</h2>
+            <div id="panel-zgloszenie" role="tabpanel" aria-labelledby="tab-zgloszenie" hidden={zakladka !== 'zgloszenie'}>
+              <h2>Zgłoszenie do certyfikacji {norma.code}</h2>
               <p className="mt-3 mb-8 max-w-[62ch] text-lg text-tusz-2">
-                Wypełnij dane organizacji i pobierz wniosek jako PDF. Na jego podstawie jednostka certyfikująca ustala
-                czas auditu i ofertę.
+                Wypełnij dane organizacji i pobierz zgłoszenie jako PDF. Certyfikację przeprowadza niezależna jednostka
+                certyfikująca, a my nadzorujemy cały proces. Na podstawie zgłoszenia jednostka ustala czas auditu i
+                ofertę.
               </p>
               <IsoWniosek code={norma.code} />
             </div>
@@ -206,7 +207,7 @@ function CoToJest({ norma, wybierz }: { norma: IsoNorma; wybierz: Wybierz }) {
         tekst="Zobacz, jak przygotować firmę do certyfikacji."
         przyciski={[
           { label: 'Instrukcja i wdrożenie', onClick: () => wybierz('wdrozenie', true) },
-          { label: 'Złóż wniosek', onClick: () => wybierz('wniosek', true), glowny: true },
+          { label: 'Wypełnij zgłoszenie', onClick: () => wybierz('zgloszenie', true), glowny: true },
         ]}
       />
     </div>
@@ -243,7 +244,7 @@ function Wdrozenie({ norma, wybierz }: { norma: IsoNorma; wybierz: Wybierz }) {
       <div>
         <h3 className="text-2xl">Droga do certyfikatu</h3>
         <p className="mt-3 max-w-[66ch] text-tusz-2">
-          Po wdrożeniu systemu certyfikuje go niezależna jednostka. Tak wygląda typowy przebieg.
+          Certyfikację przeprowadza niezależna jednostka certyfikująca, a Safety First nadzoruje ten proces po stronie firmy. Tak wygląda typowy przebieg.
         </p>
         <EtapyLista etapy={DROGA_CERTYFIKACJI.map((s) => ({ title: s.title, text: s.text }))} />
         <p className="mt-6 text-[0.9375rem] text-tusz-2">
@@ -272,8 +273,8 @@ function Wdrozenie({ norma, wybierz }: { norma: IsoNorma; wybierz: Wybierz }) {
       )}
 
       <Dalej
-        tekst="Gotowy na certyfikację? Wypełnij wniosek."
-        przyciski={[{ label: 'Złóż wniosek', onClick: () => wybierz('wniosek', true), glowny: true }]}
+        tekst="Gotowy na certyfikację? Wypełnij zgłoszenie."
+        przyciski={[{ label: 'Wypełnij zgłoszenie', onClick: () => wybierz('zgloszenie', true), glowny: true }]}
       />
     </div>
   )

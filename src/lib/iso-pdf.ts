@@ -1,4 +1,4 @@
-// Generowanie PDF wniosku o certyfikacje w przegladarce (pdf-lib + fontkit, IBM Plex Sans z public/fonts).
+// Generowanie PDF zgloszenia do certyfikacji w przegladarce (pdf-lib + fontkit, IBM Plex Sans z public/fonts).
 // Nic nie jest wysylane na serwer. Moduly ladowane dynamicznie, zeby nie powiekszac strony.
 import {
   DZIALANIA,
@@ -41,8 +41,8 @@ export async function zbudujWniosekPdf(d: WniosekDane): Promise<Uint8Array> {
   pdf.registerFontkit(fk.default)
   const f = await pdf.embedFont(reg, { subset: true })
   const fb = await pdf.embedFont(semi, { subset: true })
-  pdf.setTitle(`Wniosek o certyfikację systemu zarządzania ${d.norma}`)
-  pdf.setSubject(`Wniosek o certyfikację ${d.norma}`)
+  pdf.setTitle(`Zgłoszenie do certyfikacji systemu zarządzania ${d.norma}`)
+  pdf.setSubject(`Zgłoszenie do certyfikacji ${d.norma}`)
   pdf.setCreator('safetyfirst.opole.pl')
   pdf.setProducer('safetyfirst.opole.pl')
 
@@ -86,11 +86,11 @@ export async function zbudujWniosekPdf(d: WniosekDane): Promise<Uint8Array> {
   // Naglowek dokumentu
   page.drawRectangle({ x: 0, y: H - 14, width: W, height: 14, color: rgb(1, 0.78, 0.17) })
   y = H - 14 - 38
-  page.drawText('Wniosek o certyfikację systemu zarządzania', { x: M, y, size: 18, font: fb, color: col(TUSZ) })
+  page.drawText('Zgłoszenie do certyfikacji systemu zarządzania', { x: M, y, size: 18, font: fb, color: col(TUSZ) })
   y -= 22
   page.drawText(`Norma: ${d.norma}`, { x: M, y, size: 12, font: fb, color: col(ZNAK) })
   y -= 16
-  page.drawText(`Data wypełnienia wniosku: ${formatDataPl(d.data)}`, { x: M, y, size: 10, font: f, color: col(SZARY) })
+  page.drawText(`Data wypełnienia zgłoszenia: ${formatDataPl(d.data)}`, { x: M, y, size: 10, font: f, color: col(SZARY) })
   y -= 22
 
   const section = (title: string, minAfter = 0) => {

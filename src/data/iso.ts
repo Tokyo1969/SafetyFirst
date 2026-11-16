@@ -225,7 +225,7 @@ export const ISO_14001: IsoBlok = {
 }
 
 // ---------------------------------------------------------------------------
-// Podstrony norm: /wdrozenie-iso/<slug> (zakladki: Czego dotyczy, Instrukcja i wdrozenie, Zlóz wniosek).
+// Podstrony norm: /wdrozenie-iso/<slug> (zakladki: Czego dotyczy, Instrukcja i wdrozenie, Wypelnij zgloszenie).
 // ISO 9001: tresc nowa (15.11.2026, wydanie 2026). ISO 14001 i 45001: tresc Natalii z blokow powyzej + krótki opis.
 // Pisownia na stronach ISO: audit, auditor (decyzja Natalii 13.11.2026).
 // ---------------------------------------------------------------------------
@@ -264,8 +264,8 @@ export type IsoNorma = {
 // Przebieg certyfikacji jest wspolny dla trzech norm (jednostka certyfikujaca: audit etap 1 i 2, nadzór, recertyfikacja).
 export const DROGA_CERTYFIKACJI: readonly { title: string; text: string }[] = [
   {
-    title: 'Rozmowa wstępna i wniosek',
-    text: 'Zgłaszasz zamiar certyfikacji. Jednostka certyfikująca zbiera dane o firmie (zakres, liczba pracowników, lokalizacje, inne certyfikaty) i na tej podstawie ustala czas auditu oraz ofertę. Te dane zbiera wniosek w zakładce „Złóż wniosek”.',
+    title: 'Rozmowa wstępna i zgłoszenie',
+    text: 'Zgłaszasz zamiar certyfikacji. Jednostka certyfikująca zbiera dane o firmie (zakres, liczba pracowników, lokalizacje, inne certyfikaty) i na tej podstawie ustala czas auditu oraz ofertę. Te dane zbiera zgłoszenie w zakładce „Wypełnij zgłoszenie”.',
   },
   {
     title: 'Audit wstępny (opcjonalnie)',
@@ -300,11 +300,11 @@ const ISO_9001_NORMA: IsoNorma = {
   listTitle: 'System zarządzania jakością',
   listText:
     'Jak zorganizować pracę firmy, żeby produkt lub usługa były powtarzalnie dobre, a klienci i kontrahenci mieli powód, by Ci ufać. Norma dla firm każdej wielkości i branży.',
-  metaTitle: 'ISO 9001: certyfikacja i wdrożenie systemu jakości, wniosek online | Safety First',
+  metaTitle: 'ISO 9001: certyfikacja i wdrożenie systemu jakości, zgłoszenie online | Safety First',
   metaDescription:
-    'ISO 9001:2026 w pigułce: czego dotyczy norma, jak przygotować firmę i jak wygląda droga do certyfikatu. Wypełnij wniosek o certyfikację online i pobierz go jako PDF.',
+    'ISO 9001:2026 w pigułce: czego dotyczy norma, jak przygotować firmę i jak wygląda droga do certyfikatu. Wypełnij zgłoszenie online i pobierz je jako PDF.',
   h1: 'ISO 9001',
-  lead: 'System zarządzania jakością w firmie. Dowiedz się, czego wymaga norma, jak przygotować firmę do certyfikacji i wypełnij wniosek online.',
+  lead: 'System zarządzania jakością w firmie. Dowiedz się, czego wymaga norma, jak przygotować firmę do certyfikacji i wypełnij zgłoszenie online.',
   czego: {
     akapity: [
       'ISO 9001 to międzynarodowa norma, która określa wymagania wobec systemu zarządzania jakością. Nie mówi, jak ma wyglądać Twój produkt czy usługa. Mówi, jak zorganizować pracę firmy, żeby jej wynik był powtarzalny, spełniał oczekiwania klientów i wymagania przepisów oraz żeby firma uczyła się na własnych błędach.',
@@ -404,7 +404,7 @@ const ISO_9001_NORMA: IsoNorma = {
       },
       {
         title: 'Koszt certyfikacji',
-        text: 'Ustala go jednostka certyfikująca na podstawie danych z wniosku: liczby pracowników, lokalizacji, zakresu i zintegrowanych systemów.',
+        text: 'Ustala go jednostka certyfikująca na podstawie danych ze zgłoszenia: liczby pracowników, lokalizacji, zakresu i zintegrowanych systemów.',
       },
     ],
     wymagania: [
@@ -450,11 +450,11 @@ const ISO_14001_NORMA: IsoNorma = {
   listTitle: 'System zarządzania środowiskowego',
   listText:
     'Jak panować nad odpadami, emisjami, zużyciem wody i energii oraz wymaganiami prawa ochrony środowiska i systematycznie zmniejszać wpływ firmy na środowisko.',
-  metaTitle: 'ISO 14001: wdrożenie systemu środowiskowego, wniosek online | Safety First',
+  metaTitle: 'ISO 14001: wdrożenie systemu środowiskowego, zgłoszenie online | Safety First',
   metaDescription:
-    'ISO 14001: czego dotyczy norma, etapy wdrożenia systemu zarządzania środowiskowego i droga do certyfikatu. Wypełnij wniosek o certyfikację online i pobierz go jako PDF.',
+    'ISO 14001: czego dotyczy norma, etapy wdrożenia systemu zarządzania środowiskowego i droga do certyfikatu. Wypełnij zgłoszenie online i pobierz je jako PDF.',
   h1: 'ISO 14001',
-  lead: 'System zarządzania środowiskowego w firmie. Dowiedz się, jak wygląda wdrożenie i certyfikacja, i wypełnij wniosek online.',
+  lead: 'System zarządzania środowiskowego w firmie. Dowiedz się, jak wygląda wdrożenie i certyfikacja, i wypełnij zgłoszenie online.',
   czego: {
     akapity: [
       'ISO 14001 to międzynarodowa norma, która określa wymagania wobec systemu zarządzania środowiskowego. Pomaga firmie ustalić, jak jej działalność wpływa na środowisko (odpady, emisje, zużycie wody i energii), spełniać wymagania prawa ochrony środowiska i planowo ograniczać ten wpływ.',
@@ -478,11 +478,11 @@ const ISO_45001_NORMA: IsoNorma = {
   listTitle: 'System zarządzania BHP',
   listText:
     'Jak identyfikować zagrożenia, ograniczać ryzyko wypadków i chorób zawodowych oraz angażować pracowników w bezpieczną pracę. Norma, o którą pytają duzi kontrahenci.',
-  metaTitle: 'ISO 45001: wdrożenie systemu zarządzania BHP, wniosek online | Safety First',
+  metaTitle: 'ISO 45001: wdrożenie systemu zarządzania BHP, zgłoszenie online | Safety First',
   metaDescription:
-    'ISO 45001: czego dotyczy norma, etapy wdrożenia systemu zarządzania BHP i droga do certyfikatu. Wypełnij wniosek o certyfikację online i pobierz go jako PDF.',
+    'ISO 45001: czego dotyczy norma, etapy wdrożenia systemu zarządzania BHP i droga do certyfikatu. Wypełnij zgłoszenie online i pobierz je jako PDF.',
   h1: 'ISO 45001',
-  lead: 'System zarządzania bezpieczeństwem i higieną pracy. Dowiedz się, jak wygląda wdrożenie i certyfikacja, i wypełnij wniosek online.',
+  lead: 'System zarządzania bezpieczeństwem i higieną pracy. Dowiedz się, jak wygląda wdrożenie i certyfikacja, i wypełnij zgłoszenie online.',
   czego: {
     akapity: [
       'ISO 45001 to międzynarodowa norma, która określa wymagania wobec systemu zarządzania bezpieczeństwem i higieną pracy. Pomaga firmie systematycznie rozpoznawać zagrożenia, oceniać ryzyko zawodowe, ograniczać liczbę wypadków i chorób zawodowych oraz angażować pracowników w poprawę bezpieczeństwa.',

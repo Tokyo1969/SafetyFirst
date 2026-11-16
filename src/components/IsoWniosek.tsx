@@ -26,7 +26,7 @@ function plik(nazwa: string, norma: string): string {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .slice(0, 40)
-  return `wniosek-${norma.toLowerCase().replace(/\s+/g, '-')}${slug ? `-${slug}` : ''}.pdf`
+  return `zgloszenie-${norma.toLowerCase().replace(/\s+/g, '-')}${slug ? `-${slug}` : ''}.pdf`
 }
 
 function waliduj(d: WniosekDane): Bledy {
@@ -116,7 +116,7 @@ export function IsoWniosek({ code }: { code: string }) {
       <form ref={formRef} onSubmit={zapisz} noValidate className="grid gap-8">
         {liczbaBledow > 0 && (
           <p role="alert" className="rounded-xl border-l-4 border-blad bg-blad/8 p-4 font-semibold text-blad">
-            Uzupełnij zaznaczone pola ({liczbaBledow}), a potem pobierz wniosek.
+            Uzupełnij zaznaczone pola ({liczbaBledow}), a potem pobierz zgłoszenie.
           </p>
         )}
 
@@ -197,7 +197,7 @@ export function IsoWniosek({ code }: { code: string }) {
           )}
         </Sekcja>
 
-        <Sekcja tytul="Działania w organizacji" opis="Zaznacz te, które występują u Państwa. Niezaznaczone zapiszemy we wniosku jako „Nie”.">
+        <Sekcja tytul="Działania w organizacji" opis="Zaznacz te, które występują u Państwa. Niezaznaczone zapiszemy w zgłoszeniu jako „Nie”.">
           <Zaznaczenia
             legenda="Czy występują u Państwa następujące działania?"
             opcje={DZIALANIA}
@@ -212,30 +212,30 @@ export function IsoWniosek({ code }: { code: string }) {
           />
         </Sekcja>
 
-        <Sekcja tytul="Data wniosku">
-          <Tekst id="data" label="Data wypełnienia wniosku" d={d} ustaw={ustaw} bledy={bledy} type="date" />
+        <Sekcja tytul="Data zgłoszenia">
+          <Tekst id="data" label="Data wypełnienia zgłoszenia" d={d} ustaw={ustaw} bledy={bledy} type="date" />
         </Sekcja>
 
         <div className="grid gap-4">
           <div className="flex flex-wrap items-center gap-4">
             <button type="submit" disabled={stan === 'tworzenie'} className="btn btn-glowny disabled:opacity-60">
-              {stan === 'tworzenie' ? 'Tworzymy PDF…' : 'Pobierz wniosek jako PDF'}
+              {stan === 'tworzenie' ? 'Tworzymy PDF…' : 'Pobierz zgłoszenie jako PDF'}
             </button>
             <p className="text-[0.9375rem] text-tusz-2">Dane zostają w Twojej przeglądarce.</p>
           </div>
 
           {stan === 'gotowe' && (
             <div role="status" className="rounded-[var(--radius-panel)] border border-znak/40 bg-znak-jasny p-5">
-              <p className="font-naglowek text-lg font-semibold text-znak-ciemny">Wniosek został pobrany</p>
+              <p className="font-naglowek text-lg font-semibold text-znak-ciemny">Zgłoszenie zostało pobrane</p>
               <p className="mt-2 text-tusz-2">
                 Sprawdź plik PDF i prześlij go do nas na{' '}
                 <a
                   className="link"
-                  href={`mailto:${site.emails.main}?subject=${encodeURIComponent(`Wniosek o certyfikację ${code}`)}`}
+                  href={`mailto:${site.emails.main}?subject=${encodeURIComponent(`Zgłoszenie ISO ${code}`)}`}
                 >
                   {site.emails.main}
                 </a>
-                . Sprawdzimy, czy dane są kompletne, i uzgodnimy dalsze kroki z jednostką certyfikującą. Jeśli
+                . Sprawdzimy, czy dane są kompletne, i ustalimy z Tobą dalsze kroki w procesie certyfikacji. Jeśli
                 trzeba coś poprawić, zmień dane w formularzu i pobierz plik jeszcze raz.
               </p>
             </div>
@@ -255,7 +255,7 @@ export function IsoWniosek({ code }: { code: string }) {
           <ol className="mt-4 grid gap-4 text-[0.9375rem]">
             {[
               'Wypełnij dane firmy i zaznacz, co dotyczy Twojej organizacji.',
-              'Pobierz gotowy wniosek jako PDF.',
+              'Pobierz gotowe zgłoszenie jako PDF.',
               `Prześlij go na ${site.emails.main}. Sprawdzimy komplet danych.`,
             ].map((t, i) => (
               <li key={t} className="flex gap-3">
@@ -267,7 +267,7 @@ export function IsoWniosek({ code }: { code: string }) {
             ))}
           </ol>
           <p className="mt-6 border-t border-linia pt-4 text-[0.9375rem] text-tusz-2">
-            Wniosek powstaje w Twojej przeglądarce. Nie wysyłamy wpisanych danych na serwer i nie zapisujemy ich, więc
+            Zgłoszenie powstaje w Twojej przeglądarce. Nie wysyłamy wpisanych danych na serwer i nie zapisujemy ich, więc
             po zamknięciu strony znikną.
           </p>
         </div>

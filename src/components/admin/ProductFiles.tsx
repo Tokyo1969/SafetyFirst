@@ -11,6 +11,7 @@ export function ProductFiles({ productId }: { productId: string }) {
   const [error, setError] = useState<string | null>(null)
   const [sending, setSending] = useState(false)
   const [powiadomienie, setPowiadomienie] = useState<string | null>(null)
+  const [podglad, setPodglad] = useState<{ url: string; tytul: string } | null>(null)
 
   const wczytaj = useCallback(async () => {
     const { data, error } = await adminClient()
@@ -97,6 +98,35 @@ export function ProductFiles({ productId }: { productId: string }) {
     }
   }
 
+  // Podglad PDF w oknie na stronie: plik pobieramy do pamieci przegladarki (Storage zwraca go do admina przez RLS)
+  // i pokazujemy z adresu blob:, wiec nic nie trafia na dysk, a po zamknieciu okna od razu wracamy do formularza produktu.
+  async function zobacz(p: ProductFile) {
+    setError(null)
+    const { data, error } = await adminClient().storage.from(FILES_BUCKET).download(p.storage_path)
+    if (error || !data) return setError('Nie udało się otworzyć dokumentu.')
+    const blob = new Blob([data], { type: 'application/pdf' })
+    setPodglad({ url: URL.createObjectURL(blob), tytul: `${p.original_filename ?? 'dokument'} · wersja ${p.version}` })
+  }
+
+  const zamknijPodglad = useCallback(() => {
+    setPodglad((cur) => {
+      if (cur) URL.revokeObjectURL(cur.url)
+      return null
+    })
+  }, [])
+
+  useEffect(() => {
+    if (!podglad) return
+    const onKey = (ev: KeyboardEvent) => ev.key === 'Escape' && zamknijPodglad()
+    window.addEventListener('keydown', onKey)
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prev
+    }
+  }, [podglad, zamknijPodglad])
+
   async function pobierz(path: string) {
     const { data, error } = await adminClient().storage.from(FILES_BUCKET).createSignedUrl(path, 60, { download: true })
     if (error || !data) return setError('Nie udało się przygotować pobrania.')
@@ -140,7 +170,11 @@ export function ProductFiles({ productId }: { productId: string }) {
                 </p>
               </div>
               <div className="flex gap-2">
-                <button type="button" className="btn btn-obrys" onClick={() => pobierz(p.storage_path)}>Pobierz</button>
+                {p.mime_type === 'application/pdf' || (p.original_filename ?? '').toLowerCase().endsWith('.pdf') ? (
+                  <button type="button" className="btn btn-obrys" onClick={() => zobacz(p)}>Zobacz</button>
+                ) : (
+                  <button type="button" className="btn btn-obrys" onClick={() => pobierz(p.storage_path)}>Pobierz</button>
+                )}
                 {!p.is_current && (
                   <button type="button" className="btn btn-obrys" onClick={() => ustawBiezaca(p.id)}>Ustaw jako bieżącą</button>
                 )}
@@ -154,6 +188,27 @@ export function ProductFiles({ productId }: { productId: string }) {
             </li>
           ))}
         </ul>
+      )}
+
+      {podglad && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-3 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Podgląd dokumentu: ${podglad.tytul}`}
+          onClick={zamknijPodglad}
+        >
+          <div className="flex h-full w-full max-w-5xl flex-col overflow-hidden rounded-xl bg-white shadow-xl" onClick={(ev) => ev.stopPropagation()}>
+            <div className="flex items-center justify-between gap-3 border-b border-linia px-4 py-3">
+              <p className="min-w-0 truncate text-sm font-semibold">{podglad.tytul}</p>
+              <div className="flex shrink-0 gap-2">
+                <a className="btn btn-obrys" href={podglad.url} target="_blank" rel="noopener noreferrer">Otwórz w nowej karcie</a>
+                <button type="button" className="btn btn-zielony" onClick={zamknijPodglad} autoFocus>Zamknij</button>
+              </div>
+            </div>
+            <iframe title={`Podgląd: ${podglad.tytul}`} src={podglad.url} className="h-full w-full flex-1" />
+          </div>
+        </div>
       )}
     </section>
   )

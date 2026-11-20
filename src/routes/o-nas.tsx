@@ -90,6 +90,7 @@ function ONas() {
             <p className="mt-8">
               <strong className="font-naglowek text-xl">{site.person.name}</strong>
               <span className="block text-tusz-2">{site.person.role}</span>
+              <span className="block text-tusz-2">Inspektor Ochrony Przeciwpożarowej</span>
               <span className="block text-tusz-2">Audytor wiodący normy ISO 9001</span>
               <span className="block text-tusz-2">Audytor wiodący normy ISO 14001</span>
               <span className="block text-tusz-2">Audytor wiodący normy ISO 45001</span>
